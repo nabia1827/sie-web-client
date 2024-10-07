@@ -3,12 +3,15 @@ import { Flex, Typography, Layout, Menu, Breadcrumb, Button, Tooltip, Avatar, Ba
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
 import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { colors } from "../utils/colors";
 import { paths } from "../utils/paths";
+import { startLogout } from "../store/actions/authActionAsync";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Lightning,
     Funnel,
+    SignOut,
     Bell,
     FileText,
     CalendarBlank,
@@ -76,20 +79,34 @@ const items = [
 
         ],
     },
+    {
+        key: 'logout',
+        icon: <SignOut size={20} weight="fill" />,
+        label: 'Cerrar Sesión',
+
+    },
 ];
 
 function SiderLayout() {
     const [collapsed, setCollapsed] = useState(false)
     const navigate = useNavigate()
-    
+    const dispatch = useDispatch();
 
     const onCollapse = (collapsed, type) => {
         setCollapsed(collapsed);
     }
+    const cerrarSesion = () => {
+        dispatch(startLogout());
+    };
+
     const handleMenuClick = (e) => {
-        const selectedItem = items.flatMap(item => item.children).find(child => child.key === e.key);
-        if (selectedItem && selectedItem.key) {
-            navigate(selectedItem.key); 
+        if(e.key == 'logout'){
+            cerrarSesion()
+        }else{
+            const selectedItem = items.flatMap(item => item.children).find(child => child.key === e.key);
+            if (selectedItem && selectedItem.key) {
+                navigate(selectedItem.key);
+            }
         }
     };
 

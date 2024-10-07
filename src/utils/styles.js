@@ -6,7 +6,7 @@ export const hoverButtonStyle = {
 export const enableButtonStyle = {
     background: 'linear-gradient(to right,#5271FF, #47BAD8)',
     width: "100%",
-    padding: '0.7em',
+    padding: '1.7em',
     borderRadius: '12px',
     color: 'white',
     borderColor: 'transparent',

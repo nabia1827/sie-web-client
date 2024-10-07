@@ -5,6 +5,8 @@ const { Header, Footer, Sider, Content } = Layout;
 import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { colors } from "../utils/colors";
+import { useDispatch, useSelector } from "react-redux";
+import { PerfilesNombre } from "../utils/constants";
 import {
     Lightning,
     Funnel,
@@ -20,6 +22,7 @@ import { paths } from "../utils/paths";
 
 
 function HeaderLayout() {
+    const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const location = useLocation();
     const pathname = location.pathname
@@ -40,6 +43,10 @@ function HeaderLayout() {
 
     const getBreadcumbItems = (path) => {
         switch (path) {
+            case paths.HOME:
+                return [{ title: "Inicio" }];
+            case paths.ROOT:
+                return [{ title: "Inicio" }];
             case paths.MIS_LEGAJOS:
                 return [{ title: "Inicio" }, { title: "Consulta Legajos" }];
             case paths.TODOS_LEGAJOS:
@@ -66,6 +73,10 @@ function HeaderLayout() {
 
     const getTitle = (path) => {
         switch (path) {
+            case paths.HOME:
+                return "Home";
+            case paths.ROOT:
+                return "Home";
             case paths.MIS_LEGAJOS:
                 return "Mis Legajos";
             case paths.TODOS_LEGAJOS:
@@ -87,6 +98,10 @@ function HeaderLayout() {
 
     const showBackIcon = (path) => {
         switch (path) {
+            case paths.HOME:
+                return false;
+            case paths.ROOT:
+                return false;
             case paths.MIS_LEGAJOS:
                 return false;
             case paths.TODOS_LEGAJOS:
@@ -105,7 +120,7 @@ function HeaderLayout() {
                 return true;
         }
     }
-    const onBack =()=>{
+    const onBack = () => {
         navigate(-1)
     }
 
@@ -118,8 +133,8 @@ function HeaderLayout() {
                             items={getBreadcumbItems(pathname)}
                         />
                         <Flex justify="flex-start" align="center" >
-                            {showBackIcon(pathname)&&
-                            <Button onClick={onBack} size="middle" type="text" shape="circle" icon={<ArrowLeft size={20} color={colors.white} />} />
+                            {showBackIcon(pathname) &&
+                                <Button onClick={onBack} size="middle" type="text" shape="circle" icon={<ArrowLeft size={20} color={colors.white} />} />
                             }
                             <Text className="sie-header-title">{getTitle(pathname)}</Text>
                         </Flex>
@@ -139,10 +154,18 @@ function HeaderLayout() {
 
 
                         <Flex vertical justify="flex-start" align="flex-start">
-                            <Text className="sie-header-user">Nabia Pachas</Text>
-                            <Text className="sie-header-rol">Abogado</Text>
+                            <Text className="sie-header-user">{`${user.usuNombre} ${user.usuApellidoPat}`}</Text>
+                            <Text className="sie-header-rol">{`${PerfilesNombre[user.perfilId - 1]}`}</Text>
                         </Flex>
-                        <Avatar style={{ border: "2px solid white" }} size={36} src={<img src={"https://sieappblobstorage.blob.core.windows.net/usersimg/user.jpg"} alt="avatar" />} />
+                        {user.usuImage ? (
+                            <Avatar style={{ border: "2px solid white" }} size={36} src={<img src={user.usuImage} alt="avatar" />} />
+                        ) : (
+                            <Avatar style={{ backgroundColor: colors.lightBlack, color: 'white' }}>{user.usuNombre[0]}</Avatar>
+                        )
+
+                        }
+
+
 
 
                     </Flex>

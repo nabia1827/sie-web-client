@@ -2,11 +2,14 @@ import { types } from "../types";
 
 const initialValues = {
   user: {
-    userId: 0,
-    username: "",
-    userNombre: "",
-    userPerfilId: 0,
-    userEmail: "",
+    usuId: 0,
+    usuUsername: "",
+    usuNombre: "",
+    usuApellidoPat: "",
+    usuApellidoMat: "",
+    perfilId: 0,
+    usuEmail: "",
+    usuImage:"",
   },
   isAuthenticated: false,
   refreshTokenExpire: false,

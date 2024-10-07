@@ -6,6 +6,10 @@ export const Perfiles = {
     ADMIN: 4,
 };
 
+export const PerfilesNombre = ["Abogado","Mesa Partes","Procurador","Admin"]
+
+
+
 //APIS estaticas
 export const ListTipoCaso =[
     {

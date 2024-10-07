@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "antd";
 import LoginMobile from "./loginMobile";
 import LoginWeb from "./loginWeb";
@@ -6,6 +6,7 @@ import { login } from "../../../store/actions/authActionSync";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { paths } from "../../../utils/paths";
+import { startLogin } from "../../../store/actions/authActionAsync";
 
 const { useBreakpoint } = Grid;
 
@@ -15,29 +16,41 @@ function LoginPage() {
     const dispatch = useDispatch();
     const isXsScreen = screens.xs !== undefined && screens.xs;
     const { isAuthenticated } = useSelector((state) => state.auth);
+
+    const [loading, setLoading] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const [status, setStatus] = useState("");
+    const [textError, setTextError] = useState("");
+
     const [rememberMe, setRememberMe] = useState(false);
 
-    const onChangeUsername = (e) =>{
+    const onChangeUsername = (e) => {
         console.log(e.target.value);
         setUsername(e.target.value);
     }
-    const onChangePassword = (e) =>{
+    const onChangePassword = (e) => {
         console.log(e.target.value);
         setPassword(e.target.value);
     }
 
-    const onLogin = (username, password) =>{
-        const user = {
-            userId: 1,
-            username: "nabia.pachas",
-            userNombre: "Nabia Pachas",
-            userPerfilId: 4,
-            userEmail: "pachaslopez.nabia@gmail.com",
-        }
-        dispatch(login(user))
+    const onLogin = (username, password) => {
+        setLoading(true);
         
+        dispatch(startLogin(username, password))
+          .then(() => {
+            setLoading(false);
+            setStatus("");
+            setTextError("");
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
+            setStatus("error");
+            setTextError(error);
+          });
+
     }
 
     const onSwitchRemember = (checked) => {
@@ -46,29 +59,35 @@ function LoginPage() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            console.log("AAAAA")
-            navigate(paths.MIS_LEGAJOS);
+            console.log("Logged in")
+            navigate(paths.HOME);
         }
-    }, [isAuthenticated,navigate]);
-    
+    }, [isAuthenticated, navigate]);
+
     return <>{
-        isXsScreen ? 
-        <LoginMobile 
-        username={username} 
-        password={password} 
-        onChangeUsername ={onChangeUsername}
-        onChangePassword = {onChangePassword}
-        onSwitchRemember = {onSwitchRemember}
-        onLogin={onLogin}
-        /> 
-        : <LoginWeb 
-        username={username} 
-        password={password} 
-        onChangeUsername ={onChangeUsername}
-        onChangePassword = {onChangePassword}
-        onSwitchRemember = {onSwitchRemember}
-        onLogin = {onLogin}
-        /> }</>;
+        isXsScreen ?
+            <LoginMobile
+                username={username}
+                password={password}
+                onChangeUsername={onChangeUsername}
+                onChangePassword={onChangePassword}
+                onSwitchRemember={onSwitchRemember}
+                onLogin={onLogin}
+                status = {status}
+                textError = {textError}
+                loading ={loading}
+            />
+            : <LoginWeb
+                username={username}
+                password={password}
+                onChangeUsername={onChangeUsername}
+                onChangePassword={onChangePassword}
+                onSwitchRemember={onSwitchRemember}
+                onLogin={onLogin}
+                status = {status}
+                textError = {textError}
+                loading = {loading}
+            />}</>;
 }
 
 export default LoginPage;

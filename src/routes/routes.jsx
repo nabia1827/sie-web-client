@@ -4,7 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import store from '../store/store';
 import { paths, endpoints } from '../utils/paths';
 import { Perfiles } from '../utils/constants';
-
+import { getAccessToken } from '../utils/cookie';
+import { jwtDecode } from 'jwt-decode';
+import { login } from '../store/actions/authActionSync';
 import LoginPage from '../pages/externalPages/login/LoginPage';
 import NotFoundPage from '../pages/extra/NotFoundPage';
 import InternalPage from '../pages/internalPages/InternalPage';
@@ -36,27 +38,30 @@ import RecepcionPage from '../pages/internalPages/recepcionLegajos/RecepcionPage
 
 const RoutesApp = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const userId = store.getState().auth.user.userId;
-  const perfilId = store.getState().auth.user.userPerfilId;
+  const userId = store.getState().auth.user.usuId;
+  const perfilId = store.getState().auth.user.perfilId;
   const dispatch = useDispatch();
 
 
   useEffect(() => {
-    /*
+    
     const token = getAccessToken();
     if (token) {
       const tokenDecode = jwtDecode(token);
-
+      console.log("Token decodificado: ", tokenDecode);
       const user = {
-        ukrcpId: tokenDecode.ukrcpId,
-        ukrcpNombre: tokenDecode.ukrcpNombre,
-        ukrcpUsername: tokenDecode.ukrcpUsername,
-        ukrcpPerfilId: tokenDecode.ukrcpPerfilId,
-        ukrcpEmail: tokenDecode.ukrcpEmail,
+        usuId: tokenDecode.UsuId,
+        usuUsername: tokenDecode.UsuUsername,
+        usuNombre: tokenDecode.UsuNombre,
+        usuApellidoPat: tokenDecode.UsuApellidoPat,
+        usuApellidoMat: tokenDecode.UsuApellidoMat,
+        perfilId: tokenDecode.PerfilId,
+        usuEmail: tokenDecode.UsuEmail,
+        usuImage: tokenDecode.UsuImage,
       };
-
+      console.log("Usuario Logeado: ", user);
       dispatch(login(user));
-    }*/
+    }
   }, [dispatch]);
 
   useEffect(() => {

@@ -3,16 +3,18 @@ import { Flex, Button, Input, Typography, ConfigProvider, Switch } from "antd";
 import { colors } from "../../../utils/colors";
 import { motion } from "framer-motion";
 
-import { Lightning, User, LockKey } from "@phosphor-icons/react";
-import { enableButtonStyle,hoverButtonStyle } from "../../../utils/styles";
+import { Lightning, User, LockKey, WarningCircle } from "@phosphor-icons/react";
+import { enableButtonStyle, hoverButtonStyle } from "../../../utils/styles";
 
 
 const { Text } = Typography
 
 function LoginWeb(props) {
-    const {username, password, onLogin,onChangeUsername,onChangePassword,onSwitchRemember} = props;
+    const { username, password, onLogin, onChangeUsername, onChangePassword, onSwitchRemember,
+        textError, status,loading
+    } = props;
     const [trail, setTrail] = useState([]);
-    
+
 
     const handleMouseMove = (e) => {
         const { clientX, clientY } = e;
@@ -28,31 +30,36 @@ function LoginWeb(props) {
 
                         <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "100%" }}>
                             <Text className="sie-login-title">¡Bienvenido!</Text>
-                            <Text className="sie-login-subtitle">Ingresa tu email y password para iniciar sesión.</Text>
+                            <Text className="sie-login-subtitle">Ingresa tu usuario y password para iniciar sesión.</Text>
                         </Flex>
                         <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "100%" }}>
                             <Text>Nombre de Usuario:</Text>
-                            <Input placeholder="example@mininter.gob.pe" size="large" onChange={onChangeUsername}
+                            <Input status={status} placeholder="Usuario" size="large" onChange={onChangeUsername}
                                 prefix={<User size={24} color={colors.gray} />} style={{ width: "100%" }} />
                         </Flex>
 
                         <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "100%" }}>
                             <Text>Contraseña:</Text>
-                            <Input.Password placeholder="Contraseña" size="large" onChange={onChangePassword}
+                            <Input.Password status={status} placeholder="Contraseña" size="large" onChange={onChangePassword}
                                 prefix={<LockKey size={24} color={colors.gray} />} style={{ width: "100%" }} />
                         </Flex>
-                        <Flex gap={"small"} justify="flex-start" align="center" style={{width:"100%"}}>
+                        {
+                            textError !== '' && (
+                                <Flex gap={"small"} justify="flex-start" align="center" style={{ width: "100%" }}>
+                                    <WarningCircle size={24} color={colors.red} />
+                                    <Text>{textError}</Text>
+                                </Flex>
+                            )
+                        }
+
+                        <Flex gap={"small"} justify="flex-start" align="center" style={{ width: "100%" }}>
                             <Switch size="small" defaultChecked onChange={onSwitchRemember} />
                             <Text>Recuerdame</Text>
                         </Flex>
-                        <motion.button
-                            whileHover={hoverButtonStyle}
-                            whileTap={{ scale: 0.9 }}
-                            style={enableButtonStyle}
-                            onClick={onLogin}
-                        >
+                        <Button style={enableButtonStyle} key="submit" type="primary" loading={loading} onClick={() => onLogin(username, password)}>
                             Iniciar Sesión
-                        </motion.button>
+                        </Button>
+                        
 
 
                     </Flex>
