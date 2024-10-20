@@ -91,6 +91,10 @@ function HeaderLayout() {
                 return "Seguimiento";
             case paths.RECEPCION_LEGAJOS:
                 return "Repceción de Legajos";
+            case paths.ADICIONAR_LEGAJO:
+                return "Adicionar documentos";
+            case paths.NUEVO_LEGAJO:
+                return "Crear nuevo Legajo";
             default:
                 return getLegajoIdTitle(pathname)
         }
@@ -115,6 +119,10 @@ function HeaderLayout() {
             case paths.SEGUIMIENTO:
                 return false;
             case paths.RECEPCION_LEGAJOS:
+                return false;
+            case paths.ADICIONAR_LEGAJO:
+                return false;
+            case paths.NUEVO_LEGAJO:
                 return false;
             default:
                 return true;
