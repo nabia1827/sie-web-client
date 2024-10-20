@@ -53,7 +53,6 @@ export const ColumnsAudiencia = (showMdObs) => {
                 <Flex gap={"small"} justify="center" align="center">
                     <Button type="primary" shape="circle" style={{backgroundColor:colors.blue}} icon={<UserCircleCheck size={20} color={colors.white} />} />
                     <Button onClick={showMdObs} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<PencilSimpleLine size={20} color={colors.white} />} />
-                    
                 </Flex>
             ),
         },

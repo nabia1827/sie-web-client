@@ -34,6 +34,9 @@ import SeguimientoPage from '../pages/internalPages/reporteLegajos/seguimiento/S
 
 //Modulo Recepcion Legajos
 import RecepcionPage from '../pages/internalPages/recepcionLegajos/RecepcionPage';
+import NuevoLegajoPage from '../pages/internalPages/recepcionLegajos/nuevoLegajo/NuevoLegajoPage';
+import AdicionarDocsPage from '../pages/internalPages/recepcionLegajos/adicionarDocumentos/AdicionarDocsPage';
+import InicioRecepcionPage from '../pages/internalPages/recepcionLegajos/InicioRecepcionPage';
 
 
 const RoutesApp = () => {
@@ -116,10 +119,14 @@ const RoutesApp = () => {
             <Route path={endpoints.SEGUIMIENTO} element={<SeguimientoPage />} />
           </Route>
 
-          <Route path={endpoints.RECEPCION_LEGAJOS} element={<RecepcionPage />} />
-
+          <Route path={endpoints.RECEPCION_LEGAJOS} element={<InicioRecepcionPage/>} >
+            <Route index element={<RecepcionPage />} />
+            <Route path={endpoints.NUEVO_LEGAJO} element={<NuevoLegajoPage/>} />
+            <Route path={endpoints.ADICIONAR_LEGAJO} element={<AdicionarDocsPage/>} />
+          </Route>
         </Route>
 
+          
 
         <Route path="*" component={<NotFoundPage />} />
 

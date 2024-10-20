@@ -13,6 +13,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ant-upload-wrapper{
+  width: 100% !important;
+  padding-right: 50%;
+}
+
+.ant-upload-list{
+  width: 27em !important;
+}
+
 
 body {
   margin: 0;

@@ -26,6 +26,8 @@ export const endpoints = {
 
     //Recepcion Legajos
     RECEPCION_LEGAJOS:"recepcion-legajos",
+    NUEVO_LEGAJO:"nuevo-legajo",
+    ADICIONAR_LEGAJO:"adicionar-documentos",
 }
 
 export const paths = {
@@ -53,5 +55,7 @@ export const paths = {
 
     //Recepcion Legajos
     RECEPCION_LEGAJOS:`/${endpoints.RECEPCION_LEGAJOS}`,
+    NUEVO_LEGAJO:`/${endpoints.RECEPCION_LEGAJOS}/${endpoints.NUEVO_LEGAJO}`,
+    ADICIONAR_LEGAJO:`/${endpoints.RECEPCION_LEGAJOS}/${endpoints.ADICIONAR_LEGAJO}`,
     NOT_FOUND: "*",
 };
