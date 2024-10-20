@@ -16,7 +16,32 @@ const requests = {
 
 const Auth = {
     loginApp: body => requests.post('/Auth/Authenticate', body),
-    logOutApp: (body) => requests.post("/Auth/Logout", body),
+    logOutApp: (body) => requests.post('/Auth/Logout', body),
 };
 
-export default {Auth};
+const ListaLegajos = {
+    ListarAbogados: () => requests.get('/ListaLegajos/ListarAbogados'),
+    ListarSubfases: () => requests.get('/ListaLegajos/ListarSubfases'),
+    ListarLegajos: (filter) => axios.get('/ListaLegajos/ListarLegajos', { params: filter }).then(responseBody),
+    DownloadExcelLegajos: (filter) => axios.get("/ListaLegajos/DownloadExcelLegajos", {
+        params: filter,
+        responseType: 'blob',
+        headers: {
+            'Content-Type': 'application/octet-stream',
+            Accept: 'application/octet-stream',
+        },
+    }),
+    UpdateEstadoLegajo: (params) => requests.patch(`/ListaLegajos/UpdateEstadoLegajo?estadoId=${params.estadoId}&subfaseId=${params.subfaseId}&legajoId=${params.legajoId}`),
+};
+
+const GenerarPDF = {
+    DownloadLegajoPDF: (legajoId) => axios.get(`/GenerarPdf/DownloadLegajoPDF?legajoId=${legajoId}`, {
+        responseType: 'blob',
+        headers: {
+            'Content-Type': 'application/pdf',
+            Accept: 'application/pdf',
+        },
+    }),
+}
+
+export default { Auth, ListaLegajos,GenerarPDF };

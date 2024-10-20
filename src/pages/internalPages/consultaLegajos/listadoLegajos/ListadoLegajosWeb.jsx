@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Flex, Typography, Layout, Menu, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
+import { Flex, Typography, Layout, Menu, Breadcrumb, Button, Row, Col, Collapse, Input, Select, DatePicker, Table } from "antd";
 const { Text } = Typography;
+const { RangePicker } = DatePicker;
 const { Header, Footer, Sider, Content } = Layout;
 import { ListTipoCaso } from "../../../../utils/constants";
 import { colors } from "../../../../utils/colors";
-
+import api from "../../../../services/api";
 import {
     Lightning,
     Funnel,
@@ -18,171 +19,63 @@ import {
 } from "@phosphor-icons/react";
 
 import { ColumnsLegajo } from "../../../../utils/consultaLegajos/columnsLegajoTable";
-
+import { fourFiltersStyle, fiveFiltersStyle, fourFiltersRangeStyle, fiveFiltersRangeStyle } from "../../../../utils/styles";
+import LegajoFilter from "../../../../components/consultaLegajos/LegajoFilter";
+import useLegajoFilteredData from "../../../../hooks/filters/useLegajoFilteredData";
+import { switchOnFieldsChange } from "../../../../utils/consultaLegajos/switchOnFieldsChange";
 
 function ListadoLegajosWeb(props) {
     const { onClickDetalle, onClickDocsIngreso, onClickDocsSalida,
-        onClickEstado, onClickDownload, onChangeCollapse, pageSize } = props;
+        onClickEstado, onClickDownload, onChangeCollapse, abogados,allLegajos, 
+        paginador,loading, onChange,request,setRequest,onReset,form,loadingsPDF,onClickExcel,excelLoading} = props;
+
+    
+
+
+
+    const handleOnFieldsChange = (changeFields, allFields) => {
+        const campo = changeFields[0].name[0];
+        switchOnFieldsChange(campo, changeFields, setRequest);
+    };
 
     const columns = ColumnsLegajo(
         onClickDetalle,
         onClickDocsIngreso,
         onClickDocsSalida,
         onClickEstado,
-        onClickDownload
+        onClickDownload,
+        loadingsPDF
     )
-
-
-    const data = [
-        {
-            key: '1',
-            legajo: '123456789',
-            tipoCaso: 'Carpeta Fiscal',
-            nroCaso: '2717',
-            lugar: 'Cajamarca',
-            abogado: 'Nabia Pachas',
-            situacionJudicialColor: 'geekblue',
-            situacionJudicialNombre: 'Inv. Preparatoria',
-            fechaRegistro: '17/12/2003',
-        },
-        {
-            key: '2',
-            legajo: '123456789',
-            tipoCaso: 'Carpeta Fiscal',
-            nroCaso: '2717',
-            lugar: 'Cajamarca',
-            abogado: 'Nabia Pachas',
-            situacionJudicialColor: 'geekblue',
-            situacionJudicialNombre: 'Inv. Preparatoria',
-            fechaRegistro: '17/12/2003',
-        },
-        {
-            key: '3',
-            legajo: '123456789',
-            tipoCaso: 'Carpeta Fiscal',
-            nroCaso: '2717',
-            lugar: 'Cajamarca',
-            abogado: 'Nabia Pachas',
-            situacionJudicialColor: 'geekblue',
-            situacionJudicialNombre: 'Inv. Preparatoria',
-            fechaRegistro: '17/12/2003',
-        },
-        {
-            key: '4',
-            legajo: '123456789',
-            tipoCaso: 'Carpeta Fiscal',
-            nroCaso: '2717',
-            lugar: 'Cajamarca',
-            abogado: 'Nabia Pachas',
-            situacionJudicialColor: 'geekblue',
-            situacionJudicialNombre: 'Inv. Preparatoria',
-            fechaRegistro: '17/12/2003',
-        },
-        {
-            key: '5',
-            legajo: '123456789',
-            tipoCaso: 'Carpeta Fiscal',
-            nroCaso: '2717',
-            lugar: 'Cajamarca',
-            abogado: 'Nabia Pachas',
-            situacionJudicialColor: 'geekblue',
-            situacionJudicialNombre: 'Inv. Preparatoria',
-            fechaRegistro: '17/12/2003',
-        },
-        {
-            key: '6',
-            legajo: '123456789',
-            tipoCaso: 'Carpeta Fiscal',
-            nroCaso: '2717',
-            lugar: 'Cajamarca',
-            abogado: 'Nabia Pachas',
-            situacionJudicialColor: 'geekblue',
-            situacionJudicialNombre: 'Inv. Preparatoria',
-            fechaRegistro: '17/12/2003',
-        },
-
-    ];
-
-
-
-
 
     return (
         <>
-            <Collapse
-                onChange={onChangeCollapse}
-                items={[
-                    {
-                        key: '1',
-                        label:
-                            <Flex gap={"small"} justify="flex-start" align="center">
-                                <Funnel size={24} color={colors.blue} />
-                                <Text className="sie-content-filter">Filtros</Text>
-                            </Flex>,
-                        children:
-                            <Flex gap={"middle"} justify="flex-start" align="flex-end" style={{ width: "100%" }}>
-                                <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "17%" }} >
-                                    <Text>Legajo: </Text>
-                                    <Input placeholder="Legajo" size="large" style={{ width: "100%", height: "36px" }} />
-                                </Flex>
-                                <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "17%" }} >
-                                    <Text> Tipo de caso: </Text>
-
-                                    <Select
-                                       
-                                        style={{ width: "100%", height: "36px" }}
-                                        placeholder="Número de caso"
-                                        allowClear
-                                    >
-                                        {
-                                            ListTipoCaso.map((t) => (
-                                                <Option key={t.tipoCasoId} value={t.tipoCasoId}>
-                                                    {t.tipoCasoNombre}
-                                                </Option>
-                                            ))
-                                        }
-                                    </Select>
-                                </Flex>
-
-                                <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "17%" }} >
-                                    <Text> Número de caso: </Text>
-                                    <Input placeholder="Legajo" size="large" style={{ width: "100%", height: "36px" }} />
-                                </Flex>
-
-                                <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "18%" }} >
-                                    <Text> Fecha Registro Inicio: </Text>
-                                    <DatePicker style={{ width: "100%", height: "36px" }} />
-                                </Flex>
-
-                                <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "18%" }} >
-                                    <Text> Fecha Registro Fin: </Text>
-                                    <DatePicker style={{ width: "100%", height: "36px" }} />
-                                </Flex>
-
-                                <Flex gap={"small"} vertical justify="flex-end" align="center" style={{ width: "13%", height: "100%" }} >
-                                    <Button type="primary" style={{ backgroundColor: colors.lightBlack, width: "100%", height: "36px" }}>
-                                        Limpiar
-                                    </Button>
-                                </Flex>
-
-                            </Flex>,
-                        showArrow: false,
-                    },
-                ]}
-            />
+            <LegajoFilter 
+                onChangeCollapse={onChangeCollapse} 
+                abogados={abogados}
+                form={form}
+                onReset={onReset}
+                handleOnFieldsChange={handleOnFieldsChange}
+            ></LegajoFilter>
             <Flex vertical gap={"small"} justify="flex-start" align="flex-start" style={{ width: "100%", backgroundColor: colors.white, margin: "1.0em 0.0em", borderRadius: "0.7em", padding: "1.5em" }}>
                 <Flex justify="space-between" align="center" style={{ width: "100%" }}>
                     <Text className="sie-content-title">Todos los Resultados</Text>
-                    <Button type="primary" icon={<MicrosoftExcelLogo size={16} weight="fill" color="white" />}>Exportar</Button>
+                    <Button loading={excelLoading} onClick={onClickExcel} type="primary" icon={<MicrosoftExcelLogo size={16} weight="fill" color="white" />}>Exportar</Button>
                 </Flex>
                 <br></br>
                 <Table
                     style={{ width: "100%" }}
+                    loading = {loading}
+                    rowKey="legajoId"
                     columns={columns}
-                    dataSource={data}
+                    dataSource={paginador?.data}
                     pagination={{
-                        pageSize: pageSize,
-                    }}
+                        onChange,
+                        total: paginador?.count,
+                        pageSize: paginador?.pageSize,
+                        current: paginador?.pageIndex,
+                        showSizeChanger: true,
+                        showTotal: (total) => `Hay ${total} registros`,
+                      }}
                     size="small"
 
                 />

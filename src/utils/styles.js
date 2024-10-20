@@ -3,6 +3,20 @@ export const hoverButtonStyle = {
     boxShadow: '5px 5px 10px rgba(95, 111, 190, 0.2)'
 }
 
+export const fiveFiltersStyle = {
+    width:"16%"
+}
+export const fourFiltersStyle = {
+    width:"20%"
+}
+
+export const fiveFiltersRangeStyle = {
+    width:"32%"
+}
+export const fourFiltersRangeStyle = {
+    width:"40%"
+}
+
 export const enableButtonStyle = {
     background: 'linear-gradient(to right,#5271FF, #47BAD8)',
     width: "100%",

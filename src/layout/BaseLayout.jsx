@@ -1,25 +1,35 @@
 import React, { useState } from "react";
-import { Flex, Typography, Layout, Menu, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
+import { Flex, Typography, Layout, FloatButton, Select, DatePicker, Table, Grid } from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
-
-import { siderStyle, headerStyle, contentStyle, subcontentStyle  } from "../utils/styles";
-
+const { useBreakpoint } = Grid;
+import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
+import {
+    List
+} from "@phosphor-icons/react";
 import HeaderLayout from "./HeaderLayout";
 import SiderLayout from "./SiderLayout";
+import { MenuOutlined } from '@ant-design/icons';
 
-function BaseLayout({children}) {
-
+function BaseLayout({ children }) {
+    const [collapsed, setCollapsed] = useState(false)
+    const screens = useBreakpoint();
     return (
         <>
             <Layout style={{ width: "100%", height: "100vh", backgroundColor: "white" }}>
-                <SiderLayout></SiderLayout>
+                <SiderLayout collapsed={collapsed} setCollapsed={setCollapsed}></SiderLayout>
                 <Layout>
                     <HeaderLayout></HeaderLayout>
                     <Content style={contentStyle}>
                         {children}
                     </Content>
                 </Layout>
+                {screens.xs || !screens.md && (
+                    <FloatButton type="primary" icon={<MenuOutlined />} onClick={() => setCollapsed(!collapsed)} />
+                )
+
+                }
+
             </Layout>
         </>
     );

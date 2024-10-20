@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Typography, Layout, Menu, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
+import { Flex, Typography, Layout, Menu, Drawer, Input, Select, DatePicker, Table, Grid} from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
 import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
@@ -8,6 +8,7 @@ import { colors } from "../utils/colors";
 import { paths } from "../utils/paths";
 import { startLogout } from "../store/actions/authActionAsync";
 import { useDispatch, useSelector } from "react-redux";
+const { useBreakpoint } = Grid;
 import {
     Lightning,
     Funnel,
@@ -87,10 +88,11 @@ const items = [
     },
 ];
 
-function SiderLayout() {
-    const [collapsed, setCollapsed] = useState(false)
+function SiderLayout(props) {
+    const {collapsed,setCollapsed} = props;
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const screens = useBreakpoint();
 
     const onCollapse = (collapsed, type) => {
         setCollapsed(collapsed);
@@ -100,9 +102,9 @@ function SiderLayout() {
     };
 
     const handleMenuClick = (e) => {
-        if(e.key == 'logout'){
+        if (e.key == 'logout') {
             cerrarSesion()
-        }else{
+        } else {
             const selectedItem = items.flatMap(item => item.children).find(child => child.key === e.key);
             if (selectedItem && selectedItem.key) {
                 navigate(selectedItem.key);
@@ -112,28 +114,55 @@ function SiderLayout() {
 
     return (
         <>
-            <Sider width="18%" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
-                <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em" }}>
-                    <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
-                        <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
-                            <Lightning size={28} weight="fill" color={colors.white} />
+            {screens.xs || !screens.md ? (
+                <Drawer
+                    placement="left"
+                    onClose={() => setCollapsed(false)}
+                    width={"40vw"}
+                    closable={false}
+                    open={collapsed}
+                    bodyStyle={{ backgroundColor: "#001529", padding: "0" }}
+                >
+                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", padding: "4.0em 0.0em" }}>
+                        <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
+                            <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
+                                <Lightning size={28} weight="fill" color={colors.white} />
+
+                            </Flex>
+                            <Text className="sie-sider-logo">SIE App</Text>
 
                         </Flex>
-                        {!collapsed && (
-                            <Text className="sie-sider-logo">SIE App</Text>
-                        )
 
-                        }
+                        <Menu onClick={handleMenuClick} style={{ backgroundColor: 'transparent' }} theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} >
 
+                        </Menu>
+                    </Flex>
+                </Drawer>
+            ) : (
+                <Sider breakpoint="md" width="18%" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
+                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em" }}>
+                        <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
+                            <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
+                                <Lightning size={28} weight="fill" color={colors.white} />
+
+                            </Flex>
+                            {!collapsed && (
+                                <Text className="sie-sider-logo">SIE App</Text>
+                            )
+
+                            }
+
+                        </Flex>
+
+                        <Menu onClick={handleMenuClick} style={{ backgroundColor: 'transparent' }} theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} >
+
+                        </Menu>
                     </Flex>
 
-                    <Menu onClick={handleMenuClick} style={{ backgroundColor: 'transparent' }} theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} >
 
-                    </Menu>
-                </Flex>
+                </Sider>
+            )}
 
-
-            </Sider>
         </>
     );
 }

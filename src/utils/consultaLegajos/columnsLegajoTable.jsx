@@ -1,8 +1,8 @@
 import React from "react";
-import { Tag, Flex, Button } from "antd";
+import { Tag, Flex, Button,Typography } from "antd";
 import {FilePdfOutlined} from '@ant-design/icons';
 import { colors } from "../colors";
-
+const {Text} = Typography;
 import { 
     CalendarBlank, 
     Eye,
@@ -11,12 +11,12 @@ import {
     PencilSimpleLine,
  } from "@phosphor-icons/react";
 
-export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalida,onClickEstado,onClickDownload) => {
+export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalida,onClickEstado,onClickDownload,loadingsPDF) => {
     const columns = [
         {
             title: 'Legajo',
-            dataIndex: 'legajo',
-            key: 'legajo'
+            dataIndex: 'legajoCodigo',
+            key: 'legajoCodigo'
         },
         {
             title: 'Caso',
@@ -32,6 +32,9 @@ export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalid
             title: 'Lugar',
             dataIndex: 'lugar',
             key: 'lugar',
+            render: (_, record) => (
+                <Text>{record.distritoJudicial?record.distritoJudicial:record.lugar}</Text>
+            ),
         },
         {
             title: 'Abogado',
@@ -42,7 +45,7 @@ export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalid
             title: 'Situación',
             key: 'sj',
             render: (_, record) => (
-                <Tag color={record.situacionJudicialColor}>{record.situacionJudicialNombre}</Tag>
+                <Tag color='geekblue'>{record.situacionJuridica}</Tag>
             ),
         },
         {
@@ -55,19 +58,19 @@ export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalid
             key: 'acciones',
             render: (_, record) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button onClick={() => onClickDetalle(record.legajo)} type="primary" shape="circle" style={{backgroundColor:colors.lightBlack}} icon={<Eye size={20} color={colors.white} />} />
-                    <Button onClick={() =>onClickDocsIngreso(record.legajo)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<FileArrowDown size={20} color={colors.white} />} />
-                    <Button onClick={()=>onClickDocsSalida(record.legajo)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<FileArrowUp size={20} color={colors.white} />} />
-                    <Button onClick={onClickEstado} type="primary" shape="circle" style={{backgroundColor:colors.blue}} icon={<PencilSimpleLine size={20} color={colors.white} />} />
+                    <Button onClick={() => onClickDetalle(record.legajoId)} type="primary" shape="circle" style={{backgroundColor:colors.lightBlack}} icon={<Eye size={20} color={colors.white} />} />
+                    <Button onClick={() => onClickDocsIngreso(record.legajoId)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<FileArrowDown size={20} color={colors.white} />} />
+                    <Button onClick={() => onClickDocsSalida(record.legajoId)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<FileArrowUp size={20} color={colors.white} />} />
+                    <Button onClick={() => onClickEstado(record)} type="primary" shape="circle" style={{backgroundColor:colors.blue}} icon={<PencilSimpleLine size={20} color={colors.white} />} />
                 </Flex>
             ),
         },
         {
             title: 'Action',
             key: 'action',
-            render: (_, record) => (
+            render: (_, record,index) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button onClick={onClickDownload} size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28}  style={{color:colors.red}} />} />
+                    <Button loading={loadingsPDF[index]} onClick={() =>onClickDownload(index,record.legajoId)} size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28}  style={{color:colors.red}} />} />
                     
                 </Flex>
             ),

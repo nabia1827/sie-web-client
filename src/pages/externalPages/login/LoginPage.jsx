@@ -37,19 +37,30 @@ function LoginPage() {
 
     const onLogin = (username, password) => {
         setLoading(true);
-        
+
         dispatch(startLogin(username, password))
-          .then(() => {
-            setLoading(false);
-            setStatus("");
-            setTextError("");
-          })
-          .catch((error) => {
-            setLoading(false);
-            console.log(error);
-            setStatus("error");
-            setTextError(error);
-          });
+            .then((response) => {
+                if (response.isSuccess) {
+                    setLoading(false);
+                    setStatus("");
+                    setTextError("");
+                    console.log("Logged in")
+                    navigate(paths.HOME);
+                } else {
+                    setLoading(false);
+                    
+                    setStatus("aaa");
+                    setTextError("aaa");
+                }
+
+
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.log(error);
+                setStatus("error");
+                setTextError(error);
+            });
 
     }
 
@@ -57,12 +68,7 @@ function LoginPage() {
         setRememberMe(checked)
     }
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            console.log("Logged in")
-            navigate(paths.HOME);
-        }
-    }, [isAuthenticated, navigate]);
+    
 
     return <>{
         isXsScreen ?
@@ -73,9 +79,9 @@ function LoginPage() {
                 onChangePassword={onChangePassword}
                 onSwitchRemember={onSwitchRemember}
                 onLogin={onLogin}
-                status = {status}
-                textError = {textError}
-                loading ={loading}
+                status={status}
+                textError={textError}
+                loading={loading}
             />
             : <LoginWeb
                 username={username}
@@ -84,9 +90,9 @@ function LoginPage() {
                 onChangePassword={onChangePassword}
                 onSwitchRemember={onSwitchRemember}
                 onLogin={onLogin}
-                status = {status}
-                textError = {textError}
-                loading = {loading}
+                status={status}
+                textError={textError}
+                loading={loading}
             />}</>;
 }
 

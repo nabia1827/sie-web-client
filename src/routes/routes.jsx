@@ -7,6 +7,12 @@ import { Perfiles } from '../utils/constants';
 import { getAccessToken } from '../utils/cookie';
 import { jwtDecode } from 'jwt-decode';
 import { login } from '../store/actions/authActionSync';
+
+//Actions
+import { cargarAbogados,cargarSubfases } from '../store/actions/app/appActionAsync';
+
+
+//General
 import LoginPage from '../pages/externalPages/login/LoginPage';
 import NotFoundPage from '../pages/extra/NotFoundPage';
 import InternalPage from '../pages/internalPages/InternalPage';
@@ -67,7 +73,8 @@ const RoutesApp = () => {
   useEffect(() => {
     if (isAuthenticated) {
 
-      //Dispacth data inicial
+      dispatch(cargarAbogados())
+      dispatch(cargarSubfases())
     }
   }, [dispatch, isAuthenticated]);
 
@@ -86,7 +93,7 @@ const RoutesApp = () => {
           <Route path={endpoints.CONSULTA_LEGAJOS} element={<ConsultaLegajosPage />}>
 
             <Route path={endpoints.MIS_LEGAJOS} element={<MisLegajosPage />}>
-              <Route index element={<ListadoLegajosPage />} />
+              <Route index element={<ListadoLegajosPage allLegajos = {false}/>} />
               <Route path=":id" element={<LegajoPage />} >
                 <Route path={endpoints.DETALLE_LEGAJO} element={<DetalleLegajoPage />} />
                 <Route path={endpoints.DOCS_INGRESO_LEGAJO} element={<DocsIngresoPage />} />
@@ -95,7 +102,7 @@ const RoutesApp = () => {
             </Route>
 
             <Route path={endpoints.TODOS_LEGAJOS} element={<TodosLegajosPage />}>
-              <Route index element={<ListadoLegajosPage />} />
+              <Route index element={<ListadoLegajosPage allLegajos = {true}/>} />
               <Route path=":id" element={<LegajoPage />} >
                 <Route path={endpoints.DETALLE_LEGAJO} element={<DetalleLegajoPage />} />
                 <Route path={endpoints.DOCS_INGRESO_LEGAJO} element={<DocsIngresoPage />} />
