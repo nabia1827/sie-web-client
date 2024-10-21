@@ -17,7 +17,9 @@ function App() {
             colorLink:colors.lightBlack,
             colorLinkActive:colors.lightBlack,
             colorLinkHover:colors.blue,
-            colorSuccess:colors.green
+            colorSuccess:colors.green,
+            colorBgContainerDisabled:"rgba(244, 247, 254, 1)",
+            colorTextDisabled:"rgba(45, 55, 72, 1)"
           },
           components: {
             Input: {

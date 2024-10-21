@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentLegajoCod } from "../../../../../store/actions/consultaLegajos/consultaLegajosActionSync";
 const { useBreakpoint } = Grid;
+import dayjs from 'dayjs';
 
 function DetalleLegajoPage() {
     const screens = useBreakpoint();
@@ -130,9 +131,17 @@ function DetalleLegajoPage() {
     //Modal de Detalle de Apelacion
     const [mdApelLoading, setMdApelLoading] = useState(false);
     const [mdApelOpen, setMdApelOpen] = useState(false);
+    const [resForm] = Form.useForm();
+    const FORMAT_DATE = "DD/MM/YYYY";
 
-
-    const showMdApel = () => {
+    const showMdApel = (record) => {
+        resForm.setFieldsValue({
+            imputado: record.imputado,
+            delito: record.delito,
+            fechaApelacion: record.fechaApelacion !== null? dayjs(record.fechaApelacion, FORMAT_DATE) : "",
+            resApelacionId: record.resApelacionId,
+        }
+        );
         setMdApelOpen(true);
     };
 
@@ -140,11 +149,14 @@ function DetalleLegajoPage() {
         setMdApelLoading(true);
 
         setTimeout(() => {
+            
+            resForm.resetFields();
             setMdApelLoading(false);
             setMdApelOpen(false);
         }, 3000);
     };
     const onCancelMdApel = () => {
+        resForm.resetFields();
         setMdApelOpen(false);
     };
 
@@ -261,6 +273,7 @@ function DetalleLegajoPage() {
             handleOk={onOkMdApel}
             handleCancel={onCancelMdApel}
             modalLoading={mdApelLoading}
+            form = {resForm}
         ></ModalApelacion>
         <ModalEditarDelegado
             modalOpen={mdDeleOpen}
