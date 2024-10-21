@@ -3,7 +3,7 @@ import { Tag, Button, Flex } from "antd";
 import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../colors";
 
-export const ColumnsDocsIngreso = () => {
+export const ColumnsDocsIngreso = (onClickDownload,loadingsPDF) => {
     const columns = [
         {
             title: 'Fecha Registro',
@@ -19,7 +19,7 @@ export const ColumnsDocsIngreso = () => {
             title: 'Tipo Documento',
             key: 'td',
             render: (_, record) => (
-                <Tag color="geekblue">{record.tipoDocumento}</Tag>
+                <Tag color="geekblue">{record.claseDocumento}</Tag>
             ),
         },
         {
@@ -35,9 +35,9 @@ export const ColumnsDocsIngreso = () => {
         {
             title: 'Archivo',
             key: 'archivo',
-            render: (_, record) => (
+            render: (_, record,index) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28} style={{ color: colors.red }} />} />
+                    <Button loading={loadingsPDF[index]} onClick={() =>onClickDownload(index,record.docId)} size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28} style={{ color: colors.red }} />} />
 
                 </Flex>
             ),

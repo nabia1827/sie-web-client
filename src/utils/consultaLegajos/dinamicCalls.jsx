@@ -215,3 +215,54 @@ export const UpdateEstadoAsistencia = async (audienciaId) => {
     message.error(error.message);
   }
 };
+
+export const ListarDocsEntrada = async (legajoId) => {
+
+  try {
+
+    const response = await api.DocumentosLegajo.ListarDocsEntrada(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const ListarDocsSalida = async (legajoId) => {
+
+  try {
+
+    const response = await api.DocumentosLegajo.ListarDocsSalida(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const onDownloadDocPDF = async (docId,tipoDocId) => {
+
+  try {
+
+    const response = await api.GenerarWord.DownloadDoc(docId,tipoDocId);
+
+    const contentDisposition = response.headers["content-disposition"];
+    const fname = contentDisposition
+      .split("filename=")[1]
+      .split(".")[0]
+      .replace('"', "");
+    const ext = contentDisposition.split(".")[1].split(";")[0].replace('"', "");
+    const filename = `${fname}.${ext}`;
+
+    const url = window.URL.createObjectURL(new Blob([response.data]), {
+      type: `application/${ext}`,
+    });
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+  } catch (error) {
+    message.error(error.message);
+  }
+};

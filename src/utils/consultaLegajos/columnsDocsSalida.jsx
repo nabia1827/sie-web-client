@@ -4,7 +4,7 @@ import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../colors";
 import { EnvelopeSimple } from "@phosphor-icons/react";
 
-export const ColumnsDocsSalida = (showMdEditarRecurso) => {
+export const ColumnsDocsSalida = (showMdEditarRecurso,onClickDownload,loadingsPDF) => {
     const columns = [
         {
             title: 'Fecha Creación',
@@ -20,21 +20,31 @@ export const ColumnsDocsSalida = (showMdEditarRecurso) => {
             title: 'Tipo Documento',
             key: 'td',
             render: (_, record) => (
-                <Tag color="geekblue">{record.tipoDocumento}</Tag>
+                <Tag color="geekblue">{record.claseDocumento}</Tag>
             ),
         },
         {
             title: 'Destinatarios',
-            dataIndex: 'destinatario',
-            key: 'destinatario',
+            key: 'dest',
+            render: (_, record) => (
+                <ul style={{ margin: "0em 0" }} >
+                    {record.destinatarios.map((d,index) => (
+                        <li key={index}>
+                            {d.entidadCorrNombre}
+                        </li>
+                    ))
+                    }
+
+                </ul>
+            ),
         },
 
         {
             title: 'Archivo',
             key: 'archivo',
-            render: (_, record) => (
+            render: (_, record,index) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28} style={{ color: colors.red }} />} />
+                    <Button loading={loadingsPDF[index]} onClick={() =>onClickDownload(index,record.docId)} size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28} style={{ color: colors.red }} />} />
 
                 </Flex>
             ),

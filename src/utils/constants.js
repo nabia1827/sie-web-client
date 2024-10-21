@@ -15,6 +15,11 @@ export const EstadosAudiencia = {
     NO_ASISTIO: "No asistió",
 };
 
+export const TipoDoc = {
+    DOCUMENTO_INGRESO:1,
+    DOCUMENTO_SALIDA:2,
+}
+
 
 //APIS estaticas
 export const ListTipoCaso =[
@@ -35,7 +40,7 @@ export const ListResultadoApelacion=[
     },
     {
         resApelacionId:2,
-        resApelacionNombre:"Sentencia Anulado"
+        resApelacionNombre:"Sentencia Anulada"
     },
 ];
 

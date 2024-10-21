@@ -58,4 +58,24 @@ const DataLegajo ={
     ListarDelegados: () => requests.get(`/DataLegajo/ListarDelegado`),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo };
+const DocumentosLegajo = {
+    ListarDocsEntrada: (legajoId) => requests.get(`/DocumentosLegajo/ListarDocsEntrada?legajoId=${legajoId}`),
+    ListarDocsSalida: (legajoId) => requests.get(`/DocumentosLegajo/ListarDocsSalida?legajoId=${legajoId}`),
+}
+
+const GenerarWord ={
+    SendDocSalida: (body) => requests.post(`/GenerarWord/SendDocSalida`, body),
+    DownloadDoc: (docId,tipoDocId) => axios.get(`/GenerarWord/DownloadDoc?docId=${docId}&tipoDocId=${tipoDocId}`, {    
+        responseType: 'blob',
+        headers: {
+          'Content-Type': 'application/pdf',
+          Accept: 'application/pdf',
+        },
+    }),
+    DSGenerarActorCivil: (body) => requests.post(`/GenerarWord/DSGenerarActorCivil`, body),
+    DSGenerarArchivo: (body) => requests.post(`/GenerarWord/DSGenerarArchivo`, body),
+    DSGenerarQueja: (body) => requests.post(`/GenerarWord/DSGenerarQueja`, body),
+    DSGenerarDenuncia: (body) => requests.post(`/GenerarWord/DSGenerarDenuncia`, body),
+}
+
+export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord };
