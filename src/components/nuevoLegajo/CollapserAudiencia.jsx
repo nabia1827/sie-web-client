@@ -1,4 +1,4 @@
-import { Flex,Typography, Input, Collapse, Select,Row, Col, Form} from "antd";
+import { Flex,Typography, Input, Collapse, Select,Row, Col, Form,DatePicker, TimePicker} from "antd";
 import { colors } from "../../utils/colors";
 const { Text } = Typography;
 
@@ -47,18 +47,19 @@ function CollapserAudiencia(props) {
                                         <Row gutter={[45, 12]} justify={"center"} align="center" style={{ width: "100%"}}>
                                             <Col xs={24} sm={24} md={12} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Fecha</Text >} name='fecha'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
+                                                    <DatePicker 
+                                                        size = "middle"
+                                                        style={{width: "100%"}}
                                                     />
                                                 </Form.Item>
                                             </Col>
 
                                             <Col xs={24} sm={24} md={12} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Hora</Text >} name='hora'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
+                                                    <TimePicker 
+                                                        use12Hours format="h:mm a" 
+                                                        size = "middle"
+                                                        style={{width: "100%"}}
                                                     />
                                                 </Form.Item>
                                             </Col>
