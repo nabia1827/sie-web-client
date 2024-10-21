@@ -1,19 +1,15 @@
 import React from "react";
-import { Tag, Button, Flex,Input } from "antd";
+import { Tag, Button, Flex, Input,Typography } from "antd";
 import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../colors";
-import { 
+import {
     List
- } from "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 const { TextArea } = Input;
-
+const { Text } = Typography;
 export const ColumnsResultado = (showMdApel) => {
     const columns = [
-        {
-            title: 'Nro',
-            dataIndex: 'nro',
-            key: 'nro'
-        },
+
         {
             title: 'Imputado',
             dataIndex: 'imputado',
@@ -28,7 +24,7 @@ export const ColumnsResultado = (showMdApel) => {
             title: 'Reparación Civil',
             key: 'rep',
             render: (_, record) => (
-                <Tag color="geekblue">{record.repCivil}</Tag>
+                <Tag color="geekblue">S/.{Number(record.reparacionCivil).toFixed(2)}</Tag>
             ),
         },
         {
@@ -50,10 +46,16 @@ export const ColumnsResultado = (showMdApel) => {
             title: 'Apelación',
             key: 'apelacion',
             render: (_, record) => (
-                <Flex gap={"small"} justify="center" align="center">
-                    <Button onClick={showMdApel} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<List size={20} color={colors.white} />} />
-                    
-                </Flex>
+                <>
+                    {record.resApelacionId? (
+                        <Flex gap={"small"} justify="center" align="center">
+                            <Button onClick={showMdApel} type="primary" shape="circle" style={{ backgroundColor: colors.cian }} icon={<List size={20} color={colors.white} />} />
+
+                        </Flex>
+                    ):(<Text>{"--"}</Text>)
+
+                    }
+                </>
             ),
         },
     ];

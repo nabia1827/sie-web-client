@@ -99,3 +99,119 @@ export const onDownloadExcel = async (originalRequest,paginador,usuId,allLegajos
     message.error("Ocurrió un error al descargar el reporte");
   } 
 };
+
+export const GetInfoLegajoById = async (legajoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.GetInfoLegajoById(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetImputadosByLegajoId = async (legajoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.GetImputadosByLegajoId(legajoId)
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetAgraviadosByLegajoId = async (legajoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.GetAgraviadosByLegajoId(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetAudienciasByLegajoId = async (legajoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.GetAudienciasByLegajoId(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetResultadosByLegajoId = async (legajoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.GetResultadosByLegajoId(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const UpdateDelegado = async (legajoId,delegadoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.UpdateDelegado(legajoId,delegadoId)
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const UpdateHecho = async (legajoHechoId,hecho) => {
+
+  try {
+    const body = {
+      legajoHechoId:legajoHechoId,
+      hecho:hecho
+    }
+
+    const response = await api.DataLegajo.UpdateHecho(body)
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const UpdateObservacionesAudiencia = async (audienciaId,observacion) => {
+
+  try {
+    const body = {
+      audienciaId:audienciaId,
+      observacion:observacion
+    }
+
+    const response = await api.DataLegajo.UpdateObservacionesAudiencia(body)
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const UpdateEstadoAsistencia = async (audienciaId) => {
+
+  try {
+
+    const response = await api.DataLegajo.UpdateEstadoAsistencia(audienciaId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};

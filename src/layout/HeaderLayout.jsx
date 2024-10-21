@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Typography, Layout, Menu, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
+import { Flex, Typography, Layout, Grid, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
 import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
@@ -19,12 +19,16 @@ import {
     MicrosoftExcelLogo
 } from "@phosphor-icons/react";
 import { paths } from "../utils/paths";
-
+import { setCurrentLegajoCod } from "../store/actions/consultaLegajos/consultaLegajosActionSync";
+const { useBreakpoint } = Grid;
 
 function HeaderLayout() {
     const { user } = useSelector((state) => state.auth);
+    const { currentLegajoCod } = useSelector((state) => state.consultaLegajos);
     const navigate = useNavigate();
     const location = useLocation();
+    const screens = useBreakpoint();
+    const dispatch = useDispatch();
     const pathname = location.pathname
 
     const formatBreadcrumb = (value) => {
@@ -38,7 +42,7 @@ function HeaderLayout() {
 
     const getLegajoIdBc = (path) => {
         const pathnames = path.split('/').filter(x => x);
-        return [{ title: "Inicio" }, { title: formatBreadcrumb(pathnames[0]) }, { title: formatBreadcrumb(pathnames[1]) }]
+        return [{ title: "Inicio" }, { title: formatBreadcrumb(pathnames[0]) }, { title: formatBreadcrumb(pathnames[3]) }]
     }
 
     const getBreadcumbItems = (path) => {
@@ -67,8 +71,8 @@ function HeaderLayout() {
     }
 
     const getLegajoIdTitle = (path) => {
-        const pathnames = path.split('/').filter(x => x);
-        return "Legajo " + pathnames[2]
+        const title = currentLegajoCod!==""?`LP${currentLegajoCod}`:"";
+        return "Legajo " + title
     }
 
     const getTitle = (path) => {
@@ -129,6 +133,7 @@ function HeaderLayout() {
         }
     }
     const onBack = () => {
+        dispatch(setCurrentLegajoCod(""))
         navigate(-1)
     }
 
@@ -161,10 +166,14 @@ function HeaderLayout() {
                         </Tooltip>
 
 
-                        <Flex vertical justify="flex-start" align="flex-start">
-                            <Text className="sie-header-user">{`${user.usuNombre} ${user.usuApellidoPat}`}</Text>
-                            <Text className="sie-header-rol">{`${PerfilesNombre[user.perfilId - 1]}`}</Text>
-                        </Flex>
+                        {screens.lg  && (
+                            <Flex vertical justify="flex-start" align="flex-start">
+                                <Text className="sie-header-user">{`${user.usuNombre} ${user.usuApellidoPat}`}</Text>
+                                <Text className="sie-header-rol">{`${PerfilesNombre[user.perfilId - 1]}`}</Text>
+                            </Flex>
+                        )
+
+                        }
                         {user.usuImage ? (
                             <Avatar style={{ border: "2px solid white" }} size={36} src={<img src={user.usuImage} alt="avatar" />} />
                         ) : (

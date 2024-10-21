@@ -46,7 +46,7 @@ export const siderStyle = {
 export const headerStyle = {
     backgroundColor: '#F4F7FE',
     textAlign: 'center',
-    height: "24vh",
+    height: "145px",
     padding: "1.0em",
 
 };

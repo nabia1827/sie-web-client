@@ -24,7 +24,7 @@ function BaseLayout({ children }) {
                         {children}
                     </Content>
                 </Layout>
-                {screens.xs || !screens.md && (
+                {!screens.md && !screens.xl && !screens.xxl && (
                     <FloatButton type="primary" icon={<MenuOutlined />} onClick={() => setCollapsed(!collapsed)} />
                 )
 

@@ -9,7 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { login } from '../store/actions/authActionSync';
 
 //Actions
-import { cargarAbogados,cargarSubfases } from '../store/actions/app/appActionAsync';
+import { cargarAbogados,cargarDelegados,cargarSubfases } from '../store/actions/app/appActionAsync';
 
 
 //General
@@ -78,6 +78,7 @@ const RoutesApp = () => {
 
       dispatch(cargarAbogados())
       dispatch(cargarSubfases())
+      dispatch(cargarDelegados())
     }
   }, [dispatch, isAuthenticated]);
 

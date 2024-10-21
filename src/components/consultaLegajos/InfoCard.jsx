@@ -7,7 +7,7 @@ function InfoCard(props) {
 
     return (
         <>
-            <Flex justify="space-between" align="center" style={{ width: "100%", height: "12vh", backgroundColor: colors.lightBlue, borderRadius: "0.7em", padding: "0.6em 1.3em" }}>
+            <Flex gap={"small"} justify="space-between" align="center" style={{ width: "100%", height:"100%", backgroundColor: colors.lightBlue, borderRadius: "0.7em", padding: "0.8em 1.3em" }}>
                 <Flex vertical gap={0} justify="center" align="flex-start" >
                     <Text className="sie-info-card-subtitle">
                         {subtitle}
@@ -17,7 +17,7 @@ function InfoCard(props) {
                     </Text>
                 </Flex>
 
-                <Flex justify="center" align="center" style={{ height: "80%", aspectRatio: "1/1", backgroundColor: colors.blue, borderRadius: "0.7em" }}>
+                <Flex justify="center" align="center" style={{ aspectRatio: "1/1",padding:"0.4em", backgroundColor: colors.blue, borderRadius: "0.7em" }}>
                     {IconComponent && <IconComponent size={32} color="white" />}
                 </Flex>
 

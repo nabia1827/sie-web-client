@@ -1,14 +1,15 @@
 import React from "react";
-import { Tag, Button, Flex,Input } from "antd";
+import { Tag, Button, Flex, Input } from "antd";
 import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../colors";
-import { 
+import {
     UserCircleCheck,
     PencilSimpleLine,
- } from "@phosphor-icons/react";
+} from "@phosphor-icons/react";
 const { TextArea } = Input;
+import { EstadosAudiencia } from "../constants";
 
-export const ColumnsAudiencia = (showMdObs) => {
+export const ColumnsAudiencia = (showMdObs,onClickAsistencia) => {
     const columns = [
         {
             title: 'Fecha',
@@ -22,8 +23,8 @@ export const ColumnsAudiencia = (showMdObs) => {
         },
         {
             title: 'Audiencia',
-            dataIndex: 'tipoAudiencia',
-            key: 'tipoAudiencia'
+            dataIndex: 'descripcion',
+            key: 'descripcion'
         },
         {
             title: 'Link',
@@ -36,23 +37,31 @@ export const ColumnsAudiencia = (showMdObs) => {
             title: 'Estado',
             key: 'est',
             render: (_, record) => (
-                <Tag color={record.estado=="Asistió"?("green"):(record.estado == "No asistió"?("red"):("geekblue"))}>{record.estado}</Tag>
+                <Tag color={record.estado == "Asistió" ? ("green") : (record.estado == "No asistió" ? ("red") : ("geekblue"))}>{record.estado}</Tag>
             ),
         },
         {
             title: 'Observación',
-            key: 'obs',
-            render: (_, record) => (
-                <TextArea disabled rows={4} maxLength={6} value={record.observacion}/>
-            ),
+            dataIndex: 'observacion',
+            key: 'observacion',
+
         },
         {
             title: 'Acciones',
             key: 'acciones',
             render: (_, record) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button type="primary" shape="circle" style={{backgroundColor:colors.blue}} icon={<UserCircleCheck size={20} color={colors.white} />} />
-                    <Button onClick={showMdObs} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<PencilSimpleLine size={20} color={colors.white} />} />
+                    {record.estado == EstadosAudiencia.EN_CURSO && (
+                        <Button
+                            onClick={() => onClickAsistencia(record.audienciaId)}
+                            type="primary"
+                            shape="circle"
+                            style={{ backgroundColor: colors.blue }}
+                            icon={<UserCircleCheck size={20} color={colors.white} />} 
+                        />
+                    )
+                    }
+                    <Button onClick={() => showMdObs(record)} type="primary" shape="circle" style={{ backgroundColor: colors.cian }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
                 </Flex>
             ),
         },

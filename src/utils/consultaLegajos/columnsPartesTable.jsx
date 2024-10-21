@@ -1,19 +1,20 @@
 import React from "react";
-import { Tag, Button, Flex } from "antd";
+import { Tag, Button, Flex, Typography } from "antd";
 import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../colors";
+const { Text } = Typography;
 export const ColumnsImputados = () => {
     const columns = [
         {
             title: 'Imputados',
-            dataIndex: 'imputado',
-            key: 'imputado'
+            dataIndex: 'imputadoNombre',
+            key: 'imputadoNombre'
         },
         {
             title: 'Tipo Doc',
             key: 'td',
             render: (_, record) => (
-                <Tag color={record.tipoDoc=="DNI"?("geekblue"):("green")}>{record.tipoDoc}</Tag>
+                <Tag color={record.tipoDoc == "DNI" ? ("geekblue") : ("green")}>{record.tipoDoc}</Tag>
             ),
         },
         {
@@ -26,9 +27,9 @@ export const ColumnsImputados = () => {
             key: 'dls',
             render: (_, record) => (
                 <ul style={{ margin: "0em 0" }} >
-                    {record.delitos.map((delito) => (
-                        <li>
-                            {delito}
+                    {record.delitos.map((d,index) => (
+                        <li key={index}>
+                            {d.delitoNombre}
                         </li>
                     ))
 
@@ -41,7 +42,15 @@ export const ColumnsImputados = () => {
             title: 'Estado',
             key: 'est',
             render: (_, record) => (
-                <Tag color={record.estado=="Investigado"?("red"):("geekblue")}>{record.estado}</Tag>
+                <ul  style={{ margin: "0em 0" }} >
+                    {record.delitos.map((d,index) => (
+                        <li key={index}>
+                            <Tag color={d.estado == "Investigado" ? ("red") : ("geekblue")}>{d.estado}</Tag>
+                        </li>
+                    ))
+                    }
+                </ul>
+
             ),
         },
         {
@@ -59,26 +68,36 @@ export const ColumnsImputados = () => {
     return columns;
 };
 
-export const ColumnsAgraviados= () => {
+export const ColumnsAgraviados = () => {
     const columns = [
         {
             title: 'Agraviados',
-            dataIndex: 'agraviado',
-            key: 'agraviado'
+            dataIndex: 'agraviadoNombre',
+            key: 'agraviadoNombre'
         },
         {
             title: 'Tipo Doc',
             key: 'td',
             render: (_, record) => (
-                <Tag color={record.tipoDoc=="DNI"?("geekblue"):("green")}>{record.tipoDoc}</Tag>
+                <>
+                    {record.tipoDoc ? (
+                        <Tag color={record.tipoDoc == "DNI" ? ("geekblue") : ("green")}>{record.tipoDoc}</Tag>
+                    ) : (
+                        <Text>{record.tipoDoc ? record.tipoDoc : "No Aplica"}</Text>
+                    )
+
+                    }
+                </>
             ),
         },
         {
             title: 'Nro Doc',
-            dataIndex: 'nroDoc',
             key: 'nroDoc',
+            render: (_, record) => (
+                <Text>{record.nroDoc ? record.nroDoc : "No Aplica"}</Text>
+            ),
         },
-        
+
     ];
 
     return columns;

@@ -1,27 +1,31 @@
-import React, { useEffect } from "react";
-import { Flex, Modal, Form, Button, Select, Row, Col, Input, Typography } from "antd";
+import React,{useEffect} from "react";
+import { Flex, Modal, Button, Select, Form, Row, Col, Input, Typography } from "antd";
 import { motion } from "framer-motion";
 import { enableButtonStyle, hoverButtonStyle, enableModalButtonStyle } from "../../utils/styles";
+import { useDispatch, useSelector } from "react-redux";
 const { Text } = Typography;
 const { TextArea } = Input;
 
-function ModalEditarObs(props) {
-    const { modalOpen, handleOk, handleCancel, modalLoading, currentAudiencia, form } = props;
+function ModalEditarDelegado(props) {
+    const { modalOpen, handleOk, handleCancel, modalLoading, currentDelegado,
+        setCurrentDelegado, form, legajo } = props;
+    const { delegados } = useSelector((state) => state.app);
+
     useEffect(() => {
-        if (currentAudiencia) {
+        if (modalOpen) {
             form.setFieldsValue({
-                observacion: currentAudiencia.observacion,
+                delegadoId: legajo.delegadoId,
 
             });
         }
-    }, [currentAudiencia, form]);
+    }, [modalOpen, form]);
 
     return (
         <>
             <Modal
                 style={{ width: "40vh" }}
                 open={modalOpen}
-                title="Editar Observaciones"
+                title="Editar delegado asignado"
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={[
@@ -60,10 +64,23 @@ function ModalEditarObs(props) {
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item
                                 style={{ width: "100%" }}
+                                name='delegadoId'>
+                                <Select
+                                    style={{ width: "100%", height: "36px" }}
+                                    placeholder="Seleccione delegado..."
+                                    allowClear
 
-                                name='observacion'>
-                                <TextArea style={{ color: "black" }} rows={4} maxLength={500} placeholder="Escribe..." />
+                                >
+                                    {
+                                        delegados.map((d) => (
+                                            <Select.Option key={d.delegadoId} value={d.delegadoId}>
+                                                {d.delegadoNombre}
+                                            </Select.Option>
+                                        ))
+                                    }
+                                </Select>
                             </Form.Item>
+
                         </Col>
 
                     </Row>
@@ -75,4 +92,4 @@ function ModalEditarObs(props) {
 
 }
 
-export default ModalEditarObs;
+export default ModalEditarDelegado;

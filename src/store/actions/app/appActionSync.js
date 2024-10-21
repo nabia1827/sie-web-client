@@ -9,3 +9,8 @@ export const setSubfases = data => ({
     type: types.subfases,
     payload: data,
 });
+
+export const setDelegados = data => ({
+    type: types.delegados,
+    payload: data,
+});

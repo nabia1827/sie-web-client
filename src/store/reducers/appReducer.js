@@ -2,7 +2,8 @@ import { types } from "../types";
 
 const initialValues = {
     abogados: [],
-    subfases:[],
+    subfases: [],
+    delegados: []
 };
 
 export const appReducer = (state = initialValues, action) => {
@@ -19,7 +20,12 @@ export const appReducer = (state = initialValues, action) => {
                 subfases: [...action.payload],
 
             };
+        case types.delegados:
+            return {
+                ...state,
+                delegados: [...action.payload],
 
+            };
         default:
             return state;
     }

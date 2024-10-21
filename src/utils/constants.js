@@ -8,6 +8,12 @@ export const Perfiles = {
 
 export const PerfilesNombre = ["Abogado","Mesa Partes","Procurador","Admin"]
 
+export const EstadosAudiencia = {
+    ASISTIO: "Asistió",
+    PENDIENTE: "Pendiente",
+    EN_CURSO: "En Curso",
+    NO_ASISTIO: "No asistió",
+};
 
 
 //APIS estaticas

@@ -1,13 +1,18 @@
 import { types } from "../types";
 
 const initialValues = {
-    
+  currentLegajoCod:""
 };
 
-export const consultaLegajoReducer = (state = initialValues, action) => {
-    switch (action.type) {
-        
-        default:
-            return state;
-    }
+export const consultaLegajosReducer = (state = initialValues, action) => {
+  switch (action.type) {
+    case types.currentLegajoCod:
+      return {
+        ...state,
+        currentLegajoCod: action.payload,
+      };
+    
+    default:
+      return state;
+  }
 };

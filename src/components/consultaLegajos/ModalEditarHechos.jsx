@@ -1,27 +1,30 @@
-import React, { useEffect } from "react";
+import React,{useEffect} from "react";
 import { Flex, Modal, Form, Button, Select, Row, Col, Input, Typography } from "antd";
 import { motion } from "framer-motion";
 import { enableButtonStyle, hoverButtonStyle, enableModalButtonStyle } from "../../utils/styles";
 const { Text } = Typography;
 const { TextArea } = Input;
 
-function ModalEditarObs(props) {
-    const { modalOpen, handleOk, handleCancel, modalLoading, currentAudiencia, form } = props;
+function ModalEditarHechos(props) {
+    const { modalOpen, handleOk, handleCancel, modalLoading, form, legajo } = props;
+
+    // Usamos useEffect para establecer los valores iniciales cuando currentRecord cambia
     useEffect(() => {
-        if (currentAudiencia) {
+        if (modalOpen) {
             form.setFieldsValue({
-                observacion: currentAudiencia.observacion,
+                hechos: legajo.hechosNombre,
 
             });
         }
-    }, [currentAudiencia, form]);
+    }, [modalOpen, form]);
+
 
     return (
         <>
             <Modal
                 style={{ width: "40vh" }}
                 open={modalOpen}
-                title="Editar Observaciones"
+                title="Editar Hechos"
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={[
@@ -34,6 +37,7 @@ function ModalEditarObs(props) {
                     </Button>
                 ]}
             >
+
                 <Form
                     form={form}
                     style={{ width: "100%" }}
@@ -61,9 +65,11 @@ function ModalEditarObs(props) {
                             <Form.Item
                                 style={{ width: "100%" }}
 
-                                name='observacion'>
-                                <TextArea style={{ color: "black" }} rows={4} maxLength={500} placeholder="Escribe..." />
+                                
+                                name='hechos'>
+                                <TextArea style={{ color: "black" }} rows={4} placeholder="Escribe..." />
                             </Form.Item>
+
                         </Col>
 
                     </Row>
@@ -75,4 +81,4 @@ function ModalEditarObs(props) {
 
 }
 
-export default ModalEditarObs;
+export default ModalEditarHechos;

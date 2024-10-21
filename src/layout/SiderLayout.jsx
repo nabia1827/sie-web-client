@@ -93,6 +93,7 @@ function SiderLayout(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const screens = useBreakpoint();
+    console.log("BREAKPOINT!!!", screens);
 
     const onCollapse = (collapsed, type) => {
         setCollapsed(collapsed);
@@ -114,11 +115,11 @@ function SiderLayout(props) {
 
     return (
         <>
-            {screens.xs || !screens.md ? (
+            {!screens.md && !screens.xl && !screens.xxl? (
                 <Drawer
                     placement="left"
                     onClose={() => setCollapsed(false)}
-                    width={"40vw"}
+                    width={"250px"}
                     closable={false}
                     open={collapsed}
                     bodyStyle={{ backgroundColor: "#001529", padding: "0" }}
@@ -139,8 +140,8 @@ function SiderLayout(props) {
                     </Flex>
                 </Drawer>
             ) : (
-                <Sider breakpoint="md" width="18%" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
-                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em" }}>
+                <Sider breakpoint="md" width="280px" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
+                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em", overflow: "auto",scrollbarWidth: "thin",scrollbarColor: "unset" }}>
                         <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
                             <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
                                 <Lightning size={28} weight="fill" color={colors.white} />

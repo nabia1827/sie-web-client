@@ -6,6 +6,6 @@ export const types = {
 
     abogados:'[APP] Lista abogados',
     subfases:'[APP] Lista subfases',
-    
-    legajos:'[CONSULTA LEGAJOS] Lista legajos',
+    delegados:'[APP] Lista delegados',
+    currentLegajoCod:'[CONSULTA LEGAJOS] Actualizar el codigo del legajo actual',
 }
