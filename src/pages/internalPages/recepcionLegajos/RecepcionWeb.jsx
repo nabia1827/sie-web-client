@@ -36,8 +36,8 @@ function RecepcionWeb(){
 
     return(
         <>
-            <Flex justify="center" align="center" style={{ width: "100%", height: "76vh"}}>
-                <Flex justify="center" align="center" style={{ width: "100%", height: "100%", backgroundColor: colors.white, marginBottom: "1.4em"}}>
+            <Flex justify="center" align="center" style={{ width: "100%", height: "76vh", paddingBottom: "1em"}}>
+                <Flex justify="center" align="center" style={{ width: "100%", height: "100%", backgroundColor: colors.white}}>
 
                     <Flex vertical justify="center" align="center" style={{ width: "50%", height: "100%" }}>
                         <img src={myImage} alt="Imagen Recepcion de Legajo" style={{ maxWidth: '75%', height: 'auto' }}/>
