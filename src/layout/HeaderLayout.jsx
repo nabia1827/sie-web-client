@@ -64,7 +64,11 @@ function HeaderLayout() {
             case paths.SEGUIMIENTO:
                 return [{ title: "Inicio" }, { title: "Reporte Legajos" }];
             case paths.RECEPCION_LEGAJOS:
-                return [{ title: "Inicio" }];
+                return [{ title: "Inicio" }, { title: "Recepcionar Legajos" }];
+            case paths.NUEVO_LEGAJO:
+                return [{ title: "Inicio" }, { title: "Crear nuevo Legajo" }];
+            case paths.ADICIONAR_LEGAJO:
+                return [{ title: "Inicio" }, { title: "Adicionar Documentos" }];
             default:
                 return getLegajoIdBc(pathname)
         }
