@@ -55,7 +55,7 @@ export const ColumnsDocsSalida = (showMdEditarRecurso,onClickDownload,loadingsPD
             render: (_, record) => (
                 <Flex gap={"small"} justify="center" align="center">
                     
-                    <Button onClick={showMdEditarRecurso} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<EnvelopeSimple size={20} color={colors.white} />} />
+                    <Button onClick={() => showMdEditarRecurso(record)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<EnvelopeSimple size={20} color={colors.white} />} />
                     
                 </Flex>
             ),

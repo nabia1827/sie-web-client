@@ -15,6 +15,12 @@ export const EstadosAudiencia = {
     NO_ASISTIO: "No asistió",
 };
 
+export const TipoDestinatario = {
+    FISCALIA:1,
+    JUZGADO:2,
+    EXTRA:3
+}
+
 export const TipoDoc = {
     DOCUMENTO_INGRESO:1,
     DOCUMENTO_SALIDA:2,

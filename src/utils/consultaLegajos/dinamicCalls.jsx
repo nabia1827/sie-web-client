@@ -266,3 +266,36 @@ export const onDownloadDocPDF = async (docId,tipoDocId) => {
     message.error(error.message);
   }
 };
+
+export const SendDocSalida = async (docId,usuId,usuCorreo,contenidoCorreo,autogenerar,destinatarios) => {
+
+  try {
+    const body = {
+      docId:docId,
+      usuId:usuId,
+      usuCorreo:usuCorreo,
+      contenidoCorreo:contenidoCorreo,
+      autogenerar:autogenerar,
+      destinatarios:destinatarios
+    }
+    const response = await api.GenerarWord.SendDocSalida(body);
+    message.success(response.message);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+
+export const ListDestinatariosPosibles = async (legajoId) => {
+
+  try {
+
+    const response = await api.DocumentosLegajo.ListDestinatariosPosibles(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};

@@ -61,6 +61,10 @@ const DataLegajo ={
 const DocumentosLegajo = {
     ListarDocsEntrada: (legajoId) => requests.get(`/DocumentosLegajo/ListarDocsEntrada?legajoId=${legajoId}`),
     ListarDocsSalida: (legajoId) => requests.get(`/DocumentosLegajo/ListarDocsSalida?legajoId=${legajoId}`),
+    ListSubtipoDanio: () => requests.get(`/DocumentosLegajo/ListSubtipoDanio`),
+    ListDependenciaMininter: () => requests.get(`/DocumentosLegajo/ListDependenciaMininter`),
+    ListProcuradores: () => requests.get(`/DocumentosLegajo/ListProcuradores`),
+    ListDestinatariosPosibles: (legajoId) => requests.get(`/DocumentosLegajo/ListDestinatariosPosibles?legajoId=${legajoId}`),
 }
 
 const GenerarWord ={
