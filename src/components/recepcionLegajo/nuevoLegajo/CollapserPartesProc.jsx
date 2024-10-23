@@ -1,6 +1,6 @@
 import { Flex,Typography, Input, Collapse, Empty,Row, Col, Spin, Table} from "antd";
-import { ColumnsImputados, ColumnsAgraviados } from "../../utils/nuevoLegajo/columnsPartesColapserTable";
-import { colors } from "../../utils/colors";
+import { ColumnsImputados, ColumnsAgraviados } from "../../../utils/nuevoLegajo/columnsPartesColapserTable";
+import { colors } from "../../../utils/colors";
 const { Text } = Typography;
 import {
     Users

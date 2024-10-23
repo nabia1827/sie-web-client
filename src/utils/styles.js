@@ -38,6 +38,16 @@ export const enableModalButtonStyle = {
     fontFamily: 'Poppins',
 }
 
+export const disableModalButtonStyle = {
+    background: '#dc3545',
+    padding: '0.7em',
+    borderRadius: '0.5em',
+    color: 'white',
+    borderColor: 'transparent',
+    borderWidth: "0",
+    fontFamily: 'Poppins',
+}
+
 export const siderStyle = {
     textAlign: 'center',
     backgroundColor: '#2D3748',

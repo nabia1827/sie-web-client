@@ -1,5 +1,5 @@
 import { Flex,Typography, Input, Collapse, Select,Row, Col, Form} from "antd";
-import { colors } from "../../utils/colors";
+import { colors } from "../../../utils/colors";
 const { Text } = Typography;
 const { TextArea } = Input;
 
@@ -81,74 +81,7 @@ function CollapserDatosGen(props) {
                                                 </Form.Item>
                                             </Col>
 
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Departamento:</Text >} name='departamento'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Provincia:</Text >} name='provincia'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Distrito:</Text >} name='distrito'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Fiscalia:</Text >} name='fiscalia'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Correo Fiscalia:</Text >} name='correoFiscalia'>
-                                                    <Input /*status={status}*/ placeholder="1234567889" size="large" /*onChange={onChangeUsername}*/
-                                                            /*prefix={<User size={24} color={colors.gray} />*/  />
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Fiscal Titular:</Text >} name='fiscalTitular'>
-                                                    <Input /*status={status}*/ placeholder="Nombre" size="large" /*onChange={onChangeUsername}*/
-                                                                /*prefix={<User size={24} color={colors.gray} />*/  />
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Fiscal Responsable:</Text >} name='fiscalResponsable'>
-                                                    <Input /*status={status}*/ placeholder="Nombre" size="large" /*onChange={onChangeUsername}*/
-                                                                /*prefix={<User size={24} color={colors.gray} />*/  />
-                                                    
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Tipo Proceso:</Text >} name='tipoProceso'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
-                                                </Form.Item>
-                                            </Col>
-
+                                            
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Juzgado:</Text >} name='juzgado'>
                                                     <Select
@@ -166,39 +99,22 @@ function CollapserDatosGen(props) {
                                             </Col>
 
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                                <Form.Item 
-                                                    label={<Text>Hechos:</Text >} 
-                                                    name='hechos'
-
-                                                    labelCol={{
-                                                        xxl: 3, // Ancho personalizado para este campo
-                                                        xl: 3,
-                                                        lg: 4,
-                                                        md: 4,
-                                                        sm: 5,
-                                                        xs: 5,
-                                                    }}
-                                                    
-                                                    wrapperCol={{
-                                                        xxl: 21, // Ancho personalizado para el wrapper de este campo
-                                                        xl: 21,
-                                                        lg: 20,
-                                                        md: 20,
-                                                        sm: 19,
-                                                        xs: 19,
-                                                    }}
-
-  
-                                                    
-                                                >
-                                                    <TextArea style={{width: "100%"}} rows={4} />
+                                                <Form.Item label={<Text>Tipo Proceso:</Text >} name='tipoProceso'>
+                                                    <Select
+                                                        style={{ textAlign: 'left' }}
+                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
+                                                    />
                                                 </Form.Item>
+                                            </Col>
+
+                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 
                                             </Col>
+
+                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
+                                                
+                                            </Col>
+
                                         </Row>
 
                                     </Flex>

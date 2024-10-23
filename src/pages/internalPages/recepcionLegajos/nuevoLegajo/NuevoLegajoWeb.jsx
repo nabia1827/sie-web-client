@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Flex, Typography, Input, Button, Collapse, Select,Row, Col} from "antd";
 import { colors } from "../../../../utils/colors";
-const { Text } = Typography
-import CollapserDatosDoc from "../../../../components/nuevoLegajo/CollapserDatosDoc";
-import CollapserDatosGen from "../../../../components/nuevoLegajo/CollapserDatosGen";
-import CollapserAudiencia from "../../../../components/nuevoLegajo/CollapserAudiencia";
-import CollapserPartesProc from "../../../../components/nuevoLegajo/CollapserPartesProc";
-import CollapserResultado from "../../../../components/nuevoLegajo/CollapserResultado";
 
+import CollapserDatosDoc from "../../../../components/recepcionLegajo/CollapserDatosDoc";
+import CollapserDatosGen from "../../../../components/recepcionLegajo/nuevoLegajo/CollapserDatosGen";
+import CollapserAudiencia from "../../../../components/recepcionLegajo/CollapserAudiencia";
+import CollapserPartesProc from "../../../../components/recepcionLegajo/nuevoLegajo/CollapserPartesProc";
+import CollapserResultado from "../../../../components/recepcionLegajo/CollapserResultado";
 import {
     Plus 
 } from "@phosphor-icons/react";
 
-
+const { Text } = Typography
 
 
 

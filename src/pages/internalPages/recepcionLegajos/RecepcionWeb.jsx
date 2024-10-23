@@ -41,7 +41,7 @@ function RecepcionWeb(){
 
                     
                     <Flex gap={"large"}  vertical justify="center" align="center" style={{ width: "100%", height: "100%" , paddingRight: "5em", paddingLeft: "5em"}}>
-                        <Row gutter={[12, 12]} justify={"center"} align="center" style={{ width: "100%"}}>
+                        <Row gutter={[12, 12]} justify={"center"} align="center" style={{ width: "100%", padding: "4em"}}>
                             <Col xs={24} sm={24} md={24} lg={12} xl={12}>
                                 <Flex vertical justify="center" align="center" style={{ width: "100%", height: "100%" }}>
                                     <img src={myImage} alt="Imagen Recepcion de Legajo" style={{ maxWidth: '75%', maxHeight: 'auto' }}/>

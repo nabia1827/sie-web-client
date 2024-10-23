@@ -3,7 +3,6 @@ import { Flex, Typography, Table, Spin, Empty,Collapse } from "antd";
 import { colors } from "../../utils/colors";
 const { Text } = Typography;
 
-
 import { ColumnsResultado } from "../../utils/nuevoLegajo/columnsResultadoColapserTable";
 
 function CollapserResultado(props) {
