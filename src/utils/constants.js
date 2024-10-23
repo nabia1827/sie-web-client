@@ -15,11 +15,24 @@ export const EstadosAudiencia = {
     NO_ASISTIO: "No asistió",
 };
 
+export const TipoDestinatario = {
+    FISCALIA:1,
+    JUZGADO:2,
+    EXTRA:3
+}
+
 export const TipoDoc = {
     DOCUMENTO_INGRESO:1,
     DOCUMENTO_SALIDA:2,
 }
 
+export const ClaseDocPath = ["actor-civil","archivo","denuncia","queja"]
+export const ClaseDoc = {
+    ACTOR_CIVIL:10,
+    ARCHIVO:9,
+    DENUNCIA:8,
+    QUEJA:7
+}
 
 //APIS estaticas
 export const ListTipoCaso =[

@@ -56,11 +56,16 @@ const DataLegajo ={
     UpdateObservacionesAudiencia: (body) => requests.patch(`/DataLegajo/UpdateObservacionesAudiencia`,body),
     UpdateEstadoAsistencia: (audienciaId) => requests.patch(`/DataLegajo/UpdateEstadoAsistencia?audienciaId=${audienciaId}`),
     ListarDelegados: () => requests.get(`/DataLegajo/ListarDelegado`),
+    GetDelitosByLegajoId: (legajoId) => requests.get(`/DataLegajo/GetDelitosByLegajoId?legajoId=${legajoId}`),
 }
 
 const DocumentosLegajo = {
     ListarDocsEntrada: (legajoId) => requests.get(`/DocumentosLegajo/ListarDocsEntrada?legajoId=${legajoId}`),
     ListarDocsSalida: (legajoId) => requests.get(`/DocumentosLegajo/ListarDocsSalida?legajoId=${legajoId}`),
+    ListSubtipoDanio: () => requests.get(`/DocumentosLegajo/ListSubtipoDanio`),
+    ListDependenciaMininter: () => requests.get(`/DocumentosLegajo/ListDependenciaMininter`),
+    ListProcuradores: () => requests.get(`/DocumentosLegajo/ListProcuradores`),
+    ListDestinatariosPosibles: (legajoId) => requests.get(`/DocumentosLegajo/ListDestinatariosPosibles?legajoId=${legajoId}`),
 }
 
 const GenerarWord ={
@@ -78,4 +83,7 @@ const GenerarWord ={
     DSGenerarDenuncia: (body) => requests.post(`/GenerarWord/DSGenerarDenuncia`, body),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord };
+const RecepcionLegajos = {
+    ListarLugarByTipo: (tipoLugarId,antecesorId) => requests.get(`/RecepcionLegajos/ListarLugarByTipo?tipoLugarId=${tipoLugarId}&antecesorId=${antecesorId}`),
+}
+export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos };
