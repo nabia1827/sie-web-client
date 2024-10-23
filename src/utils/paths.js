@@ -13,6 +13,7 @@ export const endpoints = {
     DETALLE_LEGAJO:"detalle",
     DOCS_INGRESO_LEGAJO:"documentos-entrada",
     DOCS_SALIDA_LEGAJO:"documentos-salida",
+    CREAR_DOC:"crear-doc",
 
     //Audiencias
     AUDIENCIAS:"audiencias",
@@ -44,6 +45,7 @@ export const paths = {
     DETALLE_LEGAJO:(id) => `${id}/${endpoints.DETALLE_LEGAJO}`,
     DOCS_INGRESO_LEGAJO:(id) => `${id}/${endpoints.DOCS_INGRESO_LEGAJO}`,
     DOCS_SALIDA_LEGAJO:(id) => `${id}/${endpoints.DOCS_SALIDA_LEGAJO}`,
+    CREAR_DOC:(param) =>`${endpoints.CREAR_DOC}/${param}`,
     
     //Audiencias
     MIS_AUDIENCIAS: `/${endpoints.AUDIENCIAS}/${endpoints.MIS_AUDIENCIAS}`, 

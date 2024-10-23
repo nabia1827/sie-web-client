@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Form } from "antd";
+import { Grid, Form, message } from "antd";
 import DocsSalidaWeb from "./DocsSalidaWeb";
 import DocsSalidaMobile from "./DocsSalidaMobile";
 import ModalCrearRecurso from "../../../../../components/consultaLegajos/ModalCrearRecurso";
@@ -7,14 +7,18 @@ import ModalEnviarRecurso from "../../../../../components/consultaLegajos/ModalE
 import { useParams } from 'react-router-dom';
 import { GetInfoLegajoById, ListarDocsEntrada, ListarDocsSalida, ListDestinatariosPosibles } from "../../../../../utils/consultaLegajos/dinamicCalls";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { setCurrentLegajoCod } from "../../../../../store/actions/consultaLegajos/consultaLegajosActionSync";
 import { onDownloadDocPDF, SendDocSalida } from "../../../../../utils/consultaLegajos/dinamicCalls";
-import { TipoDoc, TipoDestinatario } from "../../../../../utils/constants";
+import { TipoDoc, TipoDestinatario,ClaseDoc } from "../../../../../utils/constants";
 import ModalAddDest from "../../../../../components/consultaLegajos/ModalAddDest";
+import { paths } from "../../../../../utils/paths";
+import { crearDocEstandar } from "../../../../../utils/consultaLegajos/consultaLegajosFunctions";
 const { useBreakpoint } = Grid;
 
 function DocsSalidaPage() {
     const screens = useBreakpoint();
+    const navigate = useNavigate();
     const dispacth = useDispatch();
     const isXsScreen = screens.xs !== undefined && screens.xs;
     const { id } = useParams();
@@ -86,17 +90,36 @@ function DocsSalidaPage() {
     //Modal Crear Recurso
     const [mdCrearRecursoLoading, setMdCrearRecursoLoading] = useState(false);
     const [mdCrearRecursoOpen, setMdCrearRecursoOpen] = useState(false);
+    const [crearForm] = Form.useForm();
 
     const showMdCrearRecurso = () => {
         setMdCrearRecursoOpen(true);
     };
 
     const onOkMdCrearRecurso = () => {
-        setMdCrearRecursoLoading(true);
-        setTimeout(() => {
-            setMdCrearRecursoLoading(false);
-            setMdCrearRecursoOpen(false);
-        }, 3000);
+        const claseDocId = crearForm.getFieldValue("claseDocId")
+
+        console.log("aaaaaaaaaa clase aaaa",claseDocId);
+
+        if(claseDocId == ClaseDoc.ARCHIVO){
+            setMdCrearRecursoLoading(true);
+            crearDocEstandar(claseDocId,id,usuId).then((response)=>{
+                setMdCrearRecursoLoading(false);
+                if (response.isSuccess) {
+                    message.success("Se creó el documento exitosamente");
+
+                } else {
+                    message.error(response.message);
+                }
+                fetchDocsSalida(id);
+                setMdCrearRecursoOpen(false);
+            });
+
+        }else{
+            navigate(paths.CREAR_DOC(claseDocId));
+        }
+
+        
     };
     const onCancelMdCrearRecurso = () => {
         setMdCrearRecursoOpen(false);
@@ -205,6 +228,7 @@ function DocsSalidaPage() {
             handleOk={onOkMdCrearRecurso}
             handleCancel={onCancelMdCrearRecurso}
             modalLoading={mdCrearRecursoLoading}
+            form = {crearForm}
         ></ModalCrearRecurso>
         <ModalEnviarRecurso
             modalOpen={mdEditarRecursoOpen}

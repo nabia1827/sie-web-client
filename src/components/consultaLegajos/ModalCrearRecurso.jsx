@@ -1,11 +1,13 @@
 import React from "react";
-import { Flex, Modal, Button, Select, Row, Col, Input, Typography } from "antd";
+import { Flex, Form, Modal, Button, Select, Row, Col, Input, Typography } from "antd";
 import { motion } from "framer-motion";
 import { enableButtonStyle, hoverButtonStyle, enableModalButtonStyle } from "../../utils/styles";
+import { useDispatch, useSelector } from "react-redux";
 const { Text } = Typography
 
 function ModalCrearRecurso(props) {
-    const { modalOpen, handleOk, handleCancel, modalLoading } = props;
+    const { modalOpen, handleOk, handleCancel, modalLoading, form } = props;
+    const { clasesDocSalida } = useSelector((state) => state.app);
     return (
         <>
             <Modal
@@ -24,33 +26,55 @@ function ModalCrearRecurso(props) {
                     </Button>
                 ]}
             >
-                <Row gutter={[8, 16]} align={"middle"} justify={"start"} style={{ width: "100%", padding: "1.0em" }}>
-                    <Col xs={24} sm={24} md={6} lg={6} xl={6}>
-                        <Text className="sie-info-column-label" >
-                            Tipo Documento:
-                        </Text>
-                    </Col>
-                    <Col xs={24} sm={24} md={18} lg={18} xl={18}>
-                        <Select
-                            defaultValue="1"
-                            style={{ width: "100%", height: "36px" }}
-                            placeholder="Seleccione el estado..."
-                            allowClear
+                <Form
+                    form={form}
+                    style={{ width: "100%" }}
+                    labelWrap={true}
+                    labelCol={{
+                        xxl: 7,
+                        xl: 7,
+                        lg: 7,
+                        md: 7,
+                        sm: 24,
+                        xs: 24,
+                    }}
+                    wrapperCol={{
+                        xxl: 17,
+                        xl: 17,
+                        lg: 17,
+                        md: 17,
+                        sm: 24,
+                        xs: 24,
+                    }}
+                >
+                    <Row gutter={[8, 16]} align={"middle"} justify={"start"} style={{ width: "100%", padding: "1.0em" }}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                                label={<Text className="sie-info-column-label" >Tipo Documento</Text>}
+                                style={{ width: "100%" }}
+                                name='claseDocId'
+                            >
+                                <Select
 
-                            options={[
-                                {
-                                    value: '1',
-                                    label: 'TipoDoc 1',
-                                },
-                                {
-                                    value: '2',
-                                    label: 'TipoDoc 2',
-                                }
-                            ]}
-                        />
-                    </Col>
-                    
-                </Row>
+                                    style={{ width: "100%", height: "36px" }}
+                                    placeholder="Seleccione el estado..."
+                                    allowClear
+                                >
+                                    {
+                                        clasesDocSalida.map((c) => (
+                                            <Select.Option key={c.claseDocId} value={c.claseDocId}>
+                                                {c.nombre}
+                                            </Select.Option>
+                                        ))
+                                    }
+                                </Select>
+                            </Form.Item>
+
+                        </Col>
+                        
+                    </Row>
+                </Form>
+
             </Modal>
         </>
     );

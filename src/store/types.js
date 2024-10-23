@@ -7,5 +7,11 @@ export const types = {
     abogados:'[APP] Lista abogados',
     subfases:'[APP] Lista subfases',
     delegados:'[APP] Lista delegados',
+    clasesDocEntrada:'[APP] Lista clases de documentos de entrada',
+    clasesDocSalida:'[APP] Lista clases de documentos de salida',
+    tiposDanio:'[APP] Lista de tipos de danio',
+    dependenciasMininter:'[APP] Lista de dependencias del MININTER',
+    procuradores:'[APP] Lista de procuradores',
+    departamentos:'[APP] Lista de departamentoss',
     currentLegajoCod:'[CONSULTA LEGAJOS] Actualizar el codigo del legajo actual',
 }

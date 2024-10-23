@@ -9,7 +9,8 @@ import { jwtDecode } from 'jwt-decode';
 import { login } from '../store/actions/authActionSync';
 
 //Actions
-import { cargarAbogados,cargarDelegados,cargarSubfases } from '../store/actions/app/appActionAsync';
+import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
+  CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos } from '../store/actions/app/appActionAsync';
 
 
 //General
@@ -27,7 +28,8 @@ import LegajoPage from '../pages/internalPages/consultaLegajos/legajo/LegajoPage
 import DetalleLegajoPage from '../pages/internalPages/consultaLegajos/legajo/detalleLegajo/DetalleLegajoPage';
 import DocsIngresoPage from '../pages/internalPages/consultaLegajos/legajo/documentosIngreso/DocsIngresoPage';
 import DocsSalidaPage from '../pages/internalPages/consultaLegajos/legajo/documentosSalida/DocsSalidaPage';
-
+import CrearDocPage from '../pages/internalPages/consultaLegajos/legajo/crearDocumento/CrearDocPage';
+import SalidaSectionPage from '../pages/internalPages/consultaLegajos/legajo/documentosSalida/SalidaSectionPage';
 //Módulo Audiencias
 import AudienciasPage from '../pages/internalPages/audiencias/AudienciasPage';
 import MisAudienciasPage from '../pages/internalPages/audiencias/misAudiencias/MisAudienciasPage';
@@ -79,6 +81,12 @@ const RoutesApp = () => {
       dispatch(cargarAbogados())
       dispatch(cargarSubfases())
       dispatch(cargarDelegados())
+      dispatch(cargarClasesDoc(1))
+      dispatch(cargarClasesDoc(0))
+      dispatch(CargarSubtipoDanio())
+      dispatch(CargarDependenciaMininter())
+      dispatch(CargarProcuradores())
+      dispatch(CargarDepartamentos())
     }
   }, [dispatch, isAuthenticated]);
 
@@ -101,7 +109,10 @@ const RoutesApp = () => {
               <Route path=":id" element={<LegajoPage />} >
                 <Route path={endpoints.DETALLE_LEGAJO} element={<DetalleLegajoPage />} />
                 <Route path={endpoints.DOCS_INGRESO_LEGAJO} element={<DocsIngresoPage />} />
-                <Route path={endpoints.DOCS_SALIDA_LEGAJO} element={<DocsSalidaPage />} />
+                <Route path={endpoints.DOCS_SALIDA_LEGAJO} element={<SalidaSectionPage />} >
+                  <Route index element={<DocsSalidaPage/>} />
+                  <Route path={`${endpoints.CREAR_DOC}/:claseDocumento`} element={<CrearDocPage />} />
+                </Route>
               </Route>
             </Route>
 
@@ -110,7 +121,10 @@ const RoutesApp = () => {
               <Route path=":id" element={<LegajoPage />} >
                 <Route path={endpoints.DETALLE_LEGAJO} element={<DetalleLegajoPage />} />
                 <Route path={endpoints.DOCS_INGRESO_LEGAJO} element={<DocsIngresoPage />} />
-                <Route path={endpoints.DOCS_SALIDA_LEGAJO} element={<DocsSalidaPage />} />
+                <Route path={endpoints.DOCS_SALIDA_LEGAJO} element={<SalidaSectionPage />} >
+                  <Route index element={<DocsSalidaPage/>} />
+                  <Route path={`${endpoints.CREAR_DOC}/:claseDocumento`} element={<CrearDocPage />} />
+                </Route>
               </Route>
             </Route>
 

@@ -26,6 +26,13 @@ export const TipoDoc = {
     DOCUMENTO_SALIDA:2,
 }
 
+export const ClaseDocPath = ["actor-civil","archivo","denuncia","queja"]
+export const ClaseDoc = {
+    ACTOR_CIVIL:10,
+    ARCHIVO:9,
+    DENUNCIA:8,
+    QUEJA:7
+}
 
 //APIS estaticas
 export const ListTipoCaso =[

@@ -299,3 +299,127 @@ export const ListDestinatariosPosibles = async (legajoId) => {
     message.error(error.message);
   }
 };
+
+export const DSGenerarActorCivil = async (legajoId,usuId,procuradorId,dependenciaAfectadaId,tipoDanioId,especialistaLegal) => {
+
+  try {
+    const body = {
+      legajoId:legajoId,
+      usuId:usuId,
+      procuradorId:procuradorId,
+      dependenciaAfectadaId:dependenciaAfectadaId,
+      tipoDanioId:tipoDanioId,
+      especialistaLegal:especialistaLegal,
+    }
+    const response = await api.GenerarWord.DSGenerarActorCivil(body);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const DSGenerarArchivo = async (legajoId,usuId) => {
+
+  try {
+    const body = {
+      legajoId:legajoId,
+      usuId:usuId,
+    }
+
+    const response = await api.GenerarWord.DSGenerarArchivo(body);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const DSGenerarQueja = async (legajoId,usuId,procuradorId,fechaArchivo,fundDispImpugnada,fundPretImpug) => {
+
+  try {
+    const body = {
+      legajoId:legajoId,
+      usuId:usuId,
+      procuradorId:procuradorId,
+      fechaArchivo:fechaArchivo,
+      fundDispImpugnada:fundDispImpugnada,
+      fundPretImpug:fundPretImpug
+    }
+
+    const response = await api.GenerarWord.DSGenerarQueja(body);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const DSGenerarDenuncia = async (legajoId,usuId,procuradorId,provinciaId,dependenciaAfectadaId,anexos,analisis) => {
+
+  try {
+    const body = {
+      legajoId:legajoId,
+      usuId:usuId,
+      procuradorId:procuradorId,
+      provinciaId:provinciaId,
+      dependenciaAfectadaId:dependenciaAfectadaId,
+      anexos:anexos,
+      analisis:analisis
+    }
+
+    const response = await api.GenerarWord.DSGenerarDenuncia(body);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const ListarDepartamentos = async () => {
+
+  try {
+
+    const response = await api.RecepcionLegajos.ListarLugarByTipo(1,0);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const ListarProvincias = async (departamentoId) => {
+
+  try {
+
+    const response = await api.RecepcionLegajos.ListarLugarByTipo(2,departamentoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const ListarDistritos = async (provinciaId) => {
+
+  try {
+
+    const response = await api.RecepcionLegajos.ListarLugarByTipo(3,provinciaId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetDelitosByLegajoId = async (legajoId) => {
+
+  try {
+
+    const response = await api.DataLegajo.GetDelitosByLegajoId(legajoId);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
