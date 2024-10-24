@@ -40,6 +40,9 @@ function App() {
               headerBg:"white",
               contentPadding:"1.8em",
             },
+            Progress: {
+              remainingColor:"rgba(244, 247, 254, 1)"
+            },
           },
           
         }}

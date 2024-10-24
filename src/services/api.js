@@ -1,4 +1,5 @@
-import axios from "./axios";
+import { axiosDotNet, axiosPython } from "./axios";
+
 
 const responseBody = res => {
     if (res != undefined) return res.data;
@@ -6,13 +7,20 @@ const responseBody = res => {
 };
 
 const requests = {
-    get: url => axios.get(url).then(responseBody),
-    post: (url, body) => axios.post(url, body).then(responseBody),
-    put: (url, body) => axios.put(url, body).then(responseBody),
-    delete: url => axios.delete(url).then(responseBody),
-    patch: (url, body) => axios.patch(url, body).then(responseBody),
+    get: url => axiosDotNet.get(url).then(responseBody),
+    post: (url, body) => axiosDotNet.post(url, body).then(responseBody),
+    put: (url, body) => axiosDotNet.put(url, body).then(responseBody),
+    delete: url => axiosDotNet.delete(url).then(responseBody),
+    patch: (url, body) => axiosDotNet.patch(url, body).then(responseBody),
 };
 
+const requestsPython = {
+    get: url => axiosPython.get(url).then(responseBody),
+    post: (url, body) => axiosPython.post(url, body).then(responseBody),
+    put: (url, body) => axiosPython.put(url, body).then(responseBody),
+    delete: url => axiosPython.delete(url).then(responseBody),
+    patch: (url, body) => axiosPython.patch(url, body).then(responseBody),
+};
 
 const Auth = {
     loginApp: body => requests.post('/Auth/Authenticate', body),
@@ -22,8 +30,8 @@ const Auth = {
 const ListaLegajos = {
     ListarAbogados: () => requests.get('/ListaLegajos/ListarAbogados'),
     ListarSubfases: () => requests.get('/ListaLegajos/ListarSubfases'),
-    ListarLegajos: (filter) => axios.get('/ListaLegajos/ListarLegajos', { params: filter }).then(responseBody),
-    DownloadExcelLegajos: (filter) => axios.get("/ListaLegajos/DownloadExcelLegajos", {
+    ListarLegajos: (filter) => axiosDotNet.get('/ListaLegajos/ListarLegajos', { params: filter }).then(responseBody),
+    DownloadExcelLegajos: (filter) => axiosDotNet.get("/ListaLegajos/DownloadExcelLegajos", {
         params: filter,
         responseType: 'blob',
         headers: {
@@ -35,7 +43,7 @@ const ListaLegajos = {
 };
 
 const GenerarPDF = {
-    DownloadLegajoPDF: (legajoId) => axios.get(`/GenerarPdf/DownloadLegajoPDF?legajoId=${legajoId}`, {
+    DownloadLegajoPDF: (legajoId) => axiosDotNet.get(`/GenerarPdf/DownloadLegajoPDF?legajoId=${legajoId}`, {
         responseType: 'blob',
         headers: {
             'Content-Type': 'application/pdf',
@@ -70,7 +78,7 @@ const DocumentosLegajo = {
 
 const GenerarWord ={
     SendDocSalida: (body) => requests.post(`/GenerarWord/SendDocSalida`, body),
-    DownloadDoc: (docId,tipoDocId) => axios.get(`/GenerarWord/DownloadDoc?docId=${docId}&tipoDocId=${tipoDocId}`, {    
+    DownloadDoc: (docId,tipoDocId) => axiosDotNet.get(`/GenerarWord/DownloadDoc?docId=${docId}&tipoDocId=${tipoDocId}`, {    
         responseType: 'blob',
         headers: {
           'Content-Type': 'application/pdf',
@@ -86,4 +94,11 @@ const GenerarWord ={
 const RecepcionLegajos = {
     ListarLugarByTipo: (tipoLugarId,antecesorId) => requests.get(`/RecepcionLegajos/ListarLugarByTipo?tipoLugarId=${tipoLugarId}&antecesorId=${antecesorId}`),
 }
+/*
+const PythonService = {
+    crearLegajo: (usuId, formData) => requestsPython.get(`/text-processing-first?usuId=${usuId}`, formData), // Ejemplo de endpoint en tu API de Python
+    adicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
+};
+*/
+
 export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos };
