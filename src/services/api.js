@@ -93,12 +93,13 @@ const GenerarWord ={
 
 const RecepcionLegajos = {
     ListarLugarByTipo: (tipoLugarId,antecesorId) => requests.get(`/RecepcionLegajos/ListarLugarByTipo?tipoLugarId=${tipoLugarId}&antecesorId=${antecesorId}`),
+    GetLegajoIdByCarpetaOrExpediente: (tipoDestinatario,nroDocumento) => requests.get(`/RecepcionLegajos/GetLegajoIdByCarpetaOrExpediente?tipoDestinatario=${tipoDestinatario}&nroDocumento=${nroDocumento}`),
 }
-/*
+/* 
 const PythonService = {
-    crearLegajo: (usuId, formData) => requestsPython.get(`/text-processing-first?usuId=${usuId}`, formData), // Ejemplo de endpoint en tu API de Python
-    adicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
-};
-*/
+    CrearLegajo: (usuId, formData) => requestsPython.get(`/text-processing-first?usuId=${usuId}`, formData), // Ejemplo de endpoint en tu API de Python
+    AdicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
+};*/
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos };
+
+export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos,/*PythonService*/ };

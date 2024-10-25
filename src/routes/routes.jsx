@@ -143,8 +143,8 @@ const RoutesApp = () => {
 
           <Route path={endpoints.RECEPCION_LEGAJOS} element={<InicioRecepcionPage/>} >
             <Route index element={<RecepcionPage />} />
-            <Route path={endpoints.NUEVO_LEGAJO} element={<NuevoLegajoPage/>} />
-            <Route path={endpoints.ADICIONAR_LEGAJO} element={<AdicionarDocsPage/>} />
+            <Route path={`${endpoints.NUEVO_LEGAJO}/:legajoId/:docId`} element={<NuevoLegajoPage/>} />
+            <Route path={`${endpoints.ADICIONAR_LEGAJO}/:legajoId/:docId`} element={<AdicionarDocsPage/>} />
           </Route>
         </Route>
 
