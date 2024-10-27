@@ -4,6 +4,7 @@ import AdicionarDocsMobile from "./AdicionarDocsMobile";
 import AdicionarDocsWeb from "./AdicionarDocsWeb";
 import ModalApelacion from "../../../../components/consultaLegajos/ModalApelacion";
 import dayjs from 'dayjs';
+import { useParams } from 'react-router-dom';
 
 import {
     GetImputadosByLegajoId,
@@ -22,12 +23,9 @@ import ModalDelAgraviado from "../../../../components/recepcionLegajo/nuevoLegaj
 const { useBreakpoint } = Grid;
 
 function AdicionarDocsPage() {
-    var legajoId = 5;
-    var documentoId = 1;
-
 
     //Legajo actual
-    //const { id } = useParams();
+    const { legajoId, documentoId } = useParams();
 
     //Datos del dataDd
     const [loadingDd, setLoadingDd] = useState(true);
