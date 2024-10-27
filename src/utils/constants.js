@@ -15,6 +15,10 @@ export const EstadosAudiencia = {
     NO_ASISTIO: "No asistió",
 };
 
+export const TipoCantidad = {
+    SOLES: 4,
+};
+
 export const TipoDestinatario = {
     FISCALIA:1,
     JUZGADO:2,
@@ -68,6 +72,17 @@ export const ListEstado=[
     },
 ];
 
+export const ListTipoProceso=[
+    {
+        procesoId:1,
+        procesoNombre:"Proceso Común"
+    },
+    {
+        procesoId:2,
+        procesoNombre:"Proceso Inmediato"
+    },
+];
+
 export const ListTipoDocIdentidad=[
     {
         tipoDocId:1,
@@ -75,8 +90,8 @@ export const ListTipoDocIdentidad=[
     },
     {
         tipoDocId:2,
-        tipoDocNombre:"Carnet Extranjería"
-    },
+        tipoDocNombre:"Carnet Extranjeria o Pasaporte"
+    }
 ];
   
   

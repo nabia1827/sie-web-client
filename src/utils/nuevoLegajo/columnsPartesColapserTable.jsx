@@ -66,7 +66,7 @@ export const ColumnsImputados = (showMdEditImp, showMdDelImp) => {
                 <>
                     <Flex gap={"small"} justify="center" align="center">
                         <Button onClick={() => showMdEditImp(record)} type="primary" shape="circle" style={{ backgroundColor: colors.blue }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
-                        <Button onClick={() => showMdDelImp(record)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
+                        <Button onClick={() => showMdDelImp(record.imputadoId)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
                     </Flex>
                 </>
             ),

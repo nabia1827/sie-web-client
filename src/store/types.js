@@ -13,5 +13,10 @@ export const types = {
     dependenciasMininter:'[APP] Lista de dependencias del MININTER',
     procuradores:'[APP] Lista de procuradores',
     departamentos:'[APP] Lista de departamentoss',
+    delitos: '[APP] Lista de delitos',
+    tiposAudiencia: '[APP] Lista de tipos de audiencia',
+    tiposPena: '[APP] Lista de tipos de pena',
+    tiposSentencia: '[APP] Lista de tipos de sentencia',
+    tiposRemitente: '[APP] Lista de tipos de Remitente',
     currentLegajoCod:'[CONSULTA LEGAJOS] Actualizar el codigo del legajo actual',
 }

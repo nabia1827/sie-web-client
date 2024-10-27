@@ -78,7 +78,6 @@ function ModalApelacion(props) {
                                 name='resApelacionId'>
                                 <Select
                                     disabled
-                                    defaultValue="1"
                                     style={{ width: "100%", height: "36px" }}
                                     placeholder="Seleccione el estado..."
                                     allowClear

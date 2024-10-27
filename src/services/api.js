@@ -85,5 +85,17 @@ const GenerarWord ={
 
 const RecepcionLegajos = {
     ListarLugarByTipo: (tipoLugarId,antecesorId) => requests.get(`/RecepcionLegajos/ListarLugarByTipo?tipoLugarId=${tipoLugarId}&antecesorId=${antecesorId}`),
+    ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`),
+    ListarTipoPena:() => requests.get(`/RecepcionLegajos/ListarTipoPena`),
+    ListarTipoSentencia: () => requests.get(`/RecepcionLegajos/ListarTipoSentencia`),
+    SearchFiscalia: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchFiscalia?nombreCompleto=${nombreCompleto}`),
+    SearchJuzgado: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchJuzgado?nombreCompleto=${nombreCompleto}`),
+    GetDatosGeneralesTemp: (legajoId) => requests.get(`/RecepcionLegajos/GetDatosGeneralesTemp?legajoId=${legajoId}`),
+    GetDocumento: (documentoId) => requests.get(`/RecepcionLegajos/GetDocumento?documentoId=${documentoId}`),
+    GetAudiencia: (audienciaId) =>requests.get(`/RecepcionLegajos/GetAudiencia?audienciaId=${audienciaId}`),
+    ListarTipoAudiencia: () => requests.get(`/RecepcionLegajos/ListarTipoAudiencia`), 
+    ListarDelito: () => requests.get(`/RecepcionLegajos/ListarDelito`),
+    ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`)
 }
+
 export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos };

@@ -1,22 +1,30 @@
 import React,{useEffect} from "react";
 import { Flex, Modal, Form, Button, Select, Row, Col, Input, Typography } from "antd";
 import { motion } from "framer-motion";
+import { useSelector } from 'react-redux'
 import { enableButtonStyle, hoverButtonStyle, enableModalButtonStyle } from "../../utils/styles";
+import {ListTipoDocIdentidad} from "../../utils/constants";
 const { Text } = Typography;
 const { TextArea } = Input;
 
 function ModalEditImputado(props) {
-    const { modalOpen, handleOk, handleCancel, modalLoading, form, legajo } = props;
+    const { modalOpen, handleOk, handleCancel, modalLoading, form, dataImputado} = props;
+    
+    const { delitos } = useSelector((state) => state.app)
 
     // Usamos useEffect para establecer los valores iniciales cuando currentRecord cambia
-    /*useEffect(() => {
+    useEffect(() => {
         if (modalOpen) {
-            form.setFieldsValue({
-                hechos: legajo.hechosNombre,
+            const delitosId = dataImputado.delitos.map(imputado => imputado.delitoId);
 
+            form.setFieldsValue({
+                nombreImputado: dataImputado.imputadoNombre,
+                tipoDoc:dataImputado.tipoIdentidadId,
+                nroDoc: dataImputado.nroDoc,
+                nombreDelito: delitosId
             });
         }
-    }, [modalOpen, form]);*/
+    }, [modalOpen, form]);
 
 
     return (
@@ -65,8 +73,7 @@ function ModalEditImputado(props) {
 
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item label={<Text>Imputado</Text >} name='nombreImputado'>
-                                <Input /*status={status}*/ placeholder="Nombre del Imputado" size="large" /*onChange={onChangeUsername}*/
-                                                        /*prefix={<User size={24} color={colors.gray} />*/  />
+                                <Input  disabled placeholder="Nombre del Imputado" size="large"   />
                             </Form.Item>
                         </Col>
 
@@ -74,8 +81,15 @@ function ModalEditImputado(props) {
                             <Form.Item label={<Text>Tipo Documento</Text >} name='tipoDoc'>
                                 <Select
                                     style={{ width: '100%' }}
-                                    options={[{ value: 'Juzgado', label: 'Juzgado' }]}
-                                />
+                                >
+                                    {
+                                        ListTipoDocIdentidad.map((c) => (
+                                            <Select.Option key={c.tipoDocId} value={c.tipoDocId}>
+                                                {c.tipoDocNombre}
+                                            </Select.Option>
+                                        ))
+                                    }
+                                </Select>
                             </Form.Item>
                         </Col>
 
@@ -91,8 +105,17 @@ function ModalEditImputado(props) {
                                 <Select
                                     mode="multiple"
                                     style={{ width: '100%' }}
-                                    options={[{ value: 'Juzgado', label: 'Juzgado' }]}
-                                />
+                                >
+
+                                    {
+                                        delitos.map((c) => (
+                                            <Select.Option key={c.delitoId} value={c.delitoId}>
+                                                {c.delitoNombre}
+                                            </Select.Option>
+                                        ))
+                                    }
+
+                                </Select>
                             </Form.Item>
                         </Col>
 
