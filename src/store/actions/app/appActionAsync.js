@@ -1,6 +1,11 @@
 import { message } from "antd";
 import { setAbogados,setSubfases,setDelegados,setClasesDocEntrada,setClasesDocSalida,
-  setTiposDanio,setDependenciasMininter,setProcuradores, setDepartamentos } from "./appActionSync";
+  setTiposDanio,setDependenciasMininter,setProcuradores, setDepartamentos, 
+  setDelitos,
+  setTiposAudiencia,
+  setTiposRemitente,
+  setTiposPena,
+  setTiposSentencia} from "./appActionSync";
 import api from "../../../services/api";
 
 export const cargarAbogados = () => async (dispatch) => {
@@ -77,6 +82,51 @@ export const CargarDepartamentos = () => async (dispatch) => {
     const resp = await api.RecepcionLegajos.ListarLugarByTipo(1,0);
 
     dispatch(setDepartamentos(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+
+export const cargarDelitos = () => async (dispatch) => {
+  try {
+    const resp = await api.RecepcionLegajos.ListarDelito();
+    dispatch(setDelitos(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const cargarTiposAudiencia = () => async (dispatch) => {
+  try {
+    const resp = await api.RecepcionLegajos.ListarTipoAudiencia();
+    dispatch(setTiposAudiencia(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const cargarTiposRemitente = () => async (dispatch) => {
+  try {
+    const resp = await api.RecepcionLegajos.ListarTipoRemitente();
+    dispatch(setTiposRemitente(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const cargarTiposPena = () => async (dispatch) => {
+  try {
+    const resp = await api.RecepcionLegajos.ListarTipoPena();
+    dispatch(setTiposPena(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+export const cargarTiposSentencia = () => async (dispatch) => {
+  try {
+    const resp = await api.RecepcionLegajos.ListarTipoSentencia();
+    dispatch(setTiposSentencia(resp.data));
   } catch (error) {
     message.error(error.message);
   }

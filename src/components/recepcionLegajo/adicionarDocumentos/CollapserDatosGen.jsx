@@ -1,11 +1,47 @@
+import React, { useState ,useEffect} from "react";
+import { useSelector } from 'react-redux'
 import { Flex,Typography, Input, Collapse, Select,Row, Col, Form} from "antd";
 import { colors } from "../../../utils/colors";
 const { Text } = Typography;
 const { TextArea } = Input;
+import { ListTipoProceso, ListEstado } from "../../../utils/constants";
 
 
 function CollapserDatosGen(props) {
-    const { form, handleOnFieldsChange } = props;
+    const { form, handleOnFieldsChange, data, fetchJuzgados} = props;
+
+    const [dataJuzgados, setDataJuzgados] = useState([]);
+    const [nombreJuzgado, setNombreJuzgado] = useState();
+
+    const { subfases } = useSelector((state) => state.app)
+
+    const handleSearch = (nombreJuzgado) => {
+        if (nombreJuzgado!=null && nombreJuzgado!=undefined && nombreJuzgado !=''){
+            fetchJuzgados(nombreJuzgado,setDataJuzgados)
+        }
+    };
+
+    const handleChange = (newNomJuzgado) => {
+        setNombreJuzgado(newNomJuzgado);
+    };
+
+
+    useEffect(() => {
+        if (data !== null && data !== undefined) {
+            form.setFieldsValue(
+                {
+                    carpetaFiscal: data.carpetaFiscalNro,
+                    expedienteJudicial: data.expedienteNro,
+                    estado: data.estadoId,
+                    subfase: data.subFaseId,
+                    correoJuzgado:data.emailJuzgado,
+                    tipoProceso: data.esProcesoInmediatoId+1               
+                }
+            )
+        }
+    }, [data])
+
+    
 
     return (
         <>
@@ -67,8 +103,15 @@ function CollapserDatosGen(props) {
                                                 <Form.Item label={<Text>Estado:</Text >} name='estado'>
                                                     <Select
                                                         style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
+                                                    >
+                                                        {
+                                                            ListEstado.map((c) => (
+                                                                <Select.Option key={c.estadoId} value={c.estadoId}>
+                                                                    {c.estadoNombre}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
 
@@ -76,18 +119,62 @@ function CollapserDatosGen(props) {
                                                 <Form.Item label={<Text>Subfase:</Text >} name='subfase'>
                                                     <Select
                                                         style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
+                                                    >
+                                                    {
+                                                        subfases.map((c) => (
+                                                            <Select.Option key={c.subfaseId} value={c.subfaseId}>
+                                                                {c.subfaseNombre}
+                                                            </Select.Option>
+                                                        ))
+                                                    }
+
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
 
                                             
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Juzgado:</Text >} name='juzgado'>
+                                            <Col xs={24} sm={24} md={24} lg={24} xl={16}>
+                                                <Form.Item 
+                                                    label={<Text>Juzgado:</Text >} 
+                                                    name='juzgado'
+
+                                                    labelCol={{
+                                                        xxl: 4,
+                                                        xl: 4,
+                                                        lg: 4,
+                                                        md: 10,
+                                                        sm: 10,
+                                                        xs: 10,
+                                                    }}
+                                                    wrapperCol={{
+                                                        xxl: 20,
+                                                        xl: 20,
+                                                        lg: 20,
+                                                        md: 14,
+                                                        sm: 14,
+                                                        xs: 14,
+                                                    }}
+                                                    
+                                                >
                                                     <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
+                                                        showSearch
+                                                        value={nombreJuzgado}
+
+                                                        placeholder={"Seleccione un Juzgado ..."}
+                                                        defaultActiveFirstOption={false}
+                                                        filterOption={false}
+                                                        onSearch={handleSearch}
+                                                        onChange={handleChange}
+                                                        notFoundContent={null}
+                                                    >
+                                                        {
+                                                            dataJuzgados.map((c) => (
+                                                                <Select.Option key={c.juzgadoId} value={c.juzgadoId}>
+                                                                    {c.nombreCompleto}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
 
@@ -99,11 +186,22 @@ function CollapserDatosGen(props) {
                                             </Col>
 
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                <Form.Item label={<Text>Tipo Proceso:</Text >} name='tipoProceso'>
+                                                <Form.Item 
+                                                    label={<Text>Tipo Proceso:</Text >} 
+                                                    name='tipoProceso'
+                                                >
                                                     <Select
                                                         style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
+                                                    >
+
+                                                        {
+                                                            ListTipoProceso.map((c) => (
+                                                                <Select.Option key={c.procesoId} value={c.procesoId}>
+                                                                    {c.procesoNombre}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
 

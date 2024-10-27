@@ -1,28 +1,72 @@
-import { Flex,Typography, Input, Collapse, Select,Row, Col, Form} from "antd";
+import React, { useState ,useEffect} from "react";
+import { Flex, Typography, Input, Collapse, Select, Row, Col, Form, Spin } from "antd";
 import { colors } from "../../utils/colors";
+import { useSelector } from 'react-redux'
+import {TipoDestinatario} from "../../utils/constants";
+
 const { Text } = Typography;
 
 
 function CollapserDatosDoc(props) {
-    const { form, handleOnFieldsChange } = props;
+    const { form, loading, handleOnFieldsChange, data, fetchFiscalias, fetchJuzgados} = props;
+    const { tiposRemitente,clasesDocEntrada } = useSelector((state) => state.app)
+
+    const [dataJuzgados, setDataJuzgados] = useState([]);
+    const [dataFiscalias, setDataFiscalias] = useState([]);
+    const [tipoRemitenteId, setTipoRemitenteId]  = useState();
+    const [nombreRemitente, setNombreRemitente] = useState();
+
+    const handleSearch = (nombreRemitente) => {
+        if (nombreRemitente!=null && nombreRemitente!=undefined && nombreRemitente !=''){
+            const tipoRemitenteId = form.getFieldValue("tipoRemitente")
+
+            if(tipoRemitenteId === TipoDestinatario.FISCALIA){
+                fetchFiscalias(nombreRemitente,setDataFiscalias)    
+            }
+            if(tipoRemitenteId === TipoDestinatario.JUZGADO){
+                fetchJuzgados(nombreRemitente,setDataJuzgados)
+            }
+
+            setTipoRemitenteId(tipoRemitenteId)    
+        }
+    };
+
+    const handleChange = (newNomRemitente) => {
+        setNombreRemitente(newNomRemitente);
+    };
+
+
+    useEffect(() => {
+        if (data !== null && data !== undefined) {
+            form.setFieldsValue(
+                {
+                    claseDocumento: data.claseDocId,
+                    tipoRemitente: data.tipoRemitenteId,
+                    nroDocumento: data.numeroDoc
+                }
+            )
+        }
+    }, [data])
 
     return (
         <>
-            <Collapse style={{width: "100%", backgroundColor: colors.background}} 
+
+            <Collapse style={{ width: "100%", backgroundColor: colors.background }}
                 items={[
                     {
                         key: '1',
                         label:
                             <Flex gap={"small"} justify="flex-start" align="left">
-                                <Text style={{width: "100%", textAlign:"left"}} >Datos del Documento</Text>
+                                <Text style={{ width: "100%", textAlign: "left" }} >Datos del data</Text>
                             </Flex>,
 
                         children:
                             <>
+
                                 <Form
                                     form={form}
                                     onFieldsChange={handleOnFieldsChange}
-                                    
+
                                     labelCol={{
                                         xxl: 9,
                                         xl: 9,
@@ -40,51 +84,90 @@ function CollapserDatosDoc(props) {
                                         xs: 15,
                                     }}
                                     labelAlign="left"
-                                    
-                                    
+
+
                                 >
-                                    <Flex  gap={"small"} vertical justify="center" align="center" style={{ width: "100%"}}>
-                                        
-                                        <Row gutter={[45, 12]} justify={"center"} align="center" style={{ width: "100%"}}>
-                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ width: "100%"}}>
-                                                <Form.Item label={<Text>Clase documento</Text >} name='claseDocumento'>
+                                    <Flex gap={"small"} vertical justify="center" align="center" style={{ width: "100%" }}>
+
+                                        <Row gutter={[45, 12]} justify={"center"} align="center" style={{ width: "100%" }}>
+                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ width: "100%" }}>
+                                                <Form.Item label={<Text>Clase data</Text >} name='claseDocumento'>
                                                     <Select
                                                         style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
+                                                    >
+                                                        {
+                                                            clasesDocEntrada.map((c) => (
+                                                                <Select.Option key={c.claseDocId} value={c.claseDocId}>
+                                                                    {c.nombre}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+                                                        
+                                                    </Select>
                                                 </Form.Item>
-                                                
+
                                             </Col>
 
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                                <Form.Item label={<Text>Nro de Documento</Text >} name='nroDocumento'>
-                                                    <Input /*status={status}*/ placeholder="Número de Documento" size="large" /*onChange={onChangeUsername}*/
-                                                        /*prefix={<User size={24} color={colors.gray} />*/  />
+                                                <Form.Item label={<Text>Nro de data</Text >} name='nroDocumento'>
+                                                    <Input placeholder="Número de data" size="large"/>
                                                 </Form.Item>
                                             </Col>
                                         </Row>
 
-                                        <Row  gutter={[45, 8]} justify={"center"} align={"center"} style={{ width: "100%" }}>
+                                        <Row gutter={[45, 8]} justify={"center"} align={"center"} style={{ width: "100%" }}>
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                                 <Form.Item label={<Text>Tipo Remitente</Text >} name='tipoRemitente'>
                                                     <Select
                                                         style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Juzgado', label: 'Juzgado' }]}
-                                                    />
+                                                    >
+
+                                                        {
+                                                            tiposRemitente.map((c) => (
+                                                                <Select.Option key={c.tipoRemitenteId} value={c.tipoRemitenteId}>
+                                                                    {c.nombreRemitente}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
 
                                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                                 <Form.Item label={<Text>Remitente</Text >} name='remitente'>
-                                                <Select
-                                                        style={{ textAlign: 'left' }}
-                                                        options={[{ value: '3° Fiscalia', label: '3° Fiscalia' }]}
-                                                    />
+                                                    <Select
+                                                        showSearch
+                                                        value={nombreRemitente}
+
+                                                        placeholder={"Seleccione el Remitente ..."}
+                                                        defaultActiveFirstOption={false}
+                                                        filterOption={false}
+                                                        onSearch={handleSearch}
+                                                        onChange={handleChange}
+                                                        notFoundContent={null}
+                                                    >
+                                                        {
+                                                            tipoRemitenteId === TipoDestinatario.FISCALIA &&
+                                                                dataFiscalias.map((c) => (
+                                                                    <Select.Option key={c.fiscaliaId} value={c.fiscaliaId}>
+                                                                        {c.nombreCompleto}
+                                                                    </Select.Option>
+                                                                ))
+                                                        }
+                                                        {
+                                                            tipoRemitenteId === TipoDestinatario.JUZGADO &&
+                                                                dataJuzgados.map((c) => (
+                                                                    <Select.Option key={c.juzgadoId} value={c.juzgadoId}>
+                                                                        {c.nombreCompleto}
+                                                                    </Select.Option>
+                                                                ))
+                                                        }
+                                                    </Select>
                                                 </Form.Item>
 
                                             </Col>
                                         </Row>
-                                    
+
                                     </Flex>
                                 </Form>
                             </>

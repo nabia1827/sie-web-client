@@ -6,23 +6,9 @@ const { Text } = Typography;
 import { ColumnsResultado } from "../../utils/nuevoLegajo/columnsResultadoColapserTable";
 
 function CollapserResultado(props) {
-    const { showMdApel/*, resultados, loadingRes*/, showMdEditRes, showMdDelRes } = props;
+    const { showMdApel, resultados, loading, showMdEditRes, showMdDelRes } = props;
 
     const columns = ColumnsResultado(showMdApel,showMdEditRes,showMdDelRes)
-    const loadingRes = false
-    const resultados = [
-        {
-            imputadoDelitoId: 20,
-            imputado: "Cristian Eduardo Méndez López",
-            delito: "Falsificacion y/o uso de Documento Falso",
-            reparacionCivil: "358",
-            tipoSentencia: "Sentencia Condenatoria",
-            tipoPena: "Pena privativa de libertad",
-            cantidad: "27 años",
-            fechaApelacion: "08/10/2024",
-            resApelacionId: 1
-        }
-    ]
 
     return (
         <>
@@ -38,8 +24,8 @@ function CollapserResultado(props) {
 
                         children:
                             <>
-                                <Spin spinning={loadingRes} style={{width:"100%", minHeight:"60vh"}} >
-                                    {resultados.length>0 ? (
+                                <Spin spinning={loading} style={{width:"100%", minHeight:"60vh"}} >
+                                    {resultados ? (
                                         <Flex vertical justify="flex-start" align="center" style={{ width: "100%", padding: "1.0em" }}>
                                             <Flex vertical gap={"small"} justify="flex-start" align="center" style={{ width: "100%" }}>
                                                 <Table

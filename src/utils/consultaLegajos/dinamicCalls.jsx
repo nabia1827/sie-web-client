@@ -423,6 +423,59 @@ export const GetDelitosByLegajoId = async (legajoId) => {
     message.error(error.message);
   }
 };
+
+export const GetDocumento = async (documentoId) => {
+  try {
+
+    const response = await api.RecepcionLegajos.GetDocumento(documentoId);
+    return response;
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetDatosGeneralesTemp = async (legajoId) => {
+  try {
+
+    const response = await api.RecepcionLegajos.GetDatosGeneralesTemp(legajoId);
+    return response;
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const GetAudiencia = async (audienciaId) => {
+  try {
+
+    const response = await api.RecepcionLegajos.GetAudiencia(audienciaId);
+    return response;
+    
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const SearchJuzgado = async (nombreCompleto) => {
+  try {
+
+    const response = await api.RecepcionLegajos.SearchJuzgado(nombreCompleto);
+    return response;
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+
+export const SearchFiscalia = async (nombreCompleto) => {
+  try {
+
+    const response = await api.RecepcionLegajos.SearchFiscalia(nombreCompleto);
+    return response;
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
 /*
 export const CrearLegajo = async (usuId,formData) => {
 

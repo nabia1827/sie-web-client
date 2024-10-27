@@ -93,13 +93,18 @@ const GenerarWord ={
 
 const RecepcionLegajos = {
     ListarLugarByTipo: (tipoLugarId,antecesorId) => requests.get(`/RecepcionLegajos/ListarLugarByTipo?tipoLugarId=${tipoLugarId}&antecesorId=${antecesorId}`),
-    GetLegajoIdByCarpetaOrExpediente: (tipoDestinatario,nroDocumento) => requests.get(`/RecepcionLegajos/GetLegajoIdByCarpetaOrExpediente?tipoDestinatario=${tipoDestinatario}&nroDocumento=${nroDocumento}`),
+    ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`),
+    ListarTipoPena:() => requests.get(`/RecepcionLegajos/ListarTipoPena`),
+    ListarTipoSentencia: () => requests.get(`/RecepcionLegajos/ListarTipoSentencia`),
+    SearchFiscalia: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchFiscalia?nombreCompleto=${nombreCompleto}`),
+    SearchJuzgado: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchJuzgado?nombreCompleto=${nombreCompleto}`),
+    GetDatosGeneralesTemp: (legajoId) => requests.get(`/RecepcionLegajos/GetDatosGeneralesTemp?legajoId=${legajoId}`),
+    GetDocumento: (documentoId) => requests.get(`/RecepcionLegajos/GetDocumento?documentoId=${documentoId}`),
+    GetAudiencia: (audienciaId) =>requests.get(`/RecepcionLegajos/GetAudiencia?audienciaId=${audienciaId}`),
+    ListarTipoAudiencia: () => requests.get(`/RecepcionLegajos/ListarTipoAudiencia`), 
+    ListarDelito: () => requests.get(`/RecepcionLegajos/ListarDelito`),
+    ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`)
 }
-/* 
-const PythonService = {
-    CrearLegajo: (usuId, formData) => requestsPython.get(`/text-processing-first?usuId=${usuId}`, formData), // Ejemplo de endpoint en tu API de Python
-    AdicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
-};*/
 
 const Audiencia = {
     EditAudienciaDetail: (body) => requests.patch(`/Audiencia/EditAudienciaDetail`,body),
@@ -110,4 +115,4 @@ const Audiencia = {
     RemoveAudiencias: dataIds => requests.patch('/Audiencia/RemoveAudiencias', dataIds),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos,Audiencia,/*PythonService*/ };
+export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia};

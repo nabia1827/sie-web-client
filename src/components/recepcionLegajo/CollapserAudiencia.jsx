@@ -1,9 +1,32 @@
+import React, { useState ,useEffect} from "react";
+import { useSelector } from 'react-redux'
 import { Flex,Typography, Input, Collapse, Select,Row, Col, Form,DatePicker, TimePicker} from "antd";
 import { colors } from "../../utils/colors";
 const { Text } = Typography;
+import dayjs from 'dayjs';
+const FORMAT_DATE = "DD/MM/YYYY";
+const FORMAT_TIME = "h:mm A";
+
 
 function CollapserAudiencia(props) {
-    const { form, handleOnFieldsChange } = props;
+    const { form, handleOnFieldsChange,data } = props;
+
+
+    const { tiposAudiencia } = useSelector((state) => state.app)
+
+    useEffect(() => {
+        if (data !== null && data !== undefined) {
+            console.log(data)
+            form.setFieldsValue(
+                {
+                    fecha: data.fecha !== null? dayjs(data.fecha, FORMAT_DATE) : "",
+                    tipo: data.tipoAudienciaId,
+                    hora: data.hora !== null? dayjs(data.hora, FORMAT_TIME) : "",
+                    link: data.link
+                }
+            )
+        }
+    }, [data])
 
     return (
         <>
@@ -51,6 +74,7 @@ function CollapserAudiencia(props) {
                                                         size = "middle"
                                                         style={{width: "100%"}}
                                                     />
+                                                    
                                                 </Form.Item>
                                             </Col>
 
@@ -68,8 +92,16 @@ function CollapserAudiencia(props) {
                                                 <Form.Item label={<Text>Tipo</Text >} name='tipo'>
                                                     <Select
                                                         style={{ textAlign: 'left' }}
-                                                        options={[{ value: 'Providencia', label: 'Providencia' }]}
-                                                    />
+                                                    >
+                                                        {
+                                                            tiposAudiencia.map((c) => (
+                                                                <Select.Option key={c.tipoAudienciaId} value={c.tipoAudienciaId}>
+                                                                    {c.descripcion}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+
+                                                    </Select>
                                                 </Form.Item>
                                             </Col>
 

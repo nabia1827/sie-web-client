@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Flex, Typography, Input, Button, Collapse, Select,Row, Col} from "antd";
 import { colors } from "../../../../utils/colors";
 const { Text } = Typography
@@ -8,8 +8,19 @@ import CollapserAudiencia from "../../../../components/recepcionLegajo/Collapser
 import CollapserPartesProc from "../../../../components/recepcionLegajo/adicionarDocumentos/CollapserPartesProc";
 import CollapserResultado from "../../../../components/recepcionLegajo/CollapserResultado";
 
-function AdicionarDocsWeb(){
+function AdicionarDocsWeb(props){
+    const {
+        loadingDd,dataDd,formDd,fetchFiscalias,
+        loadingDg,dataDg,formDg,fetchJuzgados,
+        loadingAud,dataAud,formAud,showMdApel,
+        loadingPp,dataImp,
+        loadingRes,dataRes, showMdEditRes,showMdEditImp,showMdAgr,showMdDelImp,showMdDelAgr,showMdDelRes
 
+        //loadingDd, formDd, dataDd
+        // loadingDg, formDg, dataDg
+
+    } = props
+    
     return(
         <>
             <Flex justify="center" align="flex-start" style={{ width: "100%", minHeight: "76vh", backgroundColor: colors.white, paddingTop: "2em", paddingBottom: "2em"}}>
@@ -23,13 +34,47 @@ function AdicionarDocsWeb(){
                     </Flex>
                     
                     <Flex gap={"1em"} vertical justify="start" align="center" style={{ width: "100%", height: "72%", paddingLeft: "2.7em", paddingRight: "2.7em"}}>
-                        <Text style={{width: "100%", textAlign:"left", marginBottom: "1em"}}>Los datos identificados automáticamente en el documento, son los siguientes:</Text> 
+                        <Text style={{width: "100%", textAlign:"left", marginBottom: "1em"}}>Los datos identificados automáticamente en el dataDd, son los siguientes:</Text> 
 
-                        <CollapserDatosDoc></CollapserDatosDoc>
-                        <CollapserDatosGen></CollapserDatosGen>
-                        <CollapserPartesProc></CollapserPartesProc>
-                        <CollapserAudiencia></CollapserAudiencia>
-                        <CollapserResultado></CollapserResultado>
+                        <CollapserDatosDoc
+                            loading = {loadingDd} 
+                            data = {dataDd}
+                            form = {formDd}
+                            fetchFiscalias = {fetchFiscalias}
+                            fetchJuzgados = {fetchJuzgados}
+                        ></CollapserDatosDoc>
+
+                        <CollapserDatosGen
+                            loading = {loadingDg}
+                            data = {dataDg}
+                            form = {formDg}
+                            fetchJuzgados = {fetchJuzgados}
+                        ></CollapserDatosGen>
+
+                        <CollapserPartesProc
+                            loading = {loadingPp}
+                            imputados = {dataImp}
+                            
+                            showMdEditImp={showMdEditImp}
+                            showMdDelImp={showMdDelImp}
+
+                            showMdEditAgr={showMdAgr}
+                            showMdDelAgr={showMdDelAgr}
+                        ></CollapserPartesProc>
+
+                        <CollapserAudiencia
+                            loading={loadingAud}
+                            data={dataAud}
+                            form={formAud}
+                        ></CollapserAudiencia>
+
+                        <CollapserResultado
+                            loading={loadingRes}
+                            resultados={dataRes}
+                            showMdApel={showMdApel}
+                            showMdEditRes={showMdEditRes}
+                            showMdDelRes={showMdDelRes}
+                        ></CollapserResultado>
                     </Flex>
                 </Flex>
             </Flex>

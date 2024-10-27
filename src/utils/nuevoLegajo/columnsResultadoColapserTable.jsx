@@ -51,7 +51,7 @@ export const ColumnsResultado = (showMdApel, showMdEditRes, showMdDelRes) => {
                 <>
                     {record.resApelacionId? (
                         <Flex gap={"small"} justify="center" align="center">
-                            <Button onClick={showMdApel} type="primary" shape="circle" style={{ backgroundColor: colors.cian }} icon={<List size={20} color={colors.white} />} />
+                            <Button onClick={() => showMdApel(record)} type="primary" shape="circle" style={{ backgroundColor: colors.cian }} icon={<List size={20} color={colors.white} />} />
 
                         </Flex>
                     ):(<Text>{"--"}</Text>)

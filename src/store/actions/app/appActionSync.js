@@ -44,3 +44,31 @@ export const setDepartamentos = data => ({
     type: types.departamentos,
     payload: data,
 });
+
+export const setDelitos = data => ({
+    type: types.delitos,
+    payload: data,
+});
+
+export const setTiposAudiencia = data => ({
+    type: types.tiposAudiencia,
+    payload: data,
+});
+
+export const setTiposRemitente = data => ({
+    type: types.tiposRemitente,
+    payload: data,
+});
+
+export const setTiposPena = data => ({
+    type: types.tiposPena,
+    payload: data,
+});
+
+
+export const setTiposSentencia = data => ({
+    type: types.tiposSentencia,
+    payload: data,
+});
+
+

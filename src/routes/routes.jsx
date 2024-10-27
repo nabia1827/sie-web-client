@@ -10,7 +10,9 @@ import { login } from '../store/actions/authActionSync';
 
 //Actions
 import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
-  CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos } from '../store/actions/app/appActionAsync';
+  CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos, 
+  cargarDelitos,cargarTiposPena,cargarTiposSentencia,
+  cargarTiposAudiencia, cargarTiposRemitente} from '../store/actions/app/appActionAsync';
 
 
 //General
@@ -77,7 +79,6 @@ const RoutesApp = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-
       dispatch(cargarAbogados())
       dispatch(cargarSubfases())
       dispatch(cargarDelegados())
@@ -87,6 +88,11 @@ const RoutesApp = () => {
       dispatch(CargarDependenciaMininter())
       dispatch(CargarProcuradores())
       dispatch(CargarDepartamentos())
+      dispatch(cargarDelitos())
+      dispatch(cargarTiposAudiencia())
+      dispatch(cargarTiposRemitente())
+      dispatch(cargarTiposPena())
+      dispatch(cargarTiposSentencia())  
     }
   }, [dispatch, isAuthenticated]);
 
@@ -143,8 +149,8 @@ const RoutesApp = () => {
 
           <Route path={endpoints.RECEPCION_LEGAJOS} element={<InicioRecepcionPage/>} >
             <Route index element={<RecepcionPage />} />
-            <Route path={`${endpoints.NUEVO_LEGAJO}/:legajoId/:docId`} element={<NuevoLegajoPage/>} />
-            <Route path={`${endpoints.ADICIONAR_LEGAJO}/:legajoId/:docId`} element={<AdicionarDocsPage/>} />
+            <Route path={`${endpoints.NUEVO_LEGAJO}/:legajoId/:documentoId`} element={<NuevoLegajoPage/>} />
+            <Route path={`${endpoints.ADICIONAR_LEGAJO}/:legajoId/:documentoId`} element={<AdicionarDocsPage/>} />
           </Route>
         </Route>
 

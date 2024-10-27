@@ -6,57 +6,10 @@ import {
     Users
 } from "@phosphor-icons/react";
 function CollapserPartesProc(props) {
-    const { /*imputados, agraviados, loadingPp,*/ showMdEditImp, showMdDelImp} = props;
+    const { imputados, loading, showMdEditImp, showMdDelImp} = props;
     
-
+    
     const columnsImputados = ColumnsImputados(showMdEditImp, showMdDelImp)
-
-    // Pasar a Dinamico
-    const loadingPp = false
-    const imputados =[
-    {
-        imputadoId: 1,
-        imputadoNombre:"Debora Leon Sanchez",
-        tipoDoc:"DNI",
-        nroDoc:"72606359",
-        delitos:[
-            {
-                imputadoDelitoId: 20,
-                delitoId: 15,
-                delitoNombre: "Tenencia Ilegal de Armas",
-                reparacioCivil: 0,
-                estado: "Incluido",
-            },
-
-            {
-                imputadoDelitoId: 21,
-                delitoId: 1,
-                delitoNombre: "Homicidio Culposo",
-                reparacioCivil: 40,
-                estado:"Investigado",
-            },
-            
-        ],
-        
-    }]
-
-
-    const agraviados =[
-        {
-            agraviadoId: 6,
-            agraviadoNombre: "El Estado",
-            tipoDoc: null,
-            nroDoc: null
-        },
-        {
-            agraviadoId: 7,
-            agraviadoNombre: "Pedro Martinez Pinedo",
-            tipoDoc: "Carnet Extranjeria o Pasaporte",
-            nroDoc: "015475896"
-        }
-
-    ]
-
 
     return (
         <>
@@ -71,7 +24,7 @@ function CollapserPartesProc(props) {
 
                         children:
                             <>
-                                <Spin spinning={loadingPp} style={{ width: "100%", minHeight: "60vh" }}>
+                                <Spin spinning={loading} style={{ width: "100%", minHeight: "60vh" }}>
                                     {
                                         imputados ? (
                                             <Flex vertical justify="flex-start" align="center" style={{ width: "100%", padding: "1.0em" }}>
