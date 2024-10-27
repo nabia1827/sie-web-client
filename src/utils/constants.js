@@ -7,7 +7,7 @@ export const Perfiles = {
     ADMIN: 4,
 };
 
-export const PerfilesNombre = ["Abogado","Mesa Partes","Procurador","Admin"]
+export const PerfilesNombre = ["Abogado", "Mesa Partes", "Procurador", "Admin"]
 
 export const EstadosAudiencia = {
     ASISTIO: "Asistió",
@@ -17,83 +17,75 @@ export const EstadosAudiencia = {
 };
 
 export const TipoDestinatario = {
-    FISCALIA:1,
-    JUZGADO:2,
-    EXTRA:3
+    FISCALIA: 1,
+    JUZGADO: 2,
+    EXTRA: 3
 }
 
 export const TipoDoc = {
-    DOCUMENTO_INGRESO:1,
-    DOCUMENTO_SALIDA:2,
+    DOCUMENTO_INGRESO: 1,
+    DOCUMENTO_SALIDA: 2,
 }
 
-export const ClaseDocPath = ["actor-civil","archivo","denuncia","queja"]
+export const ClaseDocPath = ["actor-civil", "archivo", "denuncia", "queja"]
 export const ClaseDoc = {
-    ACTOR_CIVIL:10,
-    ARCHIVO:9,
-    DENUNCIA:8,
-    QUEJA:7
+    ACTOR_CIVIL: 10,
+    ARCHIVO: 9,
+    DENUNCIA: 8,
+    QUEJA: 7
 }
 
 //APIS estaticas
-export const ListTipoCaso =[
+export const ListTipoCaso = [
     {
-        tipoCasoId:1,
-        tipoCasoNombre:"Carpeta Fiscal"
+        tipoCasoId: 1,
+        tipoCasoNombre: "Carpeta Fiscal"
     },
     {
-        tipoCasoId:2,
-        tipoCasoNombre:"Expediente Judicial"
-    },
-];
-
-export const ListResultadoApelacion=[
-    {
-        resApelacionId:1,
-        resApelacionNombre:"Sentencia Ratificada"
-    },
-    {
-        resApelacionId:2,
-        resApelacionNombre:"Sentencia Anulada"
+        tipoCasoId: 2,
+        tipoCasoNombre: "Expediente Judicial"
     },
 ];
 
-export const ListEstado=[
+export const ListResultadoApelacion = [
     {
-        estadoId:1,
-        estadoNombre:"En trámite"
+        resApelacionId: 1,
+        resApelacionNombre: "Sentencia Ratificada"
     },
     {
-        estadoId:2,
-        estadoNombre:"Archivado"
+        resApelacionId: 2,
+        resApelacionNombre: "Sentencia Anulada"
     },
 ];
 
-export const ListTipoDocIdentidad=[
+export const ListEstado = [
     {
-        tipoDocId:1,
-        tipoDocNombre:"DNI"
+        estadoId: 1,
+        estadoNombre: "En trámite"
     },
     {
-        tipoDocId:2,
-        tipoDocNombre:"Carnet Extranjería"
+        estadoId: 2,
+        estadoNombre: "Archivado"
     },
 ];
-  
+
+export const ListTipoDocIdentidad = [
+    {
+        tipoDocId: 1,
+        tipoDocNombre: "DNI"
+    },
+    {
+        tipoDocId: 2,
+        tipoDocNombre: "Carnet Extranjería"
+    },
+];
+
 export const BotonesVistasGantt = [
     { id: 1, viewName: "Día", viewType: ViewType.Day },
     {
-      id: 2,
-      viewName: "Semanal",
-      viewType: ViewType.Custom2,
+        id: 2,
+        viewName: "Semanal",
+        viewType: ViewType.Custom2,
     },
-    {
-      id: 3,
-      viewName: "Quincenal",
-      viewType: ViewType.Custom1,
-    },
-    { id: 4, viewName: "Mensual", viewType: ViewType.Month },
-    /* {id:Botones.VISTA_MENSUAL,viewName: 'Resource View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false},
-    {id:Botones.VISTA_MENSUAL, viewName: 'Task View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: true}, */
-  ];
-  
+    { id: 3, viewName: "Mensual", viewType: ViewType.Month },
+];

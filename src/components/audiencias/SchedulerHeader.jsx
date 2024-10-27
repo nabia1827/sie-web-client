@@ -286,7 +286,7 @@ const SchedulerHeader = ({
   return (
     <div className="header-scheduler" style={{ width: "100%" }}>
       <Row>
-        <Col span={8} align="left" style={{ paddingLeft: "100px" }}>
+        <Col span={8} align="left" >
           <Row gutter={16}>
             <Col>
               <Button onClick={() => handleEvents(goToday, false)}>Hoy</Button>
@@ -464,47 +464,6 @@ const SchedulerHeader = ({
           style={{
             fontSize: "24px",
             color: "#333333",
-            paddingRight: "100px",
-          }}
-        >
-          {contextHolder}
-          
-          {true && (
-            <Tooltip title="Descargar gantt">
-              <Button
-                type="link"
-                size="large"
-                shape="circle"
-                onClick={generatePdf}
-                icon={<FilePdfOutlined style={{ color: "#F40F02" }} />}
-                style={{ marginRight: "30px" }}
-              />
-            </Tooltip>
-          )}
-          <Popover content={infoEtapa} placement="bottom">
-            <InfoCircleOutlined />
-          </Popover>
-        </Col>
-      </Row>
-      <Row style={{ marginBottom: "24px" }}>
-        <Col
-          span={12}
-          align="left"
-          style={{
-            fontSize: "24px",
-            color: "#333333",
-            paddingLeft: "100px",
-          }}
-        >
-          <div>Holaaaa</div>
-        </Col>
-        <Col
-          span={12}
-          align="right"
-          style={{
-            fontSize: "24px",
-            color: "#333333",
-            paddingRight: "100px",
           }}
         >
           <Space>
@@ -520,7 +479,9 @@ const SchedulerHeader = ({
             </RadioGroup>
           </Space>
         </Col>
+        
       </Row>
+
     </div>
   );
 };

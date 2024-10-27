@@ -13,6 +13,7 @@ import AddMorePopover from './AddMorePopover';
 import SchedulerData from './SchedulerData';
 import SchedulerHeader from './SchedulerHeader';
 import wrapperFun from './WrapperFun';
+
 import {
   ViewType,
   CellUnit,
@@ -47,7 +48,7 @@ class Scheduler extends Component {
       dndContext,
       contentScrollbarHeight: 17,
       contentScrollbarWidth: 17,
-      resourceScrollbarHeight: 17,
+      resourceScrollbarHeight: 12,
       resourceScrollbarWidth: 17,
       documentWidth: 0,
       documentHeight: 0,
@@ -300,6 +301,7 @@ class Scheduler extends Component {
                   overflow: 'hidden',
                   borderBottom: '1px solid #e9e9e9',
                   height: config.tableHeaderHeight,
+                  borderRadius:"1.0em 1.0em 0 0"
                 }}
               >
                 <div

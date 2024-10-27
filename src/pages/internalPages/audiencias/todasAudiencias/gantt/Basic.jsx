@@ -100,7 +100,7 @@ class Basic extends Component {
         const connectBuilder = new HubConnectionBuilder()
             .configureLogging(LogLevel.None)
             //.withUrl("http://172.16.25.38:84/hubs/notifications", {
-            .withUrl(`https://localhost:44393/api/hubs/notifications`, {
+            .withUrl(`https://localhost:44393/hubs/notifications`, {
                 skipNegotiation: true,
                 transport: HttpTransportType.WebSockets,
             })

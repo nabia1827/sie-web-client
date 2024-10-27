@@ -1,7 +1,7 @@
 import { ViewType, SummaryPos } from './default';
 
 export default {
-  schedulerWidth: '84%',
+  schedulerWidth: '79%',
   besidesWidth: 20,
   schedulerMaxHeight: '100%',
   tableHeaderHeight: 70,
@@ -12,16 +12,16 @@ export default {
   agendaResourceTableWidth: 160,
   agendaMaxEventWidth: 100,
 
-  dayResourceTableWidth: '16%',
-  weekResourceTableWidth: '16%',
-  monthResourceTableWidth: '16%',
-  quarterResourceTableWidth: '16%',
-  yearResourceTableWidth: '16%',
-  customResourceTableWidth: '16%',
+  dayResourceTableWidth: '23%',
+  weekResourceTableWidth: '23%',
+  monthResourceTableWidth: '23%',
+  quarterResourceTableWidth: '23%',
+  yearResourceTableWidth: '23%',
+  customResourceTableWidth: '22%',
 
   dayCellWidth: '12%',
   weekCellWidth: '12%',
-  monthCellWidth: '6%',
+  monthCellWidth: '12%',
   quarterCellWidth: '12%',
   yearCellWidth: '12%',
   customCellWidth: '12%',

@@ -146,7 +146,7 @@ function HeaderView({ schedulerData, nonAgendaCellHeaderTemplateResolver }) {
   // const isNotWeeklyView = schedulerData.viewType !== 1 && schedulerData.viewType !== 7;
 
   return (
-    <thead style={{ height: headerHeight }}>
+    <thead style={{ height: headerHeight}}>
       <tr>{weekGroupsList}</tr>
       <tr>{headerList}</tr>
     </thead>

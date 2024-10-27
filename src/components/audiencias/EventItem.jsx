@@ -466,6 +466,8 @@ class EventItem extends Component {
 
   render() {
     const { eventItem, deleteItemsList, isStart, isEnd, isInPopover, eventItemClick, schedulerData, isDragging, connectDragSource, connectDragPreview, eventItemTemplateResolver } = this.props;
+    
+    
     const { config, localeDayjs } = schedulerData;
     const { left, width, top } = this.state;
     const roundCls = isStart ? (isEnd ? 'round-all' : 'round-head') : (isEnd ? 'round-tail' : 'round-none');

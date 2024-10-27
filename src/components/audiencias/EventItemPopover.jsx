@@ -17,8 +17,9 @@ const EventItemPopover = ({
   eventItemPopoverTemplateResolver,
 }) => {
   const { localeDayjs, config } = schedulerData;
-  const start = localeDayjs(new Date(startTime));
-  const end = localeDayjs(new Date(endTime));
+
+  const start = localeDayjs(new Date(eventItem.start));
+  const end = localeDayjs(new Date(eventItem.end));
 
   if (eventItemPopoverTemplateResolver) {
     return eventItemPopoverTemplateResolver(schedulerData, eventItem, title, start, end, statusColor);
@@ -109,8 +110,8 @@ EventItemPopover.propTypes = {
   schedulerData: PropTypes.object.isRequired,
   eventItem: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  startTime: PropTypes.string.isRequired,
-  endTime: PropTypes.string.isRequired,
+  startTime: PropTypes.string,
+  endTime: PropTypes.string,
   statusColor: PropTypes.string.isRequired,
   subtitleGetter: PropTypes.func,
   viewEventClick: PropTypes.func,
