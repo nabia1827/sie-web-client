@@ -475,3 +475,40 @@ export const SearchFiscalia = async (nombreCompleto) => {
     message.error(error.message);
   }
 };
+
+/*
+export const CrearLegajo = async (usuId,formData) => {
+
+  try {
+
+    const response = await api.PythonService.CrearLegajo(usuId,formData);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const AdicionarDocumento = async (legajoId,usuId,formData) => {
+
+  try {
+
+    const response = await api.PythonService.AdicionarDocumento(legajoId,usuId,formData);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+*/
+export const GetLegajoIdByCarpetaOrExpediente = async (tipoCaso,nroCaso) => {
+
+  try {
+
+    const response = await api.RecepcionLegajos.GetLegajoIdByCarpetaOrExpediente(tipoCaso,nroCaso);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};

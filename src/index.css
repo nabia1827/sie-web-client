@@ -173,3 +173,9 @@ body {
 @media (prefers-color-scheme: light) {
 
 }
+
+/*Gantt*/
+.timeline-event {
+  position: absolute;
+  cursor: pointer;
+}
