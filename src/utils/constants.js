@@ -74,16 +74,6 @@ export const ListEstado = [
     },
 ];
 
-export const ListTipoProceso=[
-    {
-        procesoId:1,
-        procesoNombre:"Proceso Común"
-    },
-    {
-        procesoId:2,
-        procesoNombre:"Proceso Inmediato"
-    },
-];
 
 export const ListTipoProceso=[
     {
