@@ -1,10 +1,11 @@
 import React from "react";
+import Basic from "./gantt/Basic";
 
 function TodasAudienciasWeb(){
 
     return(
         <>
-        Todas Audiencias
+        <Basic></Basic>
         </>
     );
 

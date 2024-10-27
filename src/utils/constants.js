@@ -1,3 +1,4 @@
+import { ViewType } from "./audiencias/default";
 //Constantes
 export const Perfiles = {
     ABOGADO: 1,
@@ -79,4 +80,20 @@ export const ListTipoDocIdentidad=[
     },
 ];
   
+export const BotonesVistasGantt = [
+    { id: 1, viewName: "Día", viewType: ViewType.Day },
+    {
+      id: 2,
+      viewName: "Semanal",
+      viewType: ViewType.Custom2,
+    },
+    {
+      id: 3,
+      viewName: "Quincenal",
+      viewType: ViewType.Custom1,
+    },
+    { id: 4, viewName: "Mensual", viewType: ViewType.Month },
+    /* {id:Botones.VISTA_MENSUAL,viewName: 'Resource View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: false},
+    {id:Botones.VISTA_MENSUAL, viewName: 'Task View', viewType: ViewType.Month, showAgenda: false, isEventPerspective: true}, */
+  ];
   
