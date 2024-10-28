@@ -13,12 +13,18 @@ import {
     GetAudiencia
 } from "../../../../utils/consultaLegajos/dinamicCalls";
 
+
+import {
+    UpdateImputadoById
+} from "../../../../utils/recepcionLegajos/dinamicCalls";
+
 import ModalEditResultado from "../../../../components/recepcionLegajo/ModalEditResultado";
 import ModalEditImputado from "../../../../components/recepcionLegajo/ModalEditImputado";
 import ModalEditAgraviado from "../../../../components/recepcionLegajo/nuevoLegajo/ModalEditAgraviado";
 import ModalDelImputado from "../../../../components/recepcionLegajo/ModalDelImputado";
 import ModalDelResultado from "../../../../components/recepcionLegajo/ModalDelResultado";
 import ModalDelAgraviado from "../../../../components/recepcionLegajo/nuevoLegajo/ModalDelAgraviado";
+import ModalGuardarDatos from "../../../../components/recepcionLegajo/ModalGuardarDatos";
 
 const { useBreakpoint } = Grid;
 
@@ -144,11 +150,37 @@ function AdicionarDocsPage() {
 
 
 
+    //Modal Guardar Datos
+    const [mdBtnSvOpen, setMdBtnSvOpen] = useState(false);
+    const [mdBtnSvLoading,setMdBtnSvLoading]= useState(false);
+
+    const showMdBtnSv = () => {
+        setMdBtnSvOpen(true);
+    };
+
+    const onOkMdBtnSv = () => {
+        setMdBtnSvLoading(true);
+        /*const observacion = ImpForm.getFieldValue("observacion")
+        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
+            ImpForm.ImpetFields();
+            setCurrentAudiencia(null);
+            fetchAudiencias(id);
+            setMdObsLoading(false);
+            setMdObsOpen(false);
+        })Aqui debo realizar todo*/
+    };
+    const onCancelMdBtnSv = () => {
+        setMdBtnSvOpen(false);
+    };
+
+
+
     //Modal Editar Resultado
     const [mdResOpen, setMdResOpen] = useState(false);
     const [mdResLoading, setMdResLoading] = useState(false);
     const [resForm] = Form.useForm();
     const [currentResultado, setCurrentResultado] = useState(null);
+    
 
     const showMdEditRes = (record) => {
         setCurrentResultado(record);
@@ -186,14 +218,26 @@ function AdicionarDocsPage() {
 
     const onOkMdImp = () => {
         setMdImpLoading(true);
-        /*const observacion = ImpForm.getFieldValue("observacion")
-        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
-            ImpForm.ImpetFields();
-            setCurrentAudiencia(null);
-            fetchAudiencias(id);
-            setMdObsLoading(false);
-            setMdObsOpen(false);
-        })Aqui debo realizar todo*/
+        const imputadoId = currentImputado.imputadoId
+        const delitosIds = impForm.getFieldValue("nombreDelito")
+        const nombre = impForm.getFieldValue("nombreImputado")
+        const nroDoc = impForm.getFieldValue("nroDoc")
+        const tipoDocId = impForm.getFieldValue("tipoDoc")
+        const imputadoEdit = {
+            imputadoId:imputadoId,
+            nombre:nombre,
+            tipoDocId: tipoDocId,
+            nroDoc:nroDoc,
+            delitosIds: delitosIds,
+        }
+        UpdateImputadoById(imputadoEdit).then(() => {
+            impForm.resetFields();
+            setCurrentImputado(null);
+            fetchPartesProcesales(legajoId);
+            setMdImpLoading(false);
+            setMdImpOpen(false);
+        })
+
     };
     const onCancelMdImp = () => {
         impForm.resetFields();
@@ -297,101 +341,113 @@ function AdicionarDocsPage() {
     const screens = useBreakpoint();
     const isXsScreen = screens.xs !== undefined && screens.xs;
 
-    return <>{isXsScreen ?
-        <AdicionarDocsMobile
+    return <>
+        {isXsScreen ?
+            <AdicionarDocsMobile
 
-            loadingDd={loadingDd}
-            dataDd={dataDd}
+                loadingDd={loadingDd}
+                dataDd={dataDd}
 
-            loadingDg={loadingDg}
-            dataDg={dataDg}
-            formDd = {formDd}
+                loadingDg={loadingDg}
+                dataDg={dataDg}
+                formDd = {formDd}
 
-            loadingAud={loadingAud}
-            dataAud={dataAud}
+                loadingAud={loadingAud}
+                dataAud={dataAud}
 
-            loadingPp={loadingPp}
-            dataImp={dataImp}
-            //agraviados={agraviados}
+                loadingPp={loadingPp}
+                dataImp={dataImp}
+                //agraviados={agraviados}
 
-            loadingRes={loadingRes}
-            dataRes={dataRes}
-        /> :
-        <AdicionarDocsWeb
+                loadingRes={loadingRes}
+                dataRes={dataRes}
+            /> :
+            <AdicionarDocsWeb
 
-            loadingDd={loadingDd} // loadingDd, dataDd, formDd
-            dataDd={dataDd} 
-            formDd = {formDd}
+                loadingDd={loadingDd} // loadingDd, dataDd, formDd
+                dataDd={dataDd} 
+                formDd = {formDd}
 
-            loadingDg={loadingDg}  //loadingDg , dataDg, formDg
-            dataDg={dataDg}
-            formDg={formDg}
-            fetchJuzgados = {fetchJuzgados}
-            fetchFiscalias = {fetchFiscalias}
+                loadingDg={loadingDg}  //loadingDg , dataDg, formDg
+                dataDg={dataDg}
+                formDg={formDg}
+                fetchJuzgados = {fetchJuzgados}
+                fetchFiscalias = {fetchFiscalias}
 
-            loadingAud={loadingAud} 
-            dataAud={dataAud}
-            formAud={formAud}
+                loadingAud={loadingAud} 
+                dataAud={dataAud}
+                formAud={formAud}
 
-            loadingPp={loadingPp}
-            dataImp={dataImp}
+                loadingPp={loadingPp}
+                dataImp={dataImp}
 
-            loadingRes={loadingRes}
-            dataRes={dataRes}
+                loadingRes={loadingRes}
+                dataRes={dataRes}
 
-            showMdEditRes={showMdEditRes}
-            showMdEditImp={showMdEditImp}
+                showMdEditRes={showMdEditRes}
+                showMdEditImp={showMdEditImp}
 
-            showMdDelImp={showMdDelImp}
-            showMdDelRes={showMdDelRes}
+                showMdDelImp={showMdDelImp}
+                showMdDelRes={showMdDelRes}
 
-            showMdApel={showMdApel}
-        />
-    }
+                showMdApel={showMdApel}
 
-    <ModalEditResultado
-        modalOpen={mdResOpen}
-        handleOk={onOkMdRes}
-        handleCancel={onCancelMdRes}
-        modalLoading={mdResLoading}
-        currentResultado={currentResultado}
-        form={resForm}
-    ></ModalEditResultado>
+                showMdBtnSv = {showMdBtnSv}
+            />
+        }
 
-    <ModalEditImputado
-        modalOpen={mdImpOpen}
-        handleOk={onOkMdImp}
-        handleCancel={onCancelMdImp}
-        modalLoading={mdImpLoading}
-        dataImputado={currentImputado}
-        form={impForm}
-    ></ModalEditImputado>
+        <ModalEditResultado
+            modalOpen={mdResOpen}
+            handleOk={onOkMdRes}
+            handleCancel={onCancelMdRes}
+            modalLoading={mdResLoading}
+            currentResultado={currentResultado}
+            form={resForm}
+        ></ModalEditResultado>
 
-
-    <ModalDelImputado
-        modalOpen={mdDelImpOpen}
-        handleOk={onOkMdDelImp}
-        handleCancel={onCancelMdDelImp}
-        modalLoading={mdDelImpLoading}
-        currentImputadoId={currentImputadoId}
-    ></ModalDelImputado>
-
-    <ModalApelacion
-        modalOpen={mdApelOpen}
-        handleOk={onOkMdApel}
-        handleCancel={onCancelMdApel}
-        modalLoading={mdApelLoading}
-        form = {resForm}
-    ></ModalApelacion>
+        <ModalEditImputado
+            modalOpen={mdImpOpen}
+            handleOk={onOkMdImp}
+            handleCancel={onCancelMdImp}
+            modalLoading={mdImpLoading}
+            dataImputado={currentImputado}
+            form={impForm}
+        ></ModalEditImputado>
 
 
-    <ModalDelResultado
-        modalOpen={mdDelResOpen}
-        handleOk={onOkMdDelRes}
-        handleCancel={onCancelMdDelRes}
-        modalLoading={mdDelResLoading}
-        currentResultadoId={currentResultadoId}
-    ></ModalDelResultado>
+        <ModalDelImputado
+            modalOpen={mdDelImpOpen}
+            handleOk={onOkMdDelImp}
+            handleCancel={onCancelMdDelImp}
+            modalLoading={mdDelImpLoading}
+            currentImputadoId={currentImputadoId}
+        ></ModalDelImputado>
+
+        <ModalApelacion
+            modalOpen={mdApelOpen}
+            handleOk={onOkMdApel}
+            handleCancel={onCancelMdApel}
+            modalLoading={mdApelLoading}
+            form = {resForm}
+        ></ModalApelacion>
+
+
+        <ModalDelResultado
+            modalOpen={mdDelResOpen}
+            handleOk={onOkMdDelRes}
+            handleCancel={onCancelMdDelRes}
+            modalLoading={mdDelResLoading}
+            currentResultadoId={currentResultadoId}
+        ></ModalDelResultado>
+
+        <ModalGuardarDatos
+
+            modalOpen = {mdBtnSvOpen}
+            handleOk = {onOkMdBtnSv}
+            handleCancel = {onCancelMdBtnSv}
+            modalLoading = {mdBtnSvLoading}
+
+        ></ModalGuardarDatos>
     </>;
 }
 

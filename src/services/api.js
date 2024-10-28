@@ -103,7 +103,8 @@ const RecepcionLegajos = {
     GetAudiencia: (audienciaId) =>requests.get(`/RecepcionLegajos/GetAudiencia?audienciaId=${audienciaId}`),
     ListarTipoAudiencia: () => requests.get(`/RecepcionLegajos/ListarTipoAudiencia`), 
     ListarDelito: () => requests.get(`/RecepcionLegajos/ListarDelito`),
-    ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`)
+    ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`),
+    UpdateImputadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateImputadoById`, body),
 }
 
 const Audiencia = {

@@ -20,7 +20,6 @@ function ModalEditResultado(props) {
     // Usamos useEffect para establecer los valores iniciales cuando currentRecord cambia
     useEffect(() => {
         if (modalOpen) {     
-            console.log(",m",currentResultado)       
             form.setFieldsValue({
                 reparacionCivil: currentResultado.reparacionCivil,
                 cantidad: currentResultado.cantidadNum!==0?currentResultado.cantidadNum: null,

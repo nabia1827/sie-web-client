@@ -512,3 +512,15 @@ export const GetLegajoIdByCarpetaOrExpediente = async (tipoCaso,nroCaso) => {
     message.error(error.message);
   }
 };
+
+/*export const UpdateImputadoById = async (tipoCaso,nroCaso) => {
+
+  try {
+
+    const response = await api.RecepcionLegajos.GetLegajoIdByCarpetaOrExpediente(tipoCaso,nroCaso);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};*/
