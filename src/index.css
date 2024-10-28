@@ -169,6 +169,13 @@ body {
   font-size: 1.0em;
 }
 
+.sie-modal-title{
+  font-family: 'DM Sans';
+  color: #2D3748;
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
 
 @media (prefers-color-scheme: light) {
 
