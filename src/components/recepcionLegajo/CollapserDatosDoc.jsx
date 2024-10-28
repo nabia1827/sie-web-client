@@ -57,7 +57,7 @@ function CollapserDatosDoc(props) {
                         key: '1',
                         label:
                             <Flex gap={"small"} justify="flex-start" align="left">
-                                <Text style={{ width: "100%", textAlign: "left" }} >Datos del data</Text>
+                                <Text style={{ width: "100%", textAlign: "left" }} >Datos del documento</Text>
                             </Flex>,
 
                         children:

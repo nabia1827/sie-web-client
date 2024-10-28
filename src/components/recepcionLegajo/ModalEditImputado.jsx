@@ -73,7 +73,7 @@ function ModalEditImputado(props) {
 
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item label={<Text>Imputado</Text >} name='nombreImputado'>
-                                <Input  disabled placeholder="Nombre del Imputado" size="large"   />
+                                <Input placeholder="Nombre del Imputado" size="large"   />
                             </Form.Item>
                         </Col>
 
