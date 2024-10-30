@@ -169,6 +169,13 @@ body {
   font-size: 1.0em;
 }
 
+.sie-event-gantt {
+  font-family: 'DM Sans';
+  color: white;
+
+  font-size: 1.0em;
+}
+
 .sie-modal-title{
   font-family: 'DM Sans';
   color: #2D3748;
@@ -207,7 +214,7 @@ body {
 
 .header1-text {
   font-size: 25px;
-  color: #90cdf9;
+  color: #2D3748;
   font-weight: 500;
 }
 
@@ -240,15 +247,15 @@ body {
 }
 
 .round-all {
-  border-radius: 14px;
+  border-radius: 10px;
 }
 
 .round-head {
-  border-radius: 14px 0px 0px 14px;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .round-tail {
-  border-radius: 0px 14px 14px 0px;
+  border-radius: 0px 10px 10px 0px;
 }
 
 .round-none {

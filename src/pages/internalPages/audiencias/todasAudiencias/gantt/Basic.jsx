@@ -20,9 +20,9 @@ import {
 import EventItemPopover from "../../../../../components/audiencias/EventItemPopover";
 import api from "../../../../../services/api"
 import ModalNuevaAudiencia from "../../../../../components/audiencias/ModalNuevaAudiencia";
-import { InsertNuevasAudiencias } from "../../../../../utils/audiencias/dinamicCalls";
+import { InsertNuevasAudiencias, RemoveAudiencias, EditAudiencias } from "../../../../../utils/audiencias/dinamicCalls";
 import _ from "lodash";
-
+import ModalDetalleAudiencia from "../../../../../components/audiencias/ModalDetalleAudiencia";
 
 class Basic extends Component {
 
@@ -84,6 +84,8 @@ class Basic extends Component {
         this.state = {
             viewModel: schedulerData,
             isModalVisible: false,
+            isDetalleVisible:false,
+            detalleId:0,
             eventData: null,
             deleteItemsList: [],
             connection: null,
@@ -300,7 +302,7 @@ class Basic extends Component {
                             delete item.movable;
                             delete item.resizable;
                             delete item.audienciaSubTitleHour;
-                            delete item.codigoLegajo;
+                            
                             //delete item.schdRrule;
                             //delete item.schdOsId;
                             return item;
@@ -326,6 +328,8 @@ class Basic extends Component {
         const {
             viewModel,
             isModalVisible,
+            isDetalleVisible,
+            detalleId,
             eventData,
             loadingScheduler,
             isDeleting,
@@ -386,6 +390,14 @@ class Basic extends Component {
                 >
 
                 </ModalNuevaAudiencia>
+                <ModalDetalleAudiencia
+                modalOpen={isDetalleVisible}
+                handleOk={this.saveDetalle}
+                handleCancel={this.closeDetalle}
+                audienciaId = {detalleId}
+                >
+
+                </ModalDetalleAudiencia>
 
             </>
         );
@@ -409,9 +421,20 @@ class Basic extends Component {
             loadData={this.LoadData}
         />
     );
+    closeDetalle = () =>{
+        this.setState({ isDetalleVisible: false });
+        this.setState({ detalleId: 0 });
+    }
+
+    saveDetalle = () =>{
+        const { viewModel } = this.state;
+        this.setState({ isDetalleVisible: false });
+        this.setState({ detalleId: 0 });
+        this.LoadData(viewModel);
+    }
 
     eventClicked = (schedulerData, event) => {
-        const { deleteItemsList, isDeleting } = this.state;
+        const { deleteItemsList, isDeleting,isDetalleVisible } = this.state;
 
         if (isDeleting) {
             const updatedDeleteItemsList = [...deleteItemsList];
@@ -431,6 +454,9 @@ class Basic extends Component {
                 deleteItemsList: updatedDeleteItemsList,
                 viewModel: schedulerData,
             });
+        }else{
+            this.setState({ detalleId: event.id });
+            this.setState({ isDetalleVisible: !isDetalleVisible });
         }
     };
 
@@ -442,7 +468,7 @@ class Basic extends Component {
         const { viewModel } = this.state;
         this.setState({ loadingScheduler: true });
         try {
-            const response = await api.Audiencia.RemoveAudiencias(itemsList);
+            const response = await RemoveAudiencias(itemsList);
             itemsList.forEach((e) => {
                 const eventArr = viewModel.events.filter((elem) => elem.id === e);
                 if (eventArr.length > 0) this.sendDelete(eventArr.pop());
@@ -525,14 +551,8 @@ class Basic extends Component {
                         message.error(err.response.data);
                     });
             } else if (eventIsMoving) {
-                const editEvents = viewModel.events.map((evento) => ({
-                    audienciaId: evento.id,
-                    startTime: dayjs(evento.start).format(),
-                    endTime: dayjs(evento.end).format(),
-                    abogadoId: evento.resourceId,
-                    audienciaTitle: evento.title,
-                }));
-                await api.Audiencia.EditAudiencias(editEvents)
+                
+                await EditAudiencias(viewModel.events)
                     .then((response) => {
                         response.isSuccess
                             ?
@@ -586,9 +606,11 @@ class Basic extends Component {
 
     handleOk = async (formData) => {
         const { viewModel, eventData, events } = this.state;
-        const { user } = this.props;
+        const { tiposAudiencia } = this.props;
 
         console.log("formData ",formData);
+        const objTitle = tiposAudiencia.find(t => t.tipoAudienciaId === formData.audienciaTipoId);
+
 
         let newFreshId = 0;
         viewModel.events.forEach((item) => {
@@ -597,7 +619,7 @@ class Basic extends Component {
 
         const newEvent = {
             id: newFreshId,
-            title: "Hola que hace",
+            title: objTitle.descripcion,
             start: formData.startTime,
             end: formData.endTime,
             resourceId: eventData.resourceId,
@@ -606,7 +628,7 @@ class Basic extends Component {
 
         const newEventDB = {
             id: newFreshId,
-            titleName: "Hola que hace",
+            titleName: objTitle.descripcion,
             start: dayjs(formData.startTime).format(),
             end: dayjs(formData.endTime).format(),
             resourceId: eventData.resourceId,
@@ -818,6 +840,7 @@ class Basic extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.auth.user,
+    tiposAudiencia: state.app.tiposAudiencia,
     selectedTaller: "90",
     talleresByUser: [1, 23, 4],
 });
