@@ -75,6 +75,19 @@ export const ListEstado = [
 ];
 
 
+export const ListRemitente = [
+    {
+        estadoId: 1,
+        estadoNombre: "fiscalia"
+    },
+    {
+        estadoId: 2,
+        
+        estadoNombre: "juzgado"
+    },
+];
+
+
 export const ListTipoProceso=[
     {
         procesoId:1,

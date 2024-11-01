@@ -68,7 +68,7 @@ export const ColumnsResultado = (showMdApel, showMdEditRes, showMdDelRes) => {
                 <>
                     <Flex gap={"small"} justify="center" align="center">
                         <Button onClick={() => showMdEditRes(record)} type="primary" shape="circle" style={{ backgroundColor: colors.blue }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
-                        <Button onClick={() => showMdDelRes(record)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
+                        <Button onClick={() => showMdDelRes(record.imputadoDelitoId)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
                     </Flex>
                 </>
             ),

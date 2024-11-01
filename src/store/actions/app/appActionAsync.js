@@ -5,7 +5,8 @@ import { setAbogados,setSubfases,setDelegados,setClasesDocEntrada,setClasesDocSa
   setTiposAudiencia,
   setTiposRemitente,
   setTiposPena,
-  setTiposSentencia} from "./appActionSync";
+  setTiposSentencia,
+  setDistritosJudicial} from "./appActionSync";
 import api from "../../../services/api";
 
 export const cargarAbogados = () => async (dispatch) => {
@@ -131,3 +132,14 @@ export const cargarTiposSentencia = () => async (dispatch) => {
     message.error(error.message);
   }
 };
+
+
+export const cargarDistritosJudicial = () => async (dispatch) => {
+  try {
+    const resp = await api.RecepcionLegajos.ListarDisJudicial();
+    dispatch(setDistritosJudicial(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+

@@ -28,6 +28,7 @@ function CollapserDatosGen(props) {
 
     useEffect(() => {
         if (data !== null && data !== undefined) {
+            fetchJuzgados(data.nombreJuzgado,setDataJuzgados)
             form.setFieldsValue(
                 {
                     carpetaFiscal: data.carpetaFiscalNro,
@@ -35,9 +36,12 @@ function CollapserDatosGen(props) {
                     estado: data.estadoId,
                     subfase: data.subFaseId,
                     correoJuzgado:data.emailJuzgado,
-                    tipoProceso: data.esProcesoInmediatoId+1               
+                    tipoProceso: data.esProcesoInmediatoId+1,
+                    juzgado: data.juzgadoId
                 }
             )
+            
+            
         }
     }, [data])
 

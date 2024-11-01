@@ -13,6 +13,7 @@ export const types = {
     dependenciasMininter:'[APP] Lista de dependencias del MININTER',
     procuradores:'[APP] Lista de procuradores',
     departamentos:'[APP] Lista de departamentoss',
+    distritosJudicial: '[APP] Lista de distritos judiciales',
     delitos: '[APP] Lista de delitos',
     tiposAudiencia: '[APP] Lista de tipos de audiencia',
     tiposPena: '[APP] Lista de tipos de pena',

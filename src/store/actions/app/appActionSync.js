@@ -72,3 +72,10 @@ export const setTiposSentencia = data => ({
 });
 
 
+export const setDistritosJudicial = data => ({
+    type: types.distritosJudicial,
+    payload: data,
+});
+
+
+

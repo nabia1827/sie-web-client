@@ -15,7 +15,9 @@ import {
 
 
 import {
-    UpdateImputadoById
+    UpdateImputadoById, DeleteImputado,
+    UpdateImputadoDelito, DeleteImputadoDelito,
+    UpdateAudiencia, UpdateDatosDocumento, UpdateDatosGeneralesTemp,
 } from "../../../../utils/recepcionLegajos/dinamicCalls";
 
 import ModalEditResultado from "../../../../components/recepcionLegajo/ModalEditResultado";
@@ -25,6 +27,7 @@ import ModalDelImputado from "../../../../components/recepcionLegajo/ModalDelImp
 import ModalDelResultado from "../../../../components/recepcionLegajo/ModalDelResultado";
 import ModalDelAgraviado from "../../../../components/recepcionLegajo/nuevoLegajo/ModalDelAgraviado";
 import ModalGuardarDatos from "../../../../components/recepcionLegajo/ModalGuardarDatos";
+import { isNull } from "lodash";
 
 const { useBreakpoint } = Grid;
 
@@ -32,6 +35,7 @@ function AdicionarDocsPage() {
 
     //Legajo actual
     const { legajoId, documentoId } = useParams();
+    const audienciaId = 0
 
     //Datos del dataDd
     const [loadingDd, setLoadingDd] = useState(true);
@@ -111,12 +115,11 @@ function AdicionarDocsPage() {
     const fetchAudiencias = async (id) => {
         setLoadingAud(true);
         try {
-            const response = await GetAudienciasByLegajoId(id);
-            if (response.data[0] !== null && response.data[0] !== undefined) {
-                const audienciaId = response.data[0].audienciaId;
-                const audienciaResponse = await GetAudiencia(audienciaId);
+            const audienciaResponse = await GetAudiencia(id);
+            if(audienciaResponse && audienciaResponse.data){
                 setDataAud(audienciaResponse.data);
             }
+            
         } finally {
             setLoadingAud(false);
         }
@@ -136,10 +139,15 @@ function AdicionarDocsPage() {
         if (legajoId !== null && legajoId !== undefined) {
             fetchDatosGenerales(legajoId);
             fetchPartesProcesales(legajoId);
-            fetchAudiencias(legajoId);
             fetchResultados(legajoId);
         }
     }, [legajoId]);
+
+    useEffect(() => {
+        if (audienciaId !== null && audienciaId !== undefined && audienciaId!=0) {
+            fetchAudiencias(audienciaId);
+        }
+    }, [audienciaId]);
     
 
     useEffect(() => {
@@ -160,14 +168,62 @@ function AdicionarDocsPage() {
 
     const onOkMdBtnSv = () => {
         setMdBtnSvLoading(true);
-        /*const observacion = ImpForm.getFieldValue("observacion")
-        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
-            ImpForm.ImpetFields();
-            setCurrentAudiencia(null);
-            fetchAudiencias(id);
-            setMdObsLoading(false);
-            setMdObsOpen(false);
-        })Aqui debo realizar todo*/
+        const claseId = formDd.getFieldValue("claseDocumento")
+        const tipoRemitenteId = formDd.getFieldValue("tipoRemitente")
+        const nroDoc = formDd.getFieldValue("nroDocumento")
+        const remitenteId = formDd.getFieldValue("remitente")
+
+        const datosDocumento ={
+            docId:documentoId,
+            claseId:  isNull(claseId)?0:claseId,
+            tipoRemitenteId: isNull(tipoRemitenteId)?0:tipoRemitenteId,
+            nroDoc: nroDoc,
+            remitenteId: isNull(remitenteId)?0:remitenteId,
+            usuModificacion: 1
+        }
+
+        const nroCarpeta = formDg.getFieldValue("carpetaFiscal")
+        const nroExpediente = formDg.getFieldValue("expedienteJudicial")
+        const estadoId = formDg.getFieldValue("estado")
+        const subfaseId = formDg.getFieldValue("subfase")
+        const juzgadoId = formDg.getFieldValue("juzgado")
+        const tipoProcesoId = formDg.getFieldValue("tipoProceso")
+
+        const datosGeneralesTemp ={
+            legajoId: legajoId,
+            nroCarpeta: nroCarpeta, 
+            nroExpediente:nroExpediente,
+            estadoId: isNull(estadoId)?0:estadoId,
+            subfaseId: isNull(subfaseId)?0:subfaseId, 
+            juzgadoId: isNull(juzgadoId)?0:juzgadoId,
+            tipoProcesoId: isNull(tipoProcesoId)?0:tipoProcesoId
+        }
+
+        const fecha = formAud.getFieldValue("fecha");
+        const fechaFormateada = fecha ? fecha.format('YYYY-MM-DD') : "2024-01-01";
+        const tipo = isNull(formAud.getFieldValue("tipo")) || formAud.getFieldValue("tipo") === undefined?0:formAud.getFieldValue("tipo")
+        const hora = formAud.getFieldValue("hora");
+        const horaFormateada = hora ? hora.format('hh:mm a') : "02:20 am";
+        const link = formAud.getFieldValue("link")
+
+        console.log(fechaFormateada,horaFormateada)
+
+
+        
+        //
+        Promise.all([
+            UpdateDatosDocumento(datosDocumento), 
+            UpdateDatosGeneralesTemp(datosGeneralesTemp), 
+            UpdateAudiencia(audienciaId,fechaFormateada, horaFormateada,tipo,link,legajoId)
+        ])
+        .then(() => {
+            setMdBtnSvLoading(false);
+            setMdBtnSvOpen(false);
+        })
+        
+        //UpdateDatosGeneralesTemp
+
+        
     };
     const onCancelMdBtnSv = () => {
         setMdBtnSvOpen(false);
@@ -189,14 +245,30 @@ function AdicionarDocsPage() {
 
     const onOkMdRes = () => {
         setMdResLoading(true);
-        /*const observacion = resForm.getFieldValue("observacion")
-        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
+        const imputadoDelitoId = currentResultado.imputadoDelitoId
+        const reparacionCivil = resForm.getFieldValue("reparacionCivil")
+        const tipoSentenciaId = resForm.getFieldValue("tipoSentencia")
+        const cantidad = resForm.getFieldValue("cantidad")
+        const tipoPenaId = resForm.getFieldValue("tipoPena")
+        const fechaApelacion = resForm.getFieldValue("fechaApelacion")
+        const resultadoApelacionId = resForm.getFieldValue("resApelacionId")
+        const imputadoDelito = {
+            imputadoDelitoId: imputadoDelitoId,
+            reparacionCivil: reparacionCivil,
+            tipoSentenciaId: isNull(tipoSentenciaId)?0:tipoSentenciaId,
+            tipoPenaId: isNull(tipoPenaId)?0:tipoPenaId,
+            cantidad: cantidad,
+            fechaApelacion: isNull(fechaApelacion)?"":fechaApelacion,
+            resultadoApelacionId: isNull(resultadoApelacionId)?0:resultadoApelacionId,
+        }
+
+        UpdateImputadoDelito(imputadoDelito).then(() => {
             resForm.resetFields();
-            setCurrentAudiencia(null);
-            fetchAudiencias(id);
-            setMdObsLoading(false);
-            setMdObsOpen(false);
-        })Aqui debo realizar todo*/
+            setCurrentResultado(null);
+            fetchResultados(legajoId);
+            setMdResLoading(false);
+            setMdResOpen(false);
+        })
     };
     const onCancelMdRes = () => {
         resForm.resetFields();
@@ -291,16 +363,13 @@ function AdicionarDocsPage() {
     };
 
     const onOkMdDelImp = () => {
-        setMdDelImpLoading(true);
-        console.log(currentImputadoId)
-        /*const observacion = agrForm.getFieldValue("observacion")
-        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
-            AgrForm.AgretFields();
-            setCurrentAudiencia(null);
-            fetchAudiencias(id);
-            setMdObsLoading(false);
-            setMdObsOpen(false);
-        })Aqui debo realizar todo*/
+        setMdDelImpLoading(true)
+        DeleteImputado(currentImputadoId).then(() => {
+            setCurrentImputadoId(null);
+            setMdDelImpLoading(false);
+            fetchPartesProcesales(legajoId);
+            setMdDelImpOpen(false);
+        })
     };
     const onCancelMdDelImp = () => {
         setCurrentImputadoId(null);
@@ -322,15 +391,14 @@ function AdicionarDocsPage() {
 
     const onOkMdDelRes = () => {
         setMdDelResLoading(true);
-        console.log("Eliminar")
-        /*const observacion = agrForm.getFieldValue("observacion")
-        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
-            AgrForm.AgretFields();
-            setCurrentAudiencia(null);
-            fetchAudiencias(id);
-            setMdObsLoading(false);
-            setMdObsOpen(false);
-        })Aqui debo realizar todo*/
+        console.log(currentResultadoId)
+
+        DeleteImputadoDelito(currentResultadoId).then(() => {
+            setCurrentResultadoId(null);
+            fetchResultados(legajoId);
+            setMdDelResLoading(false);
+            setMdDelResOpen(false);
+        })
     };
 
     const onCancelMdDelRes = () => {

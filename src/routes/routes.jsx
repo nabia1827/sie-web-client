@@ -12,7 +12,8 @@ import { login } from '../store/actions/authActionSync';
 import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
   CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos, 
   cargarDelitos,cargarTiposPena,cargarTiposSentencia,
-  cargarTiposAudiencia, cargarTiposRemitente} from '../store/actions/app/appActionAsync';
+  cargarTiposAudiencia, cargarTiposRemitente,
+  cargarDistritosJudicial} from '../store/actions/app/appActionAsync';
 
 
 //General
@@ -93,6 +94,8 @@ const RoutesApp = () => {
       dispatch(cargarTiposRemitente())
       dispatch(cargarTiposPena())
       dispatch(cargarTiposSentencia())  
+      dispatch(cargarDistritosJudicial()) 
+      
     }
   }, [dispatch, isAuthenticated]);
 
