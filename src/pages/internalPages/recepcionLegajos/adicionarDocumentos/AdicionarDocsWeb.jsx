@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Typography, Input, Button, Collapse, Select,Row, Col,notification } from "antd";
 import { colors } from "../../../../utils/colors";
-import { SmileOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Text } = Typography
 import CollapserDatosDoc from "../../../../components/recepcionLegajo/CollapserDatosDoc";
@@ -27,9 +27,11 @@ function AdicionarDocsWeb(props){
 
     } = props
 
+    const [api, contextHolder] = notification.useNotification();
+
 
     const openNotification = () => {
-        notification.info({
+        api.info({
             message: 'Actualización de Registros',
             description: 'Los tabs de Partes Procesales y Resultados son independientes del boton de guardado, así que asegurate de realizar los cambios en esos apartados de manera premeditada para evitar errores.',
             duration: 5,
@@ -46,6 +48,7 @@ function AdicionarDocsWeb(props){
                             <Input style={{width: "100%"}} value="LP - 948948" disabled />
                         </Flex>
                         <Flex gap={"small"} justify="center" align="center" style={{ width: "50%", paddingLeft: "26%"}}>
+                            
                             <Button style={{width: "70%", height: "3em"}} type="primary" onClick={showMdBtnSv}>Guardar Datos</Button>
                         </Flex>
                         
@@ -54,6 +57,7 @@ function AdicionarDocsWeb(props){
                     <Flex gap={"1em"} vertical justify="start" align="center" style={{ width: "100%", height: "72%", paddingLeft: "2.7em", paddingRight: "2.7em"}}>
                         <Flex gap={"1em"}  justify="start" align="left" style={{ width: "100%", height: "72%"}}> 
                             <Text style={{width: "100%", textAlign:"left", marginBottom: "1em"}}>Los datos identificados automáticamente en el documento, son los siguientes:</Text> 
+                            {contextHolder}
                             <Button style={{width: "15%", alignItems:"left", marginBottom: "1em"}} color="default" variant="text" onClick={openNotification}  icon={<InfoCircleOutlined />}>
                                 Informacion
                             </Button>

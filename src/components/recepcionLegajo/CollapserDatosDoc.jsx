@@ -18,6 +18,8 @@ function CollapserDatosDoc(props) {
 
     const handleSearch = (nombreRemitente) => {
         if (nombreRemitente!=null && nombreRemitente!=undefined && nombreRemitente !=''){
+            
+
             const tipoRemitenteId = form.getFieldValue("tipoRemitente")
 
             if(tipoRemitenteId === TipoDestinatario.FISCALIA){
@@ -38,15 +40,30 @@ function CollapserDatosDoc(props) {
 
     useEffect(() => {
         if (data !== null && data !== undefined) {
+
+            const tipoRemitenteId = data.tipoRemitenteId
+
+            if(tipoRemitenteId === TipoDestinatario.FISCALIA){
+                fetchFiscalias("fiscalia",setDataFiscalias)  
+            }
+            if(tipoRemitenteId === TipoDestinatario.JUZGADO){
+                fetchJuzgados("juzgado",setDataJuzgados)
+            }
+
+            setTipoRemitenteId(tipoRemitenteId)    
+
             form.setFieldsValue(
                 {
                     claseDocumento: data.claseDocId,
-                    tipoRemitente: data.tipoRemitenteId,
-                    nroDocumento: data.numeroDoc
+                    tipoRemitente: data.tipoRemitenteId===0?null:data.tipoRemitenteId,
+                    nroDocumento: data.numeroDoc,
+                    remitente: data.remitenteId===0?null:data.remitenteId
                 }
             )
         }
     }, [data])
+
+    
 
     return (
         <>

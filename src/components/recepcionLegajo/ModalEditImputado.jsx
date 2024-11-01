@@ -15,6 +15,7 @@ function ModalEditImputado(props) {
     // Usamos useEffect para establecer los valores iniciales cuando currentRecord cambia
     useEffect(() => {
         if (modalOpen) {
+            console.log(dataImputado)
             const delitosId = dataImputado.delitos.map(imputado => imputado.delitoId);
 
             form.setFieldsValue({

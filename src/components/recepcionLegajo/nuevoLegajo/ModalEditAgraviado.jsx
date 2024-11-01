@@ -2,21 +2,25 @@ import React,{useEffect} from "react";
 import { Flex, Modal, Form, Button, Select, Row, Col, Input, Typography } from "antd";
 import { motion } from "framer-motion";
 import { enableButtonStyle, hoverButtonStyle, enableModalButtonStyle } from "../../../utils/styles";
+import {ListTipoDocIdentidad} from "../../../utils/constants";
+
 const { Text } = Typography;
 const { TextArea } = Input;
 
 function ModalEditAgraviado(props) {
-    const { modalOpen, handleOk, handleCancel, modalLoading, form, legajo } = props;
+    const { modalOpen, handleOk, handleCancel, modalLoading, form, dataAgraviado} = props;
 
     // Usamos useEffect para establecer los valores iniciales cuando currentRecord cambia
-    /*useEffect(() => {
+    useEffect(() => {
         if (modalOpen) {
             form.setFieldsValue({
-                hechos: legajo.hechosNombre,
+                nombreAgraviado: dataAgraviado.agraviadoNombre,
+                tipoDoc:dataAgraviado.tipoIdentidadId,
+                nroDoc:dataAgraviado.nroDoc,
 
             });
         }
-    }, [modalOpen, form]);*/
+    }, [modalOpen, form]);
 
 
     return (
@@ -74,8 +78,15 @@ function ModalEditAgraviado(props) {
                             <Form.Item label={<Text>Tipo Documento</Text >} name='tipoDoc'>
                                 <Select
                                     style={{ width: '100%' }}
-                                    options={[{ value: 'Juzgado', label: 'Juzgado' }]}
-                                />
+                                >
+                                    {
+                                        ListTipoDocIdentidad.map((c) => (
+                                            <Select.Option key={c.tipoDocId} value={c.tipoDocId}>
+                                                {c.tipoDocNombre}
+                                            </Select.Option>
+                                        ))
+                                    }
+                                </Select>
                             </Form.Item>
                         </Col>
 

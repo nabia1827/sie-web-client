@@ -23,7 +23,7 @@ function ModalEditResultado(props) {
             form.setFieldsValue({
                 reparacionCivil: currentResultado.reparacionCivil,
                 cantidad: currentResultado.cantidadNum!==0?currentResultado.cantidadNum: null,
-                tipoSentencia:currentResultado.tipoSentenciaId,
+                tipoSentencia:currentResultado.tipoSentenciaId!==0?currentResultado.tipoSentenciaId: null,
                 tipoPena:currentResultado.tipoPenaId!==0?currentResultado.tipoPenaId: null,
                 resApelacionId: currentResultado.resApelacionId!==0?currentResultado.resApelacionId: null,
                 fechaApelacion: currentResultado.fechaApelacion !== null? dayjs(currentResultado.fechaApelacion, FORMAT_DATE) : "",
@@ -88,7 +88,7 @@ function ModalEditResultado(props) {
 
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item name='reparacionCivil' label='Reparacion Civil' >
-                                <Input placeholder="Reparacion Civil" addonAfter="Soles" size="large" />
+                                <Input type="number" min={0} placeholder="Reparacion Civil" addonAfter="Soles" size="large" />
 
                             </Form.Item>
                         </Col>

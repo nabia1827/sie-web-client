@@ -15,6 +15,7 @@ const initialValues = {
     tiposRemitente: [],
     tiposPena: [],
     tiposSentencia: [],
+    distritosJudicial: []
 };
 
 export const appReducer = (state = initialValues, action) => {
@@ -100,7 +101,15 @@ export const appReducer = (state = initialValues, action) => {
                 ...state,
                 tiposSentencia: [...action.payload],
             };
+
+        case types.distritosJudicial:
+            return {
+                ...state,
+                distritosJudicial: [...action.payload],
+            };
+            
         default:
             return state;
+
     }
 };

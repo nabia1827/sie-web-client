@@ -99,12 +99,23 @@ const RecepcionLegajos = {
     SearchFiscalia: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchFiscalia?nombreCompleto=${nombreCompleto}`),
     SearchJuzgado: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchJuzgado?nombreCompleto=${nombreCompleto}`),
     GetDatosGeneralesTemp: (legajoId) => requests.get(`/RecepcionLegajos/GetDatosGeneralesTemp?legajoId=${legajoId}`),
+    GetDatosGenerales: (legajoId) => requests.get(`/RecepcionLegajos/GetDatosGenerales?legajoId=${legajoId}`),
     GetDocumento: (documentoId) => requests.get(`/RecepcionLegajos/GetDocumento?documentoId=${documentoId}`),
     GetAudiencia: (audienciaId) =>requests.get(`/RecepcionLegajos/GetAudiencia?audienciaId=${audienciaId}`),
     ListarTipoAudiencia: () => requests.get(`/RecepcionLegajos/ListarTipoAudiencia`), 
     ListarDelito: () => requests.get(`/RecepcionLegajos/ListarDelito`),
     ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`),
     UpdateImputadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateImputadoById`, body),
+    DeleteImputado: (imputadoId) =>requests.patch(`/RecepcionLegajos/DeleteImputado?imputadoId=${imputadoId}`),
+    UpdateImputadoDelito: (body) => requests.patch(`/RecepcionLegajos/UpdateImputadoDelito`, body),
+    DeleteImputadoDelito: (imputadoDelitoId) =>requests.patch(`/RecepcionLegajos/DeleteImputadoDelito?imputadoDelitoId=${imputadoDelitoId}`),
+    UpdateAudiencia: (audienciaId, fecha,hora,tipoAudienciaId,link,legajoId)=>requests.patch(`/RecepcionLegajos/UpdateAudiencia?audienciaId=${audienciaId}&fecha=${fecha}&hora=${hora}&tipoAudienciaId=${tipoAudienciaId}&link=${link}&legajoId=${legajoId}`),
+    UpdateDatosGeneralesTemp: (body) => requests.patch(`/RecepcionLegajos/UpdateDatosGeneralesTemp`, body),
+    UpdateDatosGenerales: (body) => requests.patch(`/RecepcionLegajos/UpdateDatosGenerales`, body),
+    UpdateDatosDocumento: (body) => requests.patch(`/RecepcionLegajos/UpdateDatosDocumento`, body),
+    ListarDisJudicial: ()=> requests.get(`/RecepcionLegajos/ListarDisJudicial`),
+    DeleteAgraviado: (agraviadoId) =>requests.patch(`/RecepcionLegajos/DeleteAgraviado?agraviadoId=${agraviadoId}`),
+    UpdateAgraviadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateAgraviadoById`, body),
 }
 
 const Audiencia = {

@@ -6,57 +6,12 @@ import {
     Users
 } from "@phosphor-icons/react";
 function CollapserPartesProc(props) {
-    const { /*imputados, agraviados, loadingPp,*/ showMdEditImp, showMdDelImp, showMdEditAgr, showMdDelAgr} = props;
+    const { imputados, agraviados, loadingPp, showMdEditImp, showMdDelImp, showMdEditAgr, showMdDelAgr} = props;
     
 
     const columnsImputados = ColumnsImputados(showMdEditImp, showMdDelImp)
     const columnsAgraviados = ColumnsAgraviados(showMdEditAgr, showMdDelAgr)
 
-    // Pasar a Dinamico
-    const loadingPp = false
-    const imputados =[
-    {
-        imputadoId: 1,
-        imputadoNombre:"Debora Leon Sanchez",
-        tipoDoc:"DNI",
-        nroDoc:"72606359",
-        delitos:[
-            {
-                imputadoDelitoId: 20,
-                delitoId: 15,
-                delitoNombre: "Tenencia Ilegal de Armas",
-                reparacioCivil: 0,
-                estado: "Incluido",
-            },
-
-            {
-                imputadoDelitoId: 21,
-                delitoId: 1,
-                delitoNombre: "Homicidio Culposo",
-                reparacioCivil: 40,
-                estado:"Investigado",
-            },
-            
-        ],
-        
-    }]
-
-
-    const agraviados =[
-        {
-            agraviadoId: 6,
-            agraviadoNombre: "El Estado",
-            tipoDoc: null,
-            nroDoc: null
-        },
-        {
-            agraviadoId: 7,
-            agraviadoNombre: "Pedro Martinez Pinedo",
-            tipoDoc: "Carnet Extranjeria o Pasaporte",
-            nroDoc: "015475896"
-        }
-
-    ]
 
 
     return (

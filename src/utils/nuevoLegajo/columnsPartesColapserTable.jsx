@@ -112,7 +112,7 @@ export const ColumnsAgraviados = (showMdEditAgr, showMdDelAgr) => {
                 <>
                     <Flex gap={"small"} justify="center" align="center">
                         <Button onClick={() => showMdEditAgr(record)} type="primary" shape="circle" style={{ backgroundColor: colors.blue }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
-                        <Button onClick={() => showMdDelAgr(record)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
+                        <Button onClick={() => showMdDelAgr(record.agraviadoId)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
                     </Flex>
                 </>
             ),
