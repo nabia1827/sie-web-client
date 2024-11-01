@@ -139,7 +139,24 @@ body {
   text-align: left;
 }
 
+.sie-report-card-subtitle {
+  font-family: 'DM Sans';
+  color: #2D3748;
+  font-weight: 500;
+  font-size: 0.8em;
+  text-align: left;
+}
+
 .sie-info-card-title {
+  font-family: 'DM Sans';
+  color: #2D3748;
+  font-weight: 600;
+  font-size: 1.1em;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.sie-report-card-title {
   font-family: 'DM Sans';
   color: #2D3748;
   font-weight: 600;
@@ -432,7 +449,7 @@ table.scheduler-table tr:last-child td {
 
 /* Personalización del scrollbar para navegadores basados en WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {
-  width: 8px !important;
+  width: 8px;
   height: 8px;
 }
 

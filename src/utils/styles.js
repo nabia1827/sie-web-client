@@ -65,8 +65,7 @@ export const contentStyle = {
     backgroundColor: '#F4F7FE',
     padding: "0.0em 1.0em",
     overflow: "auto",
-    scrollbarWidth: "thin",
-    scrollbarColor: "unset"
+    
 };
 
 export const subcontentStyle = {
