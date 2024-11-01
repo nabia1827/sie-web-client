@@ -38,8 +38,7 @@ const { useBreakpoint } = Grid;
 function NuevoLegajoPage() {
 
     //Legajo actual
-    const { legajoId, documentoId } = useParams();
-    const audienciaId = 0
+    const { legajoId, documentoId, audienciaId } = useParams();
 
     //Datos del dataDd
     const [loadingDd, setLoadingDd] = useState(true);
