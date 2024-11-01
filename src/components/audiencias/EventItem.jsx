@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes  from 'prop-types';
-import { Checkbox, Popover, Row, Space, Tooltip } from 'antd';
-import { CaretRightOutlined, PauseOutlined, BorderOutlined, ExclamationCircleFilled, CommentOutlined, DeleteFilled } from '@ant-design/icons';
+import PropTypes from 'prop-types';
+import { Checkbox, Popover, Row, Space, Tooltip, Typography } from 'antd';
+import { CaretRightOutlined, PauseOutlined, FileTextOutlined, BorderOutlined, ExclamationCircleFilled, CommentOutlined, DeleteFilled } from '@ant-design/icons';
 import EventItemPopover from './EventItemPopover';
 import { DnDTypes, CellUnit, DATETIME_FORMAT } from '../../utils/audiencias/default';
-
+const { Text } = Typography;
 
 class EventItem extends Component {
   constructor(props) {
@@ -466,8 +466,8 @@ class EventItem extends Component {
 
   render() {
     const { eventItem, deleteItemsList, isStart, isEnd, isInPopover, eventItemClick, schedulerData, isDragging, connectDragSource, connectDragPreview, eventItemTemplateResolver } = this.props;
-    
-    
+
+
     const { config, localeDayjs } = schedulerData;
     const { left, width, top } = this.state;
     const roundCls = isStart ? (isEnd ? 'round-all' : 'round-head') : (isEnd ? 'round-tail' : 'round-none');
@@ -479,7 +479,7 @@ class EventItem extends Component {
       // validamos que coincidan el "tipoTrab" y "etapaId" del evento con las de la configuración
       const matchingPseudoEtapa = config.pseudoEtapa.find(
         item => item.grupoTipoTrab === eventItem.tipoTrab
-              && item.etapaOS === eventItem.schdEtapaId,
+          && item.etapaOS === eventItem.schdEtapaId,
       );
 
       // Si coinciden, seteamos el color del evento segón el color del trabajo
@@ -508,10 +508,10 @@ class EventItem extends Component {
     if (this.startResizable(this.props)) startResizeDiv = <div className="event-resizer event-start-resizer" ref={ref => this.startResizer = ref} />;
     let endResizeDiv = <div />;
     if (this.endResizable(this.props)) endResizeDiv = <div className="event-resizer event-end-resizer" ref={ref => this.endResizer = ref} />;
-    
+
     let porcAvance = "";
-    if (eventItem.porcentajeAvance !== undefined && eventItem.porcentajeAvance !== null) porcAvance = eventItem.porcentajeAvance;    
-    
+    if (eventItem.porcentajeAvance !== undefined && eventItem.porcentajeAvance !== null) porcAvance = eventItem.porcentajeAvance;
+
     let durStateIcon = '';
     if (eventItem.schdEstadoDuracion === undefined) durStateIcon = <CaretRightOutlined />;
     else if (eventItem.schdEstadoDuracion === '') durStateIcon = <PauseOutlined />;
@@ -547,7 +547,9 @@ class EventItem extends Component {
       >
         <div>
           <Row
+            justify={"start"}
             style={{
+              justifyContent: 'start',
               display: 'block',
               lineHeight: `${config.eventItemHeight * (1 / 2)}px`,
             }}
@@ -576,21 +578,20 @@ class EventItem extends Component {
               >
                 {eventTitle}
               </span>
-            </Tooltip>           
-          </Row>                  
+            </Tooltip>
+          </Row>
         </div>
         <div>
           <Row
             style={{
               height: `${config.eventItemHeight / 2}px`,
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'flex-start',
             }}
           >
-            <Space size={20}>  
-              {porcAvance !== ""? porcAvance + "%": porcAvance}           
-              {comentarioIcon}
-              {durStateIcon}
+            <Space size={20} style={{ marginLeft: '10px', }}>
+              <FileTextOutlined />
+              <Text className="sie-event-gantt" >LP {eventItem.codigoLegajo}</Text>
               {deleteCheckBox}
             </Space>
           </Row>
@@ -663,21 +664,9 @@ class EventItem extends Component {
           </div>
         )
         : (
-          <Popover
-            motion={isPopoverPlacementMousePosition ? '' : undefined}
-            align={isPopoverPlacementMousePosition ? {
-              offset: [popoverOffsetX, popoverPlacement.includes('top') ? -10 : 10],
-              overflow: {
-                // shiftX: true,
-                // shiftY: true,
-              },
-            } : undefined}
-            placement={isPopoverPlacementMousePosition ? mousePositionPlacement : popoverPlacement}
-            content={content}
-            trigger={config.eventItemPopoverTrigger}
-          >
+          <div>
             {aItem}
-          </Popover>
+          </div>
         )
       )
     );
@@ -696,16 +685,16 @@ class EventItem extends Component {
     const { eventItem, isInPopover, schedulerData } = props;
     const { config } = schedulerData;
     return config.startResizable === true && isInPopover === false
-            && (eventItem.resizable == undefined || eventItem.resizable !== false)
-            && (eventItem.startResizable == undefined || eventItem.startResizable !== false);
+      && (eventItem.resizable == undefined || eventItem.resizable !== false)
+      && (eventItem.startResizable == undefined || eventItem.startResizable !== false);
   };
 
   endResizable = props => {
     const { eventItem, isInPopover, schedulerData } = props;
     const { config } = schedulerData;
     return config.endResizable === true && isInPopover === false
-            && (eventItem.resizable == undefined || eventItem.resizable !== false)
-            && (eventItem.endResizable == undefined || eventItem.endResizable !== false);
+      && (eventItem.resizable == undefined || eventItem.resizable !== false)
+      && (eventItem.endResizable == undefined || eventItem.endResizable !== false);
   };
 
   subscribeResizeEvent = props => {

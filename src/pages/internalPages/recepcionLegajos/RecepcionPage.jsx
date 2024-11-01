@@ -68,14 +68,14 @@ function RecepcionPage() {
                             if(response.data > 0){
                                 AdicionarDocumento(response.data,usuId,formData).then((resp)=>{
                                     setLoading(false);
-                                    const {legajoId, docId} = resp
-                                    navigate(paths.ADICIONAR_LEGAJO(legajoId, docId))
+                                    const {legajoId, docId, audienciaId} = resp
+                                    navigate(paths.ADICIONAR_LEGAJO(legajoId, docId,audienciaId))
                                 });
                             }else{
                                 CrearLegajo(usuId,formData).then((resp2)=>{
                                     setLoading(false);
-                                    const {legajoId, docId} = resp2;
-                                    navigate(paths.CREAR_DOC(legajoId, docId))
+                                    const {legajoId, docId, audienciaId} = resp2;
+                                    navigate(paths.CREAR_DOC(legajoId, docId, audienciaId))
                                 });
                             }
                         }else{

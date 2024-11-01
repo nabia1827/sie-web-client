@@ -125,6 +125,7 @@ const Audiencia = {
     GetAudienciasByWeek: (fecha,daysToAdd,usuId) => requests.get(`/Audiencia/GetAudienciasByWeek?fecha=${fecha}&daysToAdd=${daysToAdd}&usuId=${usuId}`),
     InsertNuevasAudiencias: audiencias => requests.post('/Audiencia/InsertNuevasAudiencias', audiencias),
     RemoveAudiencias: dataIds => requests.patch('/Audiencia/RemoveAudiencias', dataIds),
+    ListLegajosByTermino: (terminoBusqueda) => requests.get(`/Audiencia/ListLegajosByTermino?terminoBusqueda=${terminoBusqueda}`),
 }
 
 export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia};

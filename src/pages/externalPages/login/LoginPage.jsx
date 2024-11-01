@@ -45,7 +45,7 @@ function LoginPage() {
                     setStatus("");
                     setTextError("");
                     console.log("Logged in")
-                    navigate(paths.HOME);
+                    navigate(paths.MIS_LEGAJOS);
                 } else {
                     setLoading(false);
                     

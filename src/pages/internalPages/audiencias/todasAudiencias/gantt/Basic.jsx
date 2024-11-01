@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { notification, message } from "antd";
+import { notification, message, Form } from "antd";
 import dayjs from "dayjs";
 import {
     HubConnection,
@@ -19,10 +19,10 @@ import {
 } from "./index";
 import EventItemPopover from "../../../../../components/audiencias/EventItemPopover";
 import api from "../../../../../services/api"
-
-
+import ModalNuevaAudiencia from "../../../../../components/audiencias/ModalNuevaAudiencia";
+import { InsertNuevasAudiencias, RemoveAudiencias, EditAudiencias } from "../../../../../utils/audiencias/dinamicCalls";
 import _ from "lodash";
-
+import ModalDetalleAudiencia from "../../../../../components/audiencias/ModalDetalleAudiencia";
 
 class Basic extends Component {
 
@@ -84,6 +84,8 @@ class Basic extends Component {
         this.state = {
             viewModel: schedulerData,
             isModalVisible: false,
+            isDetalleVisible:false,
+            detalleId:0,
             eventData: null,
             deleteItemsList: [],
             connection: null,
@@ -119,7 +121,7 @@ class Basic extends Component {
     componentDidUpdate(prevProps) {
         //------------
         //Sirve para que en la primera carga no se quede eternamente en el estado loading hasta que se presione un boton
-       
+
         if (this.state.primeraCarga === true) {
             const { viewModel } = this.state;
             this.LoadData(viewModel);
@@ -218,9 +220,9 @@ class Basic extends Component {
     };
 
     LoadData = async (oldSchedulerData) => {
-        
+
         //Verificación para que personas no autorizadas no puedan ver las semanas siguientes a la semana actual    
-        
+
         let semanaActual = dayjs().isoWeek();
         let actualYear = dayjs().year();
         let semanaGantt = oldSchedulerData.startDate.isoWeek();
@@ -228,7 +230,7 @@ class Basic extends Component {
 
 
         if (true) {
-            
+
             const { selectedTaller, user, talleresByUser } = this.props;
             let schedulerData;
 
@@ -261,7 +263,7 @@ class Basic extends Component {
                 const date = dayjs;
                 let mondayDate = schedulerData.startDate;
 
-                
+
                 const day = mondayDate.format("YYYYMMDD");
 
                 await api.Audiencia.GetAudienciasByWeek(
@@ -300,7 +302,7 @@ class Basic extends Component {
                             delete item.movable;
                             delete item.resizable;
                             delete item.audienciaSubTitleHour;
-                            delete item.codigoLegajo;
+                            
                             //delete item.schdRrule;
                             //delete item.schdOsId;
                             return item;
@@ -326,6 +328,8 @@ class Basic extends Component {
         const {
             viewModel,
             isModalVisible,
+            isDetalleVisible,
+            detalleId,
             eventData,
             loadingScheduler,
             isDeleting,
@@ -378,16 +382,22 @@ class Basic extends Component {
                     removeItemsList={this.removeItemsList}
                     cleanItemsList={this.cleanItemsList}
                 />
-                {/*
-        
-        <EventModal
-          visible={isModalVisible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          eventData={eventData}
-        />
-        
-        */}
+                <ModalNuevaAudiencia
+                    modalOpen={isModalVisible}
+                    handleOk={this.handleOk}
+                    handleCancel={this.handleCancel}
+                    eventData = {eventData}
+                >
+
+                </ModalNuevaAudiencia>
+                <ModalDetalleAudiencia
+                modalOpen={isDetalleVisible}
+                handleOk={this.saveDetalle}
+                handleCancel={this.closeDetalle}
+                audienciaId = {detalleId}
+                >
+
+                </ModalDetalleAudiencia>
 
             </>
         );
@@ -411,9 +421,20 @@ class Basic extends Component {
             loadData={this.LoadData}
         />
     );
+    closeDetalle = () =>{
+        this.setState({ isDetalleVisible: false });
+        this.setState({ detalleId: 0 });
+    }
+
+    saveDetalle = () =>{
+        const { viewModel } = this.state;
+        this.setState({ isDetalleVisible: false });
+        this.setState({ detalleId: 0 });
+        this.LoadData(viewModel);
+    }
 
     eventClicked = (schedulerData, event) => {
-        const { deleteItemsList, isDeleting } = this.state;
+        const { deleteItemsList, isDeleting,isDetalleVisible } = this.state;
 
         if (isDeleting) {
             const updatedDeleteItemsList = [...deleteItemsList];
@@ -433,6 +454,9 @@ class Basic extends Component {
                 deleteItemsList: updatedDeleteItemsList,
                 viewModel: schedulerData,
             });
+        }else{
+            this.setState({ detalleId: event.id });
+            this.setState({ isDetalleVisible: !isDetalleVisible });
         }
     };
 
@@ -444,7 +468,7 @@ class Basic extends Component {
         const { viewModel } = this.state;
         this.setState({ loadingScheduler: true });
         try {
-            const response = await api.Audiencia.RemoveAudiencias(itemsList);
+            const response = await RemoveAudiencias(itemsList);
             itemsList.forEach((e) => {
                 const eventArr = viewModel.events.filter((elem) => elem.id === e);
                 if (eventArr.length > 0) this.sendDelete(eventArr.pop());
@@ -514,7 +538,7 @@ class Basic extends Component {
 
         try {
             if (events.length > 0) {
-                await api.Audiencia.InsertNuevasAudiencias(events)
+                await InsertNuevasAudiencias(events)
                     .then((response) => {
                         response.isSuccess
                             ? message.success(response.message)
@@ -527,14 +551,8 @@ class Basic extends Component {
                         message.error(err.response.data);
                     });
             } else if (eventIsMoving) {
-                const editEvents = viewModel.events.map((evento) => ({
-                    audienciaId: evento.id,
-                    startTime: dayjs(evento.start).format(),
-                    endTime: dayjs(evento.end).format(),
-                    abogadoId: evento.resourceId,
-                    audienciaTitle: evento.title,
-                }));
-                await api.Audiencia.EditAudiencias(editEvents)
+                
+                await EditAudiencias(viewModel.events)
                     .then((response) => {
                         response.isSuccess
                             ?
@@ -586,63 +604,43 @@ class Basic extends Component {
         this.setState({ isModalVisible: true });
     };
 
-    handleOk = async (values) => {
+    handleOk = async (formData) => {
         const { viewModel, eventData, events } = this.state;
-        const { user } = this.props;
-        const { etapa, componenteId, recursosOpCompletos } = values;
+        const { tiposAudiencia } = this.props;
 
-        const { localeDayjs } = viewModel;
-        const response = await api.Tempario.GetHorasByCompModIdAndEtapaId(
-            componenteId,
-            etapa.etapaId
-        ).catch((err) => {
-            message.error(err.message);
-        });
+        console.log("formData ",formData);
+        const objTitle = tiposAudiencia.find(t => t.tipoAudienciaId === formData.audienciaTipoId);
 
-        const titleEvent = await api.SchedulerGetData.GetTitleNewEvent(
-            componenteId
-        ).catch((err) => {
-            message.error(err.message);
-        });
-
-        const temparioDias = response.data;
-
-        let recursosOp = null;
-        if (recursosOpCompletos !== undefined) {
-            recursosOp = recursosOpCompletos > 0;
-        }
 
         let newFreshId = 0;
         viewModel.events.forEach((item) => {
             if (item.id >= newFreshId) newFreshId = item.id + 1;
         });
 
-        
-        
-
         const newEvent = {
             id: newFreshId,
-            title: "Hola que hace",
-            start: eventData.start,
-            end: eventData.end,
+            title: objTitle.descripcion,
+            start: formData.startTime,
+            end: formData.endTime,
             resourceId: eventData.resourceId,
-            bgColor: "#5271FF",//etapa.etapaColor,
-            tipoTrab: "s",
-            schdEtapaId: 1,
-            trabColor: "#47BAD8",
+            bgColor: formData.audienciaColor,
         };
 
         const newEventDB = {
-            compModOsId: 2,
-            etapaId: 1,
-            usuarioId: user.usuId,
-            recursosOp: true,
-            start: dayjs(eventData.start).format(),
-            end: dayjs(eventData.end).format(),
-            resourceId: eventData.resourceId,
-            titleName: "Hola que hace",
             id: newFreshId,
+            titleName: objTitle.descripcion,
+            start: dayjs(formData.startTime).format(),
+            end: dayjs(formData.endTime).format(),
+            resourceId: eventData.resourceId,
+            audienciaTipoId: formData.audienciaTipoId,
+            legajoId:formData.legajoId,
+            audienciaLink: formData.audienciaLink,
+            audienciaObservaciones:formData.audienciaObservaciones,
+            audienciaColor:formData.audienciaColor
+            
         };
+        console.log("newEvent ",newEvent);
+        console.log("newEventDB ",newEventDB);
         viewModel.addEvent(newEvent);
         this.setState({
             isModalVisible: false,
@@ -842,8 +840,9 @@ class Basic extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.auth.user,
+    tiposAudiencia: state.app.tiposAudiencia,
     selectedTaller: "90",
-    talleresByUser: [1,23,4],
+    talleresByUser: [1, 23, 4],
 });
 
 export default connect(mapStateToProps)(wrapperFun(Basic));
