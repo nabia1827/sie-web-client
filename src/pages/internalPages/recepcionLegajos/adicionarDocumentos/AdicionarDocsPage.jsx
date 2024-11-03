@@ -83,7 +83,9 @@ function AdicionarDocsPage() {
     const fetchDocumento = async (id) => {
         setLoadingDd(true);
         try {
+            console.log("envio Id fetch: ", id)
             const documentoResponse = await GetDocumento(id);
+            console.log("recepcion Respuesta Documento: ", documentoResponse)
             setDataDd(documentoResponse.data)
         } finally {
             setLoadingDd(false);

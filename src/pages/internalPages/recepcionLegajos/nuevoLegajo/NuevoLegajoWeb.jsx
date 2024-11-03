@@ -48,13 +48,9 @@ function NuevoLegajoWeb(props){
                             <Text style={{width: "100%", textAlign: "start"}}>Número Legajo:</Text>
                             <Input style={{width: "100%"}} value="LP - 948948" disabled />
                         </Flex>
-                        <Flex gap={"small"} justify="center" align="center" style={{ width: "100%", paddingRight: "3em"}}>
-                            <Flex gap={"small"} justify="center" align="center" style={{ width: "50%", paddingLeft: "26%"}}>
-                                <Button style={{width: "100%", height: "3em"}} type="primary" icon={<Plus size={16}/>}>Añadir Otro Campo</Button>
-                            </Flex>
-                            <Flex gap={"small"} justify="center" align="center" style={{ width: "50%", paddingLeft: "26%"}}>
-                                <Button style={{width: "100%", height: "3em"}} type="primary" onClick={showMdBtnSv}>Guardar Datos</Button>
-                            </Flex>
+                        <Flex gap={"small"} justify="flex-end" align="flex-end" style={{ width: "100%", paddingRight: "3em"}}>
+                            
+                            <Button style={{ height: "3em"}} type="primary" onClick={showMdBtnSv}>Guardar Datos</Button>
 
                         </Flex>
                         

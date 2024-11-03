@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Flex, Grid, Form, message } from "antd";
 import RecepcionMobile from "./RecepcionMobile";
 import RecepcionWeb from "./RecepcionWeb";
-//import { CrearLegajo,AdicionarDocumento,GetLegajoIdByCarpetaOrExpediente } from "../../../utils/consultaLegajos/dinamicCalls";
+import { GetLegajoIdByCarpetaOrExpediente } from "../../../utils/consultaLegajos/dinamicCalls";
+import { CrearLegajo,AdicionarDocumento} from "../../../utils/recepcionLegajos/dinamicCalls";
+
 const { useBreakpoint } = Grid;
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -44,48 +46,50 @@ function RecepcionPage() {
     };
 
     const onClickRecepcionar = () => {
-        setLoading(true);
-        const tipoCaso = form.getFieldValue("tipoCaso");
-        const nroCaso = form.getFieldValue("nroCaso");
-        const formData = new FormData();
-        formData.append('archivo', fileList[0].originFileObj);
-        console.log("fileeeeee", fileList[0].originFileObj)
-        setTimeout(() => {
-            setLoading(false);
+        if (fileList.length > 0) {
+            setLoading(true);
+            const tipoCaso = form.getFieldValue("tipoCaso");
+            const nroCaso = form.getFieldValue("nroCaso");
+            const formData = new FormData();
+            const file = fileList[0].originFileObj || fileList[0]
+            formData.append('archivo',file);
+            console.log("palabra clave:",file)
+            // Logs para depuración
+            console.log('Archivo a enviar:', file);
+            console.log('Nombre del archivo:', file.name);
+            console.log('Tipo de archivo:', file.type);
+            console.log('Tamaño del archivo:', file.size);
+            for (let pair of formData.entries()) {
+                console.log('FormData contiene:', pair[0], pair[1]);
+            }
+            console.log("usuarioId: ", usuId)
+            GetLegajoIdByCarpetaOrExpediente(tipoCaso,nroCaso).then((response)=>{
 
-        }, 44000);
-        /*
-                if (fileList.length > 0) {
-                    setLoading(true);
-                    const tipoCaso = form.getFieldValue("tipoCaso");
-                    const nroCaso = form.getFieldValue("nroCaso");
-                    const formData = new FormData();
-                    formData.append('archivo', fileList[0].originFileObj);
-        
-                    GetLegajoIdByCarpetaOrExpediente(tipoCaso,nroCaso).then((response)=>{
-        
-                        if(response.isSuccess){
-                            if(response.data > 0){
-                                AdicionarDocumento(response.data,usuId,formData).then((resp)=>{
-                                    setLoading(false);
-                                    const {legajoId, docId, audienciaId} = resp
-                                    navigate(paths.ADICIONAR_LEGAJO(legajoId, docId,audienciaId))
-                                });
-                            }else{
-                                CrearLegajo(usuId,formData).then((resp2)=>{
-                                    setLoading(false);
-                                    const {legajoId, docId, audienciaId} = resp2;
-                                    navigate(paths.CREAR_DOC(legajoId, docId, audienciaId))
-                                });
-                            }
-                        }else{
-                            message.error("Ocurrió un error")
-                        }
-                    });
-        
-                    
-        
-                }*/
+                if(response.isSuccess){
+                    if(response.data > 0){
+                        AdicionarDocumento(response.data,usuId,formData).then((resp)=>{
+                            setLoading(false);
+                            console.log("adicionarlegajo: ",resp)
+                            const {legajoId, docId, audienciaId} = resp
+                            
+                            navigate(paths.ADICIONAR_LEGAJO(legajoId, docId,audienciaId))
+                        });
+                    }else{
+                        CrearLegajo(usuId,formData).then((resp2)=>{
+                            setLoading(false);
+                            const {legajoId, docId, audienciaId} = resp2;
+                            console.log("crear legajo: ",resp2)
+                            navigate(paths.NUEVO_LEGAJO(legajoId, docId, audienciaId))
+                        });
+                    }
+                }else{
+                    message.error("Ocurrió un error")
+                }
+            });
+
+            
+
+        }
 
     }
 

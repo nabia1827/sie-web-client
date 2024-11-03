@@ -57,7 +57,7 @@ export const paths = {
 
     //Recepcion Legajos
     RECEPCION_LEGAJOS:`/${endpoints.RECEPCION_LEGAJOS}`,
-    NUEVO_LEGAJO:(legajoId,docId,audienciaId) =>`${endpoints.RECEPCION_LEGAJOS}/${endpoints.NUEVO_LEGAJO}/${legajoId}/${docId}/${audienciaId}`,
-    ADICIONAR_LEGAJO:(legajoId,docId,audienciaId) =>`${endpoints.RECEPCION_LEGAJOS}/${endpoints.ADICIONAR_LEGAJO}/${legajoId}/${docId}/${audienciaId}`,
+    NUEVO_LEGAJO:(legajoId,docId,audienciaId) =>`${endpoints.NUEVO_LEGAJO}/${legajoId}/${docId}/${audienciaId}`,
+    ADICIONAR_LEGAJO:(legajoId,docId,audienciaId) =>`${endpoints.ADICIONAR_LEGAJO}/${legajoId}/${docId}/${audienciaId}`,
     NOT_FOUND: "*",
 };
