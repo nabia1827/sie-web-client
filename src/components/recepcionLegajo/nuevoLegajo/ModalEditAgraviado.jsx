@@ -15,7 +15,7 @@ function ModalEditAgraviado(props) {
         if (modalOpen) {
             form.setFieldsValue({
                 nombreAgraviado: dataAgraviado.agraviadoNombre,
-                tipoDoc:dataAgraviado.tipoIdentidadId,
+                tipoDoc:dataAgraviado.tipoIdentidadId===0?null:dataAgraviado.tipoIdentidadId,
                 nroDoc:dataAgraviado.nroDoc,
 
             });
@@ -69,7 +69,7 @@ function ModalEditAgraviado(props) {
 
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item label={<Text>Agraviado</Text >} name='nombreAgraviado'>
-                                <Input /*status={status}*/ placeholder="Nombre del Agraviado" size="large" /*onChange={onChangeUsername}*/
+                                <Input /*status={status}*/ placeholder="Ingrese un nombre ..." size="large" /*onChange={onChangeUsername}*/
                                                         /*prefix={<User size={24} color={colors.gray} />*/  />
                             </Form.Item>
                         </Col>
@@ -78,6 +78,8 @@ function ModalEditAgraviado(props) {
                             <Form.Item label={<Text>Tipo Documento</Text >} name='tipoDoc'>
                                 <Select
                                     style={{ width: '100%' }}
+                                    placeholder = "Seleccione un tipo ..."
+                                    allowClear
                                 >
                                     {
                                         ListTipoDocIdentidad.map((c) => (
@@ -92,7 +94,7 @@ function ModalEditAgraviado(props) {
 
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item label={<Text>Nro Documento</Text >} name='nroDoc'>
-                                <Input /*status={status}*/ placeholder="Numero del Documento" size="large" /*onChange={onChangeUsername}*/
+                                <Input /*status={status}*/ placeholder="Ingrese un nro de Documento ..." size="large" /*onChange={onChangeUsername}*/
                                                         /*prefix={<User size={24} color={colors.gray} />*/  />
                             </Form.Item>
                         </Col>

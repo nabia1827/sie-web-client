@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 import {
     GetImputadosByLegajoId,
-    GetResultadosByLegajoId,GetAudienciasByLegajoId,
+    GetResultadosByLegajoId,GetInfoLegajoById,
     GetDocumento,GetDatosGeneralesTemp, SearchJuzgado,SearchFiscalia,
     GetAudiencia
 } from "../../../../utils/consultaLegajos/dinamicCalls";
@@ -36,6 +36,9 @@ function AdicionarDocsPage() {
     //Legajo actual
     const { legajoId, documentoId, audienciaId } = useParams();
 
+    const [loadingCl, setlogadingCl] = useState(true);
+    const [dataLeg, setDataLeg] = useState(null);
+
     //Datos del dataDd
     const [loadingDd, setLoadingDd] = useState(true);
     const [dataDd, setDataDd] = useState(null);
@@ -47,7 +50,7 @@ function AdicionarDocsPage() {
     const [formDg] = Form.useForm();
 
     //dataAud
-    const [loadingAud, setLoadingAud] = useState(true);
+    const [loadingAud, setLoadingAud] = useState(false);
     const [dataAud, setDataAud] = useState(null);
     const [formAud] = Form.useForm();
 
@@ -79,6 +82,15 @@ function AdicionarDocsPage() {
         }
     };
 
+    const fetchCodigoLegajo = async (id) => {
+        setlogadingCl(true);
+        try {
+            const CodigoResponse = await GetInfoLegajoById(id);
+            setDataLeg(CodigoResponse.data.codigoLegajo)
+        } finally {
+            setlogadingCl(false);
+        }
+    };
 
     const fetchDocumento = async (id) => {
         setLoadingDd(true);
@@ -141,6 +153,7 @@ function AdicionarDocsPage() {
             fetchDatosGenerales(legajoId);
             fetchPartesProcesales(legajoId);
             fetchResultados(legajoId);
+            fetchCodigoLegajo(legajoId);
         }
     }, [legajoId]);
 
@@ -452,6 +465,9 @@ function AdicionarDocsPage() {
 
                 loadingRes={loadingRes}
                 dataRes={dataRes}
+
+                dataLeg={dataLeg}
+                loadingCl = {loadingCl}
 
                 showMdEditRes={showMdEditRes}
                 showMdEditImp={showMdEditImp}

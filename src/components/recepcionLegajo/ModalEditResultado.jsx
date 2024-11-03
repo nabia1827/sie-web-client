@@ -97,6 +97,8 @@ function ModalEditResultado(props) {
                             <Form.Item name='tipoSentencia' label='Tipo de Sentencia:'>
                                 <Select
                                     style={{ width: '100%' }}
+                                    allowClear
+                                    placeholder = "Seleccione un tipo de Sentencia ..."
                                 >
                                     {
                                         tiposSentencia.map((c) => (
@@ -114,6 +116,8 @@ function ModalEditResultado(props) {
                             <Form.Item name='tipoPena' label='Tipo de Pena:'>
                                 <Select
                                     style={{ width: '100%' }}
+                                    allowClear
+                                    placeholder = "Seleccione un tipo de pena ..."
                                 >
                                     {
                                         tiposPena.map((c) => (

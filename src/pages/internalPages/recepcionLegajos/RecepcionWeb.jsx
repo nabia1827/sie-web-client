@@ -12,18 +12,18 @@ import {
 } from "@phosphor-icons/react";
 
 function RecepcionWeb(props) {
-    const { uploadProps, form, onClickRecepcionar, handleUploadChange, loading } = props;
+    const { uploadProps, form,contextHolder, onClickRecepcionar, handleUploadChange, loading } = props;
 
     return (
         <>
             <Flex justify="center" align="center" style={{ width: "100%", minHeight: "76vh", paddingBottom: "1em", backgroundColor: colors.white }}>
-
+                {contextHolder}
                 {loading ? (
                     <TextProcessingLoading></TextProcessingLoading>
                 ) : (
                     <Flex justify="center" align="center" style={{ width: "100%", height: "100%" }}>
-
-
+                        
+                        
                         <Flex gap={"large"} vertical justify="center" align="center" style={{ width: "100%", height: "100%", paddingRight: "5em", paddingLeft: "5em" }}>
                             <Form
                                 onFinish={onClickRecepcionar}

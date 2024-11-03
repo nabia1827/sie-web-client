@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Grid, Form, message } from "antd";
+import { Flex, Grid, Form, message,notification } from "antd";
 import RecepcionMobile from "./RecepcionMobile";
 import RecepcionWeb from "./RecepcionWeb";
 import { GetLegajoIdByCarpetaOrExpediente } from "../../../utils/consultaLegajos/dinamicCalls";
@@ -41,6 +41,16 @@ function RecepcionPage() {
         fileList: fileList,
     };
 
+    const [api, contextHolder] = notification.useNotification();
+    const openNotification = () => {
+        api.info({
+            message: 'Nuevo Legajo',
+            description: 'El legajo ingresado no se encontró en el sistema, por lo que se procederá a su creación.',
+            duration: 5,
+            placement: "top"
+        });
+    };
+
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
     };
@@ -75,8 +85,10 @@ function RecepcionPage() {
                             navigate(paths.ADICIONAR_LEGAJO(legajoId, docId,audienciaId))
                         });
                     }else{
+                        openNotification();
                         CrearLegajo(usuId,formData).then((resp2)=>{
                             setLoading(false);
+                            
                             const {legajoId, docId, audienciaId} = resp2;
                             console.log("crear legajo: ",resp2)
                             navigate(paths.NUEVO_LEGAJO(legajoId, docId, audienciaId))
@@ -106,6 +118,7 @@ function RecepcionPage() {
         <RecepcionWeb
             uploadProps={uploadProps}
             form={form}
+            contextHolder = {contextHolder}
             onClickRecepcionar={onClickRecepcionar}
             handleUploadChange={handleUploadChange}
             loading={loading}

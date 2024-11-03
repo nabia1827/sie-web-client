@@ -20,7 +20,7 @@ function ModalEditImputado(props) {
 
             form.setFieldsValue({
                 nombreImputado: dataImputado.imputadoNombre,
-                tipoDoc:dataImputado.tipoIdentidadId,
+                tipoDoc:dataImputado.tipoIdentidadId!==0?dataImputado.tipoIdentidadId: null,
                 nroDoc: dataImputado.nroDoc,
                 nombreDelito: delitosId
             });
@@ -82,6 +82,8 @@ function ModalEditImputado(props) {
                             <Form.Item label={<Text>Tipo Documento</Text >} name='tipoDoc'>
                                 <Select
                                     style={{ width: '100%' }}
+                                    allowClear
+                                    placeholder = "Seleccione un tipo ..."
                                 >
                                     {
                                         ListTipoDocIdentidad.map((c) => (
@@ -96,7 +98,7 @@ function ModalEditImputado(props) {
 
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item label={<Text>Nro Documento</Text >} name='nroDoc'>
-                                <Input /*status={status}*/ placeholder="Numero del Documento" size="large" /*onChange={onChangeUsername}*/
+                                <Input /*status={status}*/ placeholder="Ingrese un nro de Documento ..." size="large" /*onChange={onChangeUsername}*/
                                                         /*prefix={<User size={24} color={colors.gray} />*/  />
                             </Form.Item>
                         </Col>
@@ -106,6 +108,8 @@ function ModalEditImputado(props) {
                                 <Select
                                     mode="multiple"
                                     style={{ width: '100%' }}
+                                    allowClear
+                                    placeholder = "Selecciones los delitos ..."
                                 >
 
                                     {

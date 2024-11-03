@@ -79,114 +79,121 @@ function CollapserDatosDoc(props) {
 
                         children:
                             <>
+                                <Spin spinning={loading}>
 
-                                <Form
-                                    form={form}
-                                    onFieldsChange={handleOnFieldsChange}
+                                    <Form
+                                        form={form}
+                                        onFieldsChange={handleOnFieldsChange}
 
-                                    labelCol={{
-                                        xxl: 9,
-                                        xl: 9,
-                                        lg: 9,
-                                        md: 9,
-                                        sm: 9,
-                                        xs: 9,
-                                    }}
-                                    wrapperCol={{
-                                        xxl: 15,
-                                        xl: 15,
-                                        lg: 15,
-                                        md: 15,
-                                        sm: 15,
-                                        xs: 15,
-                                    }}
-                                    labelAlign="left"
+                                        labelCol={{
+                                            xxl: 9,
+                                            xl: 9,
+                                            lg: 9,
+                                            md: 9,
+                                            sm: 9,
+                                            xs: 9,
+                                        }}
+                                        wrapperCol={{
+                                            xxl: 15,
+                                            xl: 15,
+                                            lg: 15,
+                                            md: 15,
+                                            sm: 15,
+                                            xs: 15,
+                                        }}
+                                        labelAlign="left"
 
 
-                                >
-                                    <Flex gap={"small"} vertical justify="center" align="center" style={{ width: "100%" }}>
+                                    >
+                                        <Flex gap={"small"} vertical justify="center" align="center" style={{ width: "100%" }}>
 
-                                        <Row gutter={[45, 12]} justify={"center"} align="center" style={{ width: "100%" }}>
-                                            <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ width: "100%" }}>
-                                                <Form.Item label={<Text>Clase data</Text >} name='claseDocumento'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                    >
-                                                        {
-                                                            clasesDocEntrada.map((c) => (
-                                                                <Select.Option key={c.claseDocId} value={c.claseDocId}>
-                                                                    {c.nombre}
-                                                                </Select.Option>
-                                                            ))
-                                                        }
-                                                        
-                                                    </Select>
-                                                </Form.Item>
-
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                                <Form.Item label={<Text>Nro de data</Text >} name='nroDocumento'>
-                                                    <Input placeholder="Número de data" size="large"/>
-                                                </Form.Item>
-                                            </Col>
-                                        </Row>
-
-                                        <Row gutter={[45, 8]} justify={"center"} align={"center"} style={{ width: "100%" }}>
-                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                                <Form.Item label={<Text>Tipo Remitente</Text >} name='tipoRemitente'>
-                                                    <Select
-                                                        style={{ textAlign: 'left' }}
-                                                    >
-
-                                                        {
-                                                            tiposRemitente.map((c) => (
-                                                                <Select.Option key={c.tipoRemitenteId} value={c.tipoRemitenteId}>
-                                                                    {c.nombreRemitente}
-                                                                </Select.Option>
-                                                            ))
-                                                        }
-                                                    </Select>
-                                                </Form.Item>
-                                            </Col>
-
-                                            <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                                <Form.Item label={<Text>Remitente</Text >} name='remitente'>
-                                                    <Select
-                                                        showSearch
-                                                        value={nombreRemitente}
-
-                                                        placeholder={"Seleccione el Remitente ..."}
-                                                        defaultActiveFirstOption={false}
-                                                        filterOption={false}
-                                                        onSearch={handleSearch}
-                                                        onChange={handleChange}
-                                                        notFoundContent={null}
-                                                    >
-                                                        {
-                                                            tipoRemitenteId === TipoDestinatario.FISCALIA &&
-                                                                dataFiscalias.map((c) => (
-                                                                    <Select.Option key={c.fiscaliaId} value={c.fiscaliaId}>
-                                                                        {c.nombreCompleto}
+                                            <Row gutter={[45, 12]} justify={"center"} align="center" style={{ width: "100%" }}>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12} style={{ width: "100%" }}>
+                                                    <Form.Item label={<Text>Clase de Documento</Text >} name='claseDocumento'>
+                                                        <Select
+                                                            style={{ textAlign: 'left' }}
+                                                            placeholder="Seleccione una clase ..."
+                                                            allowClear
+                                                        >
+                                                            {
+                                                                clasesDocEntrada.map((c) => (
+                                                                    <Select.Option key={c.claseDocId} value={c.claseDocId}>
+                                                                        {c.nombre}
                                                                     </Select.Option>
                                                                 ))
-                                                        }
-                                                        {
-                                                            tipoRemitenteId === TipoDestinatario.JUZGADO &&
-                                                                dataJuzgados.map((c) => (
-                                                                    <Select.Option key={c.juzgadoId} value={c.juzgadoId}>
-                                                                        {c.nombreCompleto}
+                                                            }
+                                                            
+                                                        </Select>
+                                                    </Form.Item>
+
+                                                </Col>
+
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                    <Form.Item label={<Text>Nro de Documento</Text >} name='nroDocumento'>
+                                                        <Input placeholder="Ingrese un nro de documento ..." size="large"/>
+                                                    </Form.Item>
+                                                </Col>
+                                            </Row>
+
+                                            <Row gutter={[45, 8]} justify={"center"} align={"center"} style={{ width: "100%" }}>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                    <Form.Item label={<Text>Tipo Remitente</Text >} name='tipoRemitente'>
+                                                        <Select
+                                                            style={{ textAlign: 'left' }}
+                                                            placeholder="Seleccione el tipo de remitente ..."
+                                                            allowClear
+                                                        >
+
+                                                            {
+                                                                tiposRemitente.map((c) => (
+                                                                    <Select.Option key={c.tipoRemitenteId} value={c.tipoRemitenteId}>
+                                                                        {c.nombreRemitente}
                                                                     </Select.Option>
                                                                 ))
-                                                        }
-                                                    </Select>
-                                                </Form.Item>
+                                                            }
+                                                        </Select>
+                                                    </Form.Item>
+                                                </Col>
 
-                                            </Col>
-                                        </Row>
+                                                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                                                    <Form.Item label={<Text>Remitente</Text >} name='remitente'>
+                                                        <Select
+                                                            showSearch
+                                                            value={nombreRemitente}
+                                                            allowClear
 
-                                    </Flex>
-                                </Form>
+                                                            placeholder={"Seleccione el Remitente ..."}
+                                                            defaultActiveFirstOption={false}
+                                                            filterOption={false}
+                                                            onSearch={handleSearch}
+                                                            onChange={handleChange}
+                                                            notFoundContent={null}
+                                                        >
+                                                            {
+                                                                tipoRemitenteId === TipoDestinatario.FISCALIA &&
+                                                                    dataFiscalias.map((c) => (
+                                                                        <Select.Option key={c.fiscaliaId} value={c.fiscaliaId}>
+                                                                            {c.nombreCompleto}
+                                                                        </Select.Option>
+                                                                    ))
+                                                            }
+                                                            {
+                                                                tipoRemitenteId === TipoDestinatario.JUZGADO &&
+                                                                    dataJuzgados.map((c) => (
+                                                                        <Select.Option key={c.juzgadoId} value={c.juzgadoId}>
+                                                                            {c.nombreCompleto}
+                                                                        </Select.Option>
+                                                                    ))
+                                                            }
+                                                        </Select>
+                                                    </Form.Item>
+
+                                                </Col>
+                                            </Row>
+
+                                        </Flex>
+                                    </Form>
+                                </Spin>
                             </>
                     },
                 ]}
