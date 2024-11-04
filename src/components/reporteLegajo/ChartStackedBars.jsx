@@ -7,19 +7,22 @@ const { Text } = Typography;
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
-const ChartStackedBars = () => {
+const ChartStackedBars = (props) => {
+    const {chartData} = props;
+
+
     const data = {
-        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'],
+        labels: chartData.nombresMeses,
         datasets: [
             {
-                label: 'Almacenado',
-                data: [3000, 2500, 2000, 4000, 3500, 3000, 2500, 2000, 4000, 3500, 4000, 3500],
+                label: chartData.categorias[0],
+                data: chartData.cantCategoria1,
                 backgroundColor: 'rgba(132, 217, 253, 1)',
                 borderRadius: 8,
             },
             {
-                label: 'Entregado',
-                data: [2000, 1500, 3000, 2000, 4500, 2000, 1500, 3000, 2000, 4500, 2000, 4500],
+                label: chartData.categorias[1],
+                data: chartData.cantCategoria2,
                 backgroundColor: 'rgba(82, 113, 255, 1)',
                 borderRadius: 8,
             },

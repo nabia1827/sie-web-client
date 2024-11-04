@@ -141,7 +141,7 @@ function SiderLayout(props) {
                 </Drawer>
             ) : (
                 <Sider breakpoint="md" width="280px" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
-                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em", overflow: "auto",scrollbarWidth: "thin",scrollbarColor: "unset" }}>
+                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em", overflow: "auto" }}>
                         <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
                             <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
                                 <Lightning size={28} weight="fill" color={colors.white} />

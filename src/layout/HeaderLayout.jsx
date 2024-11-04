@@ -75,7 +75,7 @@ function HeaderLayout() {
     }
 
     const getLegajoIdTitle = (path) => {
-        const title = currentLegajoCod!==""?`LP${currentLegajoCod}`:"";
+        const title = currentLegajoCod!==""?`${currentLegajoCod}`:"";
         return "Legajo " + title
     }
 

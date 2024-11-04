@@ -6,13 +6,15 @@ import { colors } from '../../utils/colors';
 const { Text } = Typography;
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ChartPie = () => {
+const ChartPie = (props) => {
+    const {chartData} = props;
+
     const data = {
-        labels: ['Almacenado', 'Entregado'],
+        labels: ["En trámite","Archivado"],
         datasets: [
             {
                 label: 'Cantidad',
-                data: [3000, 5000],
+                data: chartData.cantidades,
                 backgroundColor: [
                     'rgba(132, 217, 253, 1)',
                     'rgba(82, 113, 255, 1)',
@@ -31,6 +33,7 @@ const ChartPie = () => {
         maintainAspectRatio: false,
         plugins: {
             legend: {
+                display:true,
                 position: 'left',
             },
             title: {

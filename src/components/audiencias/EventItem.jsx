@@ -591,7 +591,7 @@ class EventItem extends Component {
           >
             <Space size={20} style={{ marginLeft: '10px', }}>
               <FileTextOutlined />
-              <Text className="sie-event-gantt" >LP {eventItem.codigoLegajo}</Text>
+              <Text className="sie-event-gantt" >{eventItem.codigoLegajo}</Text>
               {deleteCheckBox}
             </Space>
           </Row>

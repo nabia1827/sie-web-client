@@ -128,4 +128,21 @@ const Audiencia = {
     ListLegajosByTermino: (terminoBusqueda) => requests.get(`/Audiencia/ListLegajosByTermino?terminoBusqueda=${terminoBusqueda}`),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia};
+const Reporte = {
+    GetCantidadAudiencias: (anio,mes,delitoId) => requests.get(`/Reporte/GetCantidadAudiencias?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetCantidadLegajos: (anio,mes,delitoId) => requests.get(`/Reporte/GetCantidadLegajos?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartBarsData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartBarsData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartLineData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartLineData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartMapData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartMapData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartPieData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartPieData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartStackedBarsData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartStackedBarsData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetLugarMasComun: (anio,mes,delitoId) => requests.get(`/Reporte/GetLugarMasComun?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+}
+
+const Seguimiento = {
+    GetSeguimientoAudiencias: () => requests.get(`/Seguimiento/GetSeguimientoAudiencias`),
+    GetSeguimientoLegajos: () => requests.get(`/Seguimiento/GetSeguimientoLegajos`),
+    GetSeguimientoRecursosLegales: () => requests.get(`/Seguimiento/GetSeguimientoRecursosLegales`),
+}
+
+export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia, Reporte,Seguimiento};
