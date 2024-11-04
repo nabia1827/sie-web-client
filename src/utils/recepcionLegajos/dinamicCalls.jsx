@@ -140,3 +140,30 @@ export const UpdateAgraviadoById = async (agraviado) => {
     message.error(error.message);
   }
 };
+
+
+export const CrearLegajo = async (usuId, file) => {
+
+  try {
+    const response = await api.PythonService.CrearLegajo(usuId, file);
+    return response.data.data;
+    
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+
+export const AdicionarDocumento = async (legajoId,usuId, file) => {
+
+  try {
+
+    const response = await api.PythonService.AdicionarDocumento(legajoId,usuId, file);
+    console.log("prueba adicionar",response)
+    return response.data;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};

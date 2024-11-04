@@ -116,6 +116,7 @@ const RecepcionLegajos = {
     ListarDisJudicial: ()=> requests.get(`/RecepcionLegajos/ListarDisJudicial`),
     DeleteAgraviado: (agraviadoId) =>requests.patch(`/RecepcionLegajos/DeleteAgraviado?agraviadoId=${agraviadoId}`),
     UpdateAgraviadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateAgraviadoById`, body),
+    GetLegajoIdByCarpetaOrExpediente: (tipoDestinatario,nroDocumento) => requests.get(`/RecepcionLegajos/GetLegajoIdByCarpetaOrExpediente?tipoDestinatario=${tipoDestinatario}&nroDocumento=${nroDocumento}`),
 }
 
 const Audiencia = {
@@ -145,4 +146,15 @@ const Seguimiento = {
     GetSeguimientoRecursosLegales: () => requests.get(`/Seguimiento/GetSeguimientoRecursosLegales`),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia, Reporte,Seguimiento};
+
+const PythonService = {
+    //(usuId, formData) => requestsPython.post(`/text-processing-first/?usuId=${usuId}`, formData),
+    CrearLegajo: (usuId, formData) => axiosPython.post(`/text-processing-first?usuId=${usuId}`,formData,{
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    }), // Ejemplo de endpoint en tu API de Python
+    AdicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
+}
+
+export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia,PythonService, Reporte,Seguimiento};

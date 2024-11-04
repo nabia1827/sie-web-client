@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Typography, Input, Button, Collapse, Select,Row, Col,notification} from "antd";
+import { Flex, Typography, Input, Button, Collapse, Select,Row, Col,notification, Spin} from "antd";
 import { colors } from "../../../../utils/colors";
 import {InfoCircleOutlined } from '@ant-design/icons';
 import CollapserDatosDoc from "../../../../components/recepcionLegajo/CollapserDatosDoc";
@@ -20,6 +20,7 @@ function NuevoLegajoWeb(props){
         loadingAud,dataAud,formAud,showMdApel,
         loadingPp,dataImp,showMdEditImp,showMdEditAgr,showMdDelImp,showMdDelAgr,dataAgr,
         loadingRes,dataRes, showMdEditRes,showMdDelRes,
+        loadingCl,dataLeg,
 
         showMdBtnSv
 
@@ -44,18 +45,15 @@ function NuevoLegajoWeb(props){
             <Flex justify="center" align="flex-start" style={{ width: "100%", minHeight: "76vh", backgroundColor: colors.white, paddingTop: "2em", paddingBottom: "2em"}}>
                 <Flex gap={"3em"} vertical justify="center" align="center" style={{ width: "100%", height: "100%"}}>
                     <Flex justify="space-between" align="center"  style={{ width: "100%", height: "28%"}}>
-                        <Flex gap={"small"} justify="center" align="center" style={{ width: "50%", paddingLeft: "2.7em", paddingRight: "10%"}}>
-                            <Text style={{width: "100%", textAlign: "start"}}>Número Legajo:</Text>
-                            <Input style={{width: "100%"}} value="LP - 948948" disabled />
+                        <Flex gap={"small"} justify="center" align="center" style={{paddingLeft: "2.7em"}}>
+                            <Text style={{textAlign: "start"}}>Número Legajo:</Text>
+                            <Spin spinning= {loadingCl} style={{width: "100%"}}>
+                                <Input style={{width: "100%"}} value={dataLeg} disabled />
+                            </Spin>
                         </Flex>
-                        <Flex gap={"small"} justify="center" align="center" style={{ width: "100%", paddingRight: "3em"}}>
-                            <Flex gap={"small"} justify="center" align="center" style={{ width: "50%", paddingLeft: "26%"}}>
-                                <Button style={{width: "100%", height: "3em"}} type="primary" icon={<Plus size={16}/>}>Añadir Otro Campo</Button>
-                            </Flex>
-                            <Flex gap={"small"} justify="center" align="center" style={{ width: "50%", paddingLeft: "26%"}}>
-                                <Button style={{width: "100%", height: "3em"}} type="primary" onClick={showMdBtnSv}>Guardar Datos</Button>
-                            </Flex>
-
+                        
+                        <Flex gap={"small"} justify="flex-end" align="flex-end" style={{ paddingRight: "3em"}}>
+                            <Button style={{ height: "3em"}} type="primary" onClick={showMdBtnSv}>Guardar Datos</Button>
                         </Flex>
                         
                     </Flex>

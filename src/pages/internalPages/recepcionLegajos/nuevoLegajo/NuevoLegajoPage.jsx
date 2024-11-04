@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import {
     GetImputadosByLegajoId,GetAgraviadosByLegajoId,
     GetResultadosByLegajoId,GetAudienciasByLegajoId,
-    GetDocumento,
+    GetDocumento,GetInfoLegajoById,
     SearchJuzgado,SearchFiscalia,
     GetAudiencia
 } from "../../../../utils/consultaLegajos/dinamicCalls";
@@ -40,6 +40,9 @@ function NuevoLegajoPage() {
     //Legajo actual
     const { legajoId, documentoId, audienciaId } = useParams();
 
+    const [loadingCl, setlogadingCl] = useState(true);
+    const [dataLeg, setDataLeg] = useState(null);
+
     //Datos del dataDd
     const [loadingDd, setLoadingDd] = useState(true);
     const [dataDd, setDataDd] = useState(null);
@@ -51,7 +54,7 @@ function NuevoLegajoPage() {
     const [formDg] = Form.useForm();
 
     //dataAud
-    const [loadingAud, setLoadingAud] = useState(true);
+    const [loadingAud, setLoadingAud] = useState(false);
     const [dataAud, setDataAud] = useState(null);
     const [formAud] = Form.useForm();
 
@@ -80,6 +83,16 @@ function NuevoLegajoPage() {
             callback(fiscaliaResponse.data);
         } finally {
             //callback([]);
+        }
+    };
+
+    const fetchCodigoLegajo = async (id) => {
+        setlogadingCl(true);
+        try {
+            const CodigoResponse = await GetInfoLegajoById(id);
+            setDataLeg(CodigoResponse.data.codigoLegajo)
+        } finally {
+            setlogadingCl(false);
         }
     };
 
@@ -142,6 +155,7 @@ function NuevoLegajoPage() {
 
     useEffect(() => {
         if (legajoId !== null && legajoId !== undefined) {
+            fetchCodigoLegajo(legajoId)
             fetchDatosGenerales(legajoId);
             fetchPartesProcesales(legajoId);
             fetchResultados(legajoId);
@@ -512,6 +526,11 @@ function NuevoLegajoPage() {
 
                 loadingRes={loadingRes}
                 dataRes={dataRes}
+
+                dataLeg={dataLeg}
+                loadingCl = {loadingCl}
+                
+
             /> :
             <NuevoLegajoWeb
 
@@ -535,6 +554,9 @@ function NuevoLegajoPage() {
 
                 loadingRes={loadingRes}
                 dataRes={dataRes}
+
+                dataLeg={dataLeg}
+                loadingCl = {loadingCl}
 
                 showMdEditRes={showMdEditRes}
                 showMdEditImp={showMdEditImp}

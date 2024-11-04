@@ -33,11 +33,11 @@ function CollapserDatosGen(props) {
                 {
                     carpetaFiscal: data.carpetaFiscalNro,
                     expedienteJudicial: data.expedienteNro,
-                    estado: data.estadoId,
-                    subfase: data.subFaseId,
+                    estado: data.estadoId===0?null:data.estadoId,
+                    subfase: data.subFaseId===0?null:data.subFaseId,
                     correoJuzgado:data.emailJuzgado,
                     tipoProceso: data.esProcesoInmediatoId+1,
-                    juzgado: data.juzgadoId
+                    juzgado: data.juzgadoId===0?null:data.juzgadoId
                 }
             )
             
@@ -90,7 +90,7 @@ function CollapserDatosGen(props) {
                                         <Row gutter={[45, 12]} justify={"center"} align="center" style={{ width: "100%"}}>
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8} style={{ width: "100%"}}>
                                                 <Form.Item label={<Text >Carpeta Fiscal:</Text >} name='carpetaFiscal'>
-                                                    <Input /*status={status}*/ placeholder="1234567889" size="large" /*onChange={onChangeUsername}*/
+                                                    <Input /*status={status}*/ placeholder="Ingrese una carpeta ..." size="large" /*onChange={onChangeUsername}*/
                                                         /*prefix={<User size={24} color={colors.gray} />*/  />
                                                 </Form.Item>
                                                 
@@ -98,7 +98,7 @@ function CollapserDatosGen(props) {
 
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Expediente Judicial:</Text >} name='expedienteJudicial'>
-                                                    <Input /*status={status}*/ placeholder="23456788" size="large" /*onChange={onChangeUsername}*/
+                                                    <Input /*status={status}*/ placeholder="Ingrese un expediente ..." size="large" /*onChange={onChangeUsername}*/
                                                         /*prefix={<User size={24} color={colors.gray} />*/  />
                                                 </Form.Item>
                                             </Col>
@@ -106,7 +106,9 @@ function CollapserDatosGen(props) {
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Estado:</Text >} name='estado'>
                                                     <Select
+                                                        placeholder="Seleccione un estado ..."
                                                         style={{ textAlign: 'left' }}
+                                                        allowClear
                                                     >
                                                         {
                                                             ListEstado.map((c) => (
@@ -122,7 +124,9 @@ function CollapserDatosGen(props) {
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Subfase:</Text >} name='subfase'>
                                                     <Select
+                                                        placeholder="Seleccione una subfase ..."
                                                         style={{ textAlign: 'left' }}
+                                                        allowClear
                                                     >
                                                     {
                                                         subfases.map((c) => (
@@ -170,6 +174,7 @@ function CollapserDatosGen(props) {
                                                         onSearch={handleSearch}
                                                         onChange={handleChange}
                                                         notFoundContent={null}
+                                                        allowClear
                                                     >
                                                         {
                                                             dataJuzgados.map((c) => (
@@ -184,7 +189,7 @@ function CollapserDatosGen(props) {
 
                                             <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item label={<Text>Correo Juzgado:</Text >} name='correoJuzgado'>
-                                                    <Input /*status={status}*/ placeholder="Nombre" size="large" /*onChange={onChangeUsername}*/
+                                                    <Input /*status={status}*/ placeholder="Ingrese un correo ..." size="large" /*onChange={onChangeUsername}*/
                                                                 /*prefix={<User size={24} color={colors.gray} />*/  />
                                                 </Form.Item>
                                             </Col>
@@ -196,6 +201,8 @@ function CollapserDatosGen(props) {
                                                 >
                                                     <Select
                                                         style={{ textAlign: 'left' }}
+                                                        placeholder="Seleccione un proceso ..."
+                                                        allowClear
                                                     >
 
                                                         {
