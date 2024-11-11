@@ -84,7 +84,7 @@ function LegajoFilter(props) {
                                         </Col>
 
                                         <Col xs={24} sm={abogados == null ? 16 : 24} md={abogados == null ? 8 : 12} lg={abogados == null ? 8 : 12} xl={abogados == null ? 8 : 12}>
-                                            <Form.Item label={<Text> Fecha Registro: </Text>} name='fechaRegistro'>
+                                            <Form.Item label={<Text> Fecha Registro Legajo: </Text>} name='fechaRegistro'>
                                                 <RangePicker style={{ width: "100%", height: "36px" }} />
                                             </Form.Item>
 

@@ -157,4 +157,24 @@ const PythonService = {
     AdicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia,PythonService, Reporte,Seguimiento};
+const MisAudiencias = {
+    GetMisAudienciasByWeek: (startDateTime,endDateTime,usuId) => requests.get(`/MisAudiencias/GetMisAudienciasByWeek?startDateTime=${startDateTime}&endDateTime=${endDateTime}&usuId=${usuId}`),
+    EditMiAudiencia: (body) => requests.patch(`/MisAudiencias/EditMiAudiencia`,body),
+    NewMiAudiencia: (body) => requests.post(`/MisAudiencias/NewMiAudiencia`,body),
+    DeleteMiAudiencia: (id) => requests.post(`/MisAudiencias/DeleteMiAudiencia?id=${id}`),
+}
+
+export default { 
+    Auth, 
+    ListaLegajos,
+    GenerarPDF,
+    DataLegajo,
+    DocumentosLegajo,
+    GenerarWord,
+    RecepcionLegajos, 
+    Audiencia,
+    PythonService, 
+    Reporte,
+    Seguimiento,
+    MisAudiencias
+};
