@@ -8,6 +8,7 @@ import { colors } from "../utils/colors";
 import { paths } from "../utils/paths";
 import { startLogout } from "../store/actions/authActionAsync";
 import { useDispatch, useSelector } from "react-redux";
+import { Perfiles } from "../utils/constants";
 const { useBreakpoint } = Grid;
 import {
     Lightning,
@@ -21,72 +22,7 @@ import {
     EnvelopeSimple,
     MicrosoftExcelLogo
 } from "@phosphor-icons/react";
-const items = [
-    {
-        key: 'sub1',
-        label: 'Consulta Legajos',
-        icon: <FileText size={20} weight="fill" />,
-        children: [
-            {
-                key: paths.MIS_LEGAJOS,
-                label: 'Consultar mis Legajos',
-            },
-            {
-                key: paths.TODOS_LEGAJOS,
-                label: 'Todos los Legajos',
-            },
-        ],
-    },
-    {
-        key: 'sub2',
-        label: 'Ver Audiencias',
-        icon: <CalendarBlank size={20} weight="fill" />,
-        children: [
-            {
-                key: paths.MIS_AUDIENCIAS,
-                label: 'Mis Audiencias',
-            },
-            {
-                key: paths.TODAS_AUDIENCIAS,
-                label: 'Todos las Audiencias',
-            },
-        ],
-    },
-    {
-        key: 'sub3',
-        label: 'Reporte Legajos',
-        icon: <ChartBar size={20} weight="fill" />,
-        children: [
-            {
-                key: paths.REPORTE_GENERAL,
-                label: 'Reporte General',
-            },
-            {
-                key: paths.SEGUIMIENTO,
-                label: 'Seguimiento',
-            },
-        ],
-    },
-    {
-        key: 'sub4',
-        icon: <HandArrowDown size={20} weight="fill" />,
-        label: 'Recepción Legajos',
-        children: [
-            {
-                key: paths.RECEPCION_LEGAJOS,
-                label: 'Recepcionar',
-            },
-
-
-        ],
-    },
-    {
-        key: 'logout',
-        icon: <SignOut size={20} weight="fill" />,
-        label: 'Cerrar Sesión',
-
-    },
-];
+import { getMenuItemsForUser } from "../utils/generalFunctions";
 
 function SiderLayout(props) {
     const {collapsed,setCollapsed} = props;
@@ -94,6 +30,8 @@ function SiderLayout(props) {
     const dispatch = useDispatch();
     const screens = useBreakpoint();
     console.log("BREAKPOINT!!!", screens);
+    const { perfilId } = useSelector((state) => state.auth.user);
+    const items = getMenuItemsForUser(perfilId);
 
     const onCollapse = (collapsed, type) => {
         setCollapsed(collapsed);

@@ -127,7 +127,7 @@ function MisAudienciasPage() {
         views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
         dayBoundaries: {
             start: '05:00',
-            end: '20:00',
+            end: '23:00',
         },
         callbacks: {
             /**

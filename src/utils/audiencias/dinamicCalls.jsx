@@ -104,8 +104,8 @@ export const EditAudienciaDetail = async (audienciaId,color,link, obs) => {
             audienciaSubTitleDate:"",
             audienciaSubTitleHour:"",
             audienciaColor:color,
-            audienciaLink:link,
-            audienciaObservaciones:obs,
+            audienciaLink:link?link:"",
+            audienciaObservaciones:obs!=null && obs!=undefined?obs:"",
             audienciaEstado:"",
             codigoLegajo:"",
         }

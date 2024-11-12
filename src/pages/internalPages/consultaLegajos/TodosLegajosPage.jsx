@@ -6,7 +6,7 @@ function TodosLegajosPage() {
 
     return (
         <>
-            <RolesAuthRoute perfilesAutorizados={[Perfiles.ABOGADO, Perfiles.ADMIN]}>
+            <RolesAuthRoute perfilesAutorizados={[Perfiles.ABOGADO, Perfiles.ADMIN, Perfiles.MESA_PARTES, Perfiles.PROCURADOR]}>
                 <Outlet></Outlet>
             </RolesAuthRoute>
         </>
