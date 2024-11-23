@@ -69,7 +69,7 @@ const RoutesApp = () => {
         usuNombre: tokenDecode.UsuNombre,
         usuApellidoPat: tokenDecode.UsuApellidoPat,
         usuApellidoMat: tokenDecode.UsuApellidoMat,
-        perfilId: tokenDecode.PerfilId,
+        perfilId: Number(tokenDecode.PerfilId),
         usuEmail: tokenDecode.UsuEmail,
         usuImage: tokenDecode.UsuImage,
       };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Typography, Layout, Menu, Drawer, Input, Select, DatePicker, Table, Grid} from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
@@ -31,7 +31,15 @@ function SiderLayout(props) {
     const screens = useBreakpoint();
     console.log("BREAKPOINT!!!", screens);
     const { perfilId } = useSelector((state) => state.auth.user);
-    const items = getMenuItemsForUser(perfilId);
+    const [items, setItems] = useState([]);
+    
+    useEffect(() => {
+        if (perfilId) {
+            const its = getMenuItemsForUser(perfilId);
+            console.log("its ", its);
+            setItems(its);
+        }
+    }, [perfilId]);
 
     const onCollapse = (collapsed, type) => {
         setCollapsed(collapsed);

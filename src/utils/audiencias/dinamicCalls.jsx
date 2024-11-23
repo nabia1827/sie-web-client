@@ -10,10 +10,11 @@ export const InsertNuevasAudiencias = async (events) => {
             const { start, end, resourceId, audienciaTipoId, legajoId, audienciaLink, 
                 audienciaObservaciones, audienciaColor } = event;
 
+
             // Crear un objeto de audiencia
             return {
-                startTime: start,
-                endTime: end,
+                startTime: dayjs(start).utc().toISOString(),
+                endTime: dayjs(end).utc().toISOString(),
                 abogadoId: resourceId,
                 audienciaTipoId: audienciaTipoId,
                 legajoId: legajoId,
@@ -66,8 +67,8 @@ export const EditAudiencias = async (events) => {
 
             return {
                 audienciaId:id,
-                startTime: dayjs(start).format(),
-                endTime: dayjs(end).format(),
+                startTime: dayjs(start).utc().toISOString(),
+                endTime: dayjs(end).utc().toISOString(),
                 abogadoId: resourceId,
                 audienciaTitle:"",
                 audienciaSubTitleHour:"",
