@@ -5,8 +5,8 @@ import { removeExpiredRefreshToken, startLogout } from "../store/actions/authAct
 
 // Instancia para la API en .NET
 const axiosDotNet = axios.create({
-  baseURL: `https://psei-sie-api-gwdug2a4egf7bxe4.brazilsouth-01.azurewebsites.net/api`
-  //baseURL: `https://localhost:44393/api`
+  //baseURL: `https://psei-sie-api-gwdug2a4egf7bxe4.brazilsouth-01.azurewebsites.net/api`
+  baseURL: `https://localhost:44393/api`
 });
 
 // Instancia para la API en Python

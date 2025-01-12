@@ -63,6 +63,7 @@ const DataLegajo ={
     UpdateHecho: (body) => requests.patch(`/DataLegajo/UpdateHecho`,body),
     UpdateObservacionesAudiencia: (body) => requests.patch(`/DataLegajo/UpdateObservacionesAudiencia`,body),
     UpdateEstadoAsistencia: (audienciaId) => requests.patch(`/DataLegajo/UpdateEstadoAsistencia?audienciaId=${audienciaId}`),
+    UpdateTipoProceso: (legajoId,esProcesoInmediato) => requests.patch(`/DataLegajo/UpdateTipoProceso?legajoId=${legajoId}&esProcesoInmediato=${esProcesoInmediato}`),
     ListarDelegados: () => requests.get(`/DataLegajo/ListarDelegado`),
     GetDelitosByLegajoId: (legajoId) => requests.get(`/DataLegajo/GetDelitosByLegajoId?legajoId=${legajoId}`),
 }

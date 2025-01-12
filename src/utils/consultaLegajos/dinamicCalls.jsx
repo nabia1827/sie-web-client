@@ -172,6 +172,19 @@ export const UpdateDelegado = async (legajoId,delegadoId) => {
   }
 };
 
+export const UpdateTipoProceso = async (legajoId,esProcesoInmediato) => {
+
+  try {
+
+    const response = await api.DataLegajo.UpdateTipoProceso(legajoId,esProcesoInmediato);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+
 export const UpdateHecho = async (legajoHechoId,hecho) => {
 
   try {
