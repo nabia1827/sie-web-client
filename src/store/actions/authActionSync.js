@@ -15,4 +15,10 @@ export const refreshTokenExpired = () => ({
     payload: { refreshTokenExpire: true, isAuthenticated: false },
 });
 
+export const updateEmail = (newEmail) => ({
+    type: types.updateUserEmail,
+    payload: newEmail,
+});
+
+
 

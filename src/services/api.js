@@ -25,6 +25,7 @@ const requestsPython = {
 const Auth = {
     loginApp: body => requests.post('/Auth/Authenticate', body),
     logOutApp: (body) => requests.post('/Auth/Logout', body),
+    renewToken: (body) => requests.post('/Auth/RenewToken', body),
 };
 
 const ListaLegajos = {
@@ -165,6 +166,10 @@ const MisAudiencias = {
     DeleteMiAudiencia: (id) => requests.post(`/MisAudiencias/DeleteMiAudiencia?id=${id}`),
 }
 
+const User = {
+    UpdateUserEmail: (usuId,email) => requests.patch(`/User/UpdateUserEmail?usuId=${usuId}&email=${email}`),
+}
+
 export default { 
     Auth, 
     ListaLegajos,
@@ -177,5 +182,6 @@ export default {
     PythonService, 
     Reporte,
     Seguimiento,
-    MisAudiencias
+    MisAudiencias,
+    User
 };

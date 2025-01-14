@@ -3,6 +3,7 @@ export const types = {
     logout: '[AUTH] Log Out',
     userRenew: '[AUTH] Renovar usuario',
     refreshTokenExpired: '[AUTH] Token expirado',
+    updateUserEmail: '[AUTH] Update email',
 
     abogados:'[APP] Lista abogados',
     subfases:'[APP] Lista subfases',

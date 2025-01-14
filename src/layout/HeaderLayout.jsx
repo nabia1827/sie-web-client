@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Typography, Layout, Grid, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
+import { Flex, Typography, Layout, Grid,Form, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
 import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
@@ -20,6 +20,10 @@ import {
 } from "@phosphor-icons/react";
 import { paths } from "../utils/paths";
 import { setCurrentLegajoCod } from "../store/actions/consultaLegajos/consultaLegajosActionSync";
+import { UpdateUserEmail } from "../utils/user/dinamicCalls";
+import { updateEmail } from "../store/actions/authActionSync";
+import { renewToken } from "../store/actions/authActionAsync";
+import ModalEditarEmail from "../components/consultaLegajos/ModalEditarEmail";
 const { useBreakpoint } = Grid;
 
 function HeaderLayout() {
@@ -141,6 +145,33 @@ function HeaderLayout() {
         navigate(-1)
     }
 
+    //Modal - Update User Email
+    const [mdEmailLoading, setMdEmailLoading] = useState(false);
+    const [mdEmailOpen, setMdEmailOpen] = useState(false);
+    const [emailForm] = Form.useForm();
+
+    const showMdEmail = () => {
+        emailForm.setFieldValue("usuEmail",user.usuEmail)
+        setMdEmailOpen(true);
+    };
+
+    const onOkMdEmail = () => {
+        setMdEmailLoading(true);
+        const email = emailForm.getFieldValue("usuEmail");
+        UpdateUserEmail(user.usuId,email).then(()=>{
+            dispatch(updateEmail(email));
+            dispatch(renewToken());
+            setMdEmailLoading(false);
+            setMdEmailOpen(false);
+            emailForm.resetFields();
+        });
+    };
+
+    const onCancelMdEmail = () => {
+        emailForm.resetFields();
+        setMdEmailOpen(false);
+    };
+
     return (
         <>
             <Header style={headerStyle}>
@@ -163,7 +194,7 @@ function HeaderLayout() {
                             </Badge>
                         </Tooltip>
                         <Tooltip title="Correo">
-                            <Button size="large" type="text" shape="circle" icon={<EnvelopeSimple size={28} color={colors.white} />} />
+                            <Button onClick={showMdEmail} size="large" type="text" shape="circle" icon={<EnvelopeSimple size={28} color={colors.white} />} />
                         </Tooltip>
                         <Tooltip title="Audiencias">
                             <Button size="large" type="text" shape="circle" icon={<CalendarBlank size={28} color={colors.white} />} />
@@ -193,6 +224,15 @@ function HeaderLayout() {
                 </Flex>
 
             </Header>
+            <ModalEditarEmail
+            modalOpen = {mdEmailOpen}
+            handleOk = {onOkMdEmail}
+            handleCancel = {onCancelMdEmail}
+            modalLoading = {mdEmailLoading}
+            form = {emailForm}
+            >
+
+            </ModalEditarEmail>
         </>
     );
 }
