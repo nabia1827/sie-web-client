@@ -4,6 +4,7 @@ export const types = {
     userRenew: '[AUTH] Renovar usuario',
     refreshTokenExpired: '[AUTH] Token expirado',
     updateUserEmail: '[AUTH] Update email',
+    notificaciones:'[USER] Get lista de notificaciones del usuario',
 
     abogados:'[APP] Lista abogados',
     subfases:'[APP] Lista subfases',

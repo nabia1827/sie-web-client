@@ -1,8 +1,11 @@
 import './App.css'
+import React, { useState, useEffect } from "react";
 import { ConfigProvider } from 'antd'
 import RoutesApp from './routes/routes'
 import { colors } from './utils/colors'
+
 function App() {
+
   return (
     <>
       <ConfigProvider

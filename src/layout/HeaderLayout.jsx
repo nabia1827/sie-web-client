@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Typography, Layout, Grid,Form, Breadcrumb, Button, Tooltip, Avatar, Badge, Collapse, Input, Select, DatePicker, Table } from "antd";
+import { Flex, Typography, Layout, Grid, Form, Breadcrumb, Button, Tooltip, Avatar, Badge, Popover, Input, Select, DatePicker, Table } from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
 import { siderStyle, headerStyle, contentStyle, subcontentStyle } from "../utils/styles";
@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { colors } from "../utils/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { PerfilesNombre } from "../utils/constants";
+import { markNotificationsAsRead } from "../utils/notifications/dinamicCalls";
 import {
     Lightning,
     Funnel,
@@ -19,6 +20,7 @@ import {
     MicrosoftExcelLogo
 } from "@phosphor-icons/react";
 import { paths } from "../utils/paths";
+import NotificationList from "../components/notificaciones/NotificationList";
 import { setCurrentLegajoCod } from "../store/actions/consultaLegajos/consultaLegajosActionSync";
 import { UpdateUserEmail } from "../utils/user/dinamicCalls";
 import { updateEmail } from "../store/actions/authActionSync";
@@ -28,6 +30,7 @@ const { useBreakpoint } = Grid;
 
 function HeaderLayout() {
     const { user } = useSelector((state) => state.auth);
+    const { notificaciones } = useSelector((state) => state.app);
     const { currentLegajoCod } = useSelector((state) => state.consultaLegajos);
     const navigate = useNavigate();
     const location = useLocation();
@@ -79,7 +82,7 @@ function HeaderLayout() {
     }
 
     const getLegajoIdTitle = (path) => {
-        const title = currentLegajoCod!==""?`${currentLegajoCod}`:"";
+        const title = currentLegajoCod !== "" ? `${currentLegajoCod}` : "";
         return "Legajo " + title
     }
 
@@ -151,14 +154,14 @@ function HeaderLayout() {
     const [emailForm] = Form.useForm();
 
     const showMdEmail = () => {
-        emailForm.setFieldValue("usuEmail",user.usuEmail)
+        emailForm.setFieldValue("usuEmail", user.usuEmail)
         setMdEmailOpen(true);
     };
 
     const onOkMdEmail = () => {
         setMdEmailLoading(true);
         const email = emailForm.getFieldValue("usuEmail");
-        UpdateUserEmail(user.usuId,email).then(()=>{
+        UpdateUserEmail(user.usuId, email).then(() => {
             dispatch(updateEmail(email));
             dispatch(renewToken());
             setMdEmailLoading(false);
@@ -171,6 +174,13 @@ function HeaderLayout() {
         emailForm.resetFields();
         setMdEmailOpen(false);
     };
+
+    const onNotificationOpenChange = (open) => {
+        if (open) {
+            const ids = notificaciones.map(n => n.notificacionId)
+            markNotificationsAsRead(ids)
+        }
+    }
 
     return (
         <>
@@ -188,20 +198,29 @@ function HeaderLayout() {
                         </Flex>
                     </Flex>
                     <Flex gap={"small"} justify="flex-end" align="center" >
-                        <Tooltip title="Notificaciones">
-                            <Badge count={1} size="small" offset={[-10, 3]}>
+
+                        <Popover
+                            onOpenChange={onNotificationOpenChange}
+                            
+                            placement="bottom" style={{ padding: "10px",maxHeight:"400px", overflowY: "auto" }}
+                            content={<NotificationList notifications={notificaciones} />}
+                        >
+                            {notificaciones.length > 0 ? (
+                                <Badge count={notificaciones.length} size="small" offset={[-10, 3]}>
+                                    <Button size="large" type="text" shape="circle" icon={<Bell size={28} color={colors.white} />} />
+                                </Badge>
+                            ) : (
                                 <Button size="large" type="text" shape="circle" icon={<Bell size={28} color={colors.white} />} />
-                            </Badge>
-                        </Tooltip>
+                            )
+
+                            }
+                        </Popover>
                         <Tooltip title="Correo">
                             <Button onClick={showMdEmail} size="large" type="text" shape="circle" icon={<EnvelopeSimple size={28} color={colors.white} />} />
                         </Tooltip>
-                        <Tooltip title="Audiencias">
-                            <Button size="large" type="text" shape="circle" icon={<CalendarBlank size={28} color={colors.white} />} />
-                        </Tooltip>
 
 
-                        {screens.lg  && (
+                        {screens.lg && (
                             <Flex vertical justify="flex-start" align="flex-start">
                                 <Text className="sie-header-user">{`${user.usuNombre} ${user.usuApellidoPat}`}</Text>
                                 <Text className="sie-header-rol">{`${PerfilesNombre[user.perfilId - 1]}`}</Text>
@@ -225,11 +244,11 @@ function HeaderLayout() {
 
             </Header>
             <ModalEditarEmail
-            modalOpen = {mdEmailOpen}
-            handleOk = {onOkMdEmail}
-            handleCancel = {onCancelMdEmail}
-            modalLoading = {mdEmailLoading}
-            form = {emailForm}
+                modalOpen={mdEmailOpen}
+                handleOk={onOkMdEmail}
+                handleCancel={onCancelMdEmail}
+                modalLoading={mdEmailLoading}
+                form={emailForm}
             >
 
             </ModalEditarEmail>

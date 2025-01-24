@@ -170,6 +170,12 @@ const User = {
     UpdateUserEmail: (usuId,email) => requests.patch(`/User/UpdateUserEmail?usuId=${usuId}&email=${email}`),
 }
 
+const Notification = {
+    GetNotificacionesUser: (usuId) => requests.get(`/Notification/GetNotificacionesUser?usuId=${usuId}`),
+    MarkNotificationsAsRead: (notificationIds) => requests.patch(`/Notification/MarkNotificationsAsRead`,notificationIds),
+    MarkNotificationAsReceived: (notificationId) => requests.patch(`/Notification/MarkNotificationAsReceived?notificationId=${notificationId}`),
+}
+
 export default { 
     Auth, 
     ListaLegajos,
@@ -183,5 +189,6 @@ export default {
     Reporte,
     Seguimiento,
     MisAudiencias,
-    User
+    User,
+    Notification,
 };

@@ -77,5 +77,10 @@ export const setDistritosJudicial = data => ({
     payload: data,
 });
 
+export const setNotificaciones = data => ({
+    type: types.notificaciones,
+    payload: data,
+});
+
 
 

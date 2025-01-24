@@ -11,6 +11,7 @@ import {
 } from "../../utils/cookie";
 
 import { login, logout, refreshTokenExpired } from "./authActionSync";
+import { initializeNotifications,closeConnection } from "../../services/notificationService";
 
 export const startLogin = (usuUsername, usuPassword) => async (dispatch) => {
     //dispatch(setLoading(true));
@@ -56,6 +57,7 @@ export const startLogout = () => async (dispatch) => {
         dispatch(logout());
         removeAccessToken();
         removeRefreshToken();
+        closeConnection();
         secureLocalStorage.clear();
     }
 };
