@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Typography, Layout, Grid, Form, Breadcrumb, Button, Tooltip, Avatar, Badge, Popover, Input, Select, DatePicker, Table } from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
@@ -22,10 +22,11 @@ import {
 import { paths } from "../utils/paths";
 import NotificationList from "../components/notificaciones/NotificationList";
 import { setCurrentLegajoCod } from "../store/actions/consultaLegajos/consultaLegajosActionSync";
-import { UpdateUserEmail } from "../utils/user/dinamicCalls";
+import { UpdateUserEmail, GetUserImageUrl } from "../utils/user/dinamicCalls";
 import { updateEmail } from "../store/actions/authActionSync";
 import { renewToken } from "../store/actions/authActionAsync";
 import ModalEditarEmail from "../components/consultaLegajos/ModalEditarEmail";
+import ModalEditarFoto from "../components/usuario/ModalEditarFoto";
 const { useBreakpoint } = Grid;
 
 function HeaderLayout() {
@@ -37,6 +38,7 @@ function HeaderLayout() {
     const screens = useBreakpoint();
     const dispatch = useDispatch();
     const pathname = location.pathname
+    const [imageProfile, setImageProfile] = useState(null);
 
     const formatBreadcrumb = (value) => {
         return value
@@ -149,6 +151,8 @@ function HeaderLayout() {
     }
 
     //Modal - Update User Email
+    
+
     const [mdEmailLoading, setMdEmailLoading] = useState(false);
     const [mdEmailOpen, setMdEmailOpen] = useState(false);
     const [emailForm] = Form.useForm();
@@ -181,6 +185,39 @@ function HeaderLayout() {
             markNotificationsAsRead(ids)
         }
     }
+    // Modal Update Profile photo
+    const [mdPhotoOpen, setMdPhotoOpen] = useState(false);
+
+    const showMdPhoto = () => {
+        setMdPhotoOpen(true);
+    };
+
+    const onCloseMdPhoto = () => {
+        setMdPhotoOpen(false);
+        GetUserImageUrl(user.usuId).then((response) => {
+            if (response.isSuccess) {
+                setImageProfile(response.data)
+            } else {
+                setImageProfile(null);
+            }
+        });
+        
+    };
+
+    useEffect(() => {
+        if (user && user.usuId) {
+            GetUserImageUrl(user.usuId).then((response) => {
+                if (response.isSuccess) {
+                    setImageProfile(response.data)
+                } else {
+                    setImageProfile(null);
+                }
+            });
+        } else {
+            setImageProfile(null);
+        }
+    }, [user]);
+
 
     return (
         <>
@@ -201,8 +238,8 @@ function HeaderLayout() {
 
                         <Popover
                             onOpenChange={onNotificationOpenChange}
-                            
-                            placement="bottom" style={{ padding: "10px",maxHeight:"400px", overflowY: "auto" }}
+
+                            placement="bottom" style={{ padding: "10px", maxHeight: "400px", overflowY: "auto" }}
                             content={<NotificationList notifications={notificaciones} />}
                         >
                             {notificaciones.length > 0 ? (
@@ -228,10 +265,10 @@ function HeaderLayout() {
                         )
 
                         }
-                        {user.usuImage ? (
-                            <Avatar style={{ border: "2px solid white" }} size={36} src={<img src={user.usuImage} alt="avatar" />} />
+                        {imageProfile ? (
+                            <Avatar onClick={showMdPhoto} style={{ border: "2px solid white" }} size={36} src={<img src={imageProfile} alt="avatar" />} />
                         ) : (
-                            <Avatar style={{ backgroundColor: colors.lightBlack, color: 'white' }}>{user.usuNombre[0]}</Avatar>
+                            <Avatar onClick={showMdPhoto} style={{ backgroundColor: colors.lightBlack, color: 'white' }}>{user.usuNombre[0]}</Avatar>
                         )
 
                         }
@@ -252,6 +289,13 @@ function HeaderLayout() {
             >
 
             </ModalEditarEmail>
+            <ModalEditarFoto
+                modalOpen={mdPhotoOpen}
+                handleClose={onCloseMdPhoto}
+
+            >
+
+            </ModalEditarFoto>
         </>
     );
 }

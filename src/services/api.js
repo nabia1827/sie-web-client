@@ -168,6 +168,9 @@ const MisAudiencias = {
 
 const User = {
     UpdateUserEmail: (usuId,email) => requests.patch(`/User/UpdateUserEmail?usuId=${usuId}&email=${email}`),
+    UpdateUserImage: (usuId,file) => requests.patch(`/User/UpdateUserImage?usuId=${usuId}`,file),
+    RemoveUserImage: (usuId) => requests.patch(`/User/RemoveUserImage?usuId=${usuId}`),
+    GetUserImageUrl: (usuId) => requests.get(`/User/GetUserImageUrl?usuId=${usuId}`),
 }
 
 const Notification = {
