@@ -8,7 +8,7 @@ import ModalEditarDelegado from "../../../../../components/consultaLegajos/Modal
 import ModalEditarHechos from "../../../../../components/consultaLegajos/ModalEditarHechos";
 import {
     GetInfoLegajoById, GetAgraviadosByLegajoId, GetImputadosByLegajoId,
-    GetAudienciasByLegajoId, GetResultadosByLegajoId, UpdateDelegado, UpdateHecho,
+    GetAudienciasByLegajoId, GetResultadosByLegajoId, UpdateDelegado,UpdateTipoProceso, UpdateHecho,
     UpdateObservacionesAudiencia, UpdateEstadoAsistencia
 } from "../../../../../utils/consultaLegajos/dinamicCalls";
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentLegajoCod } from "../../../../../store/actions/consultaLegajos/consultaLegajosActionSync";
 const { useBreakpoint } = Grid;
 import dayjs from 'dayjs';
+import { update } from "lodash";
 
 function DetalleLegajoPage() {
     const screens = useBreakpoint();
@@ -98,6 +99,12 @@ function DetalleLegajoPage() {
             dispacth(setCurrentLegajoCod(legajo.codigoLegajo))
         }
     }, [legajo]);
+
+    const onClickTipoProceso = (value) =>{
+        UpdateTipoProceso(legajo.legajoId,value).then(()=>{
+            fetchInfoGeneral(id);
+        });
+    }
 
     //Modal de Observaciones de Audiencia
     const [mdObsLoading, setMdObsLoading] = useState(false);
@@ -228,6 +235,7 @@ function DetalleLegajoPage() {
             showMdApel={showMdApel}
             legajo={legajo}
             loadingInfo={loadingInfo}
+            onClickTipoProceso = {onClickTipoProceso}
             imputados={imputados}
             agraviados={agraviados}
             loadingPp={loadingPp}
@@ -245,6 +253,7 @@ function DetalleLegajoPage() {
             showMdApel={showMdApel}
             legajo={legajo}
             loadingInfo={loadingInfo}
+            onClickTipoProceso = {onClickTipoProceso}
             imputados={imputados}
             agraviados={agraviados}
             loadingPp={loadingPp}

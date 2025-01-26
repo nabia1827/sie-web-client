@@ -9,7 +9,7 @@ const initialValues = {
     usuApellidoMat: "",
     perfilId: 0,
     usuEmail: "",
-    usuImage:"",
+    usuImage: "",
   },
   isAuthenticated: false,
   refreshTokenExpire: false,
@@ -34,6 +34,14 @@ export const authReducer = (state = initialValues, action) => {
         ...state,
         isAuthenticated: false,
         refreshTokenExpire: true,
+      };
+    case types.updateUserEmail:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          usuEmail: action.payload,
+        },
       };
     default:
       return state;

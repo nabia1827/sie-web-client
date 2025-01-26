@@ -9,7 +9,15 @@ const data = [
     // Agrega más departamentos y datos aquí
 ];
 
-const ChartMap = () => {
+const ChartMap = (props) => {
+    const {chartData} = props;
+    const maxCases = Math.max(...chartData.map(d => d.cantidad));
+
+    const getRadius = (cases) => {
+        const scaleFactor = 10; // Ajusta este valor según el tamaño que desees
+        return Math.sqrt(cases / maxCases) * scaleFactor;
+    };
+
     return (
         <MapContainer center={[-9.19, -75.0152]} zoom={6} style={{ height: "100%", width: "100%",borderRadius: "0.7em" }}>
             <TileLayer
@@ -18,11 +26,11 @@ const ChartMap = () => {
             />
             <GeoJSON data={peruGeoJson} style={{ color: "#1E3A8A", weight: 1 }} />
             
-            {data.map((item, index) => (
+            {chartData.map((d) => (
                 <CircleMarker
-                    key={index}
-                    center={item.coordinates}
-                    radius={Math.sqrt(item.cases) * 0.5} // Ajusta el tamaño según los casos
+                    key={d.depId}
+                    center={[d.depLatitud,d.depLongitud]}
+                    radius={getRadius(d.cantidad)}
                     fillColor="rgba(82, 113, 255, 1)"
                     color="rgba(82, 113, 255, 1)"
                     weight={1}

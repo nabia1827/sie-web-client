@@ -6,7 +6,7 @@ function MisLegajosPage() {
 
     return (
         <>
-            <RolesAuthRoute perfilesAutorizados={[Perfiles.ABOGADO, Perfiles.ADMIN]}>
+            <RolesAuthRoute perfilesAutorizados={[Perfiles.ABOGADO,Perfiles.ADMIN]}>
                 <Outlet></Outlet>
             </RolesAuthRoute>
         </>

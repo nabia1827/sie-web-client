@@ -8,14 +8,14 @@ import ResultadosFinalesWeb from "./resultadosFinales/ResultadosFinalesWeb";
 function DetalleLegajoWeb(props) {
     const {showMdObs,showMdApel,legajo, loadingInfo,
         imputados, agraviados,loadingPp,audiencias,loadingAud,resultados,loadingRes,
-        showMdDele,showMdHechos,onClickAsistencia,onRefreshAudiencias
+        showMdDele,showMdHechos,onClickAsistencia,onRefreshAudiencias,onClickTipoProceso
     }=props;
 
     const items = [
         {
             key: '1',
             label: 'Información General',
-            children: <InfoGeneralWeb legajo={legajo} loadingInfo={loadingInfo} showMdDele={showMdDele} showMdHechos={showMdHechos}></InfoGeneralWeb>,
+            children: <InfoGeneralWeb legajo={legajo} loadingInfo={loadingInfo} onClickTipoProceso={onClickTipoProceso} showMdDele={showMdDele} showMdHechos={showMdHechos}></InfoGeneralWeb>,
         },
         {
             key: '2',

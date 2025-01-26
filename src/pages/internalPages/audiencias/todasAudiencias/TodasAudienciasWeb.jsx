@@ -7,7 +7,7 @@ function TodasAudienciasWeb() {
 
     return (
         <>
-            <Flex vertical justify="center" align="center" style={{ width: "100%", minHeight: "76vh", paddingBottom: "1em", backgroundColor: colors.white, borderRadius: "0.7em", padding: "2.0em" }}>
+            <Flex vertical justify="flex-start" align="center" style={{ width: "100%", minHeight: "76vh", paddingBottom: "1em", backgroundColor: colors.white, borderRadius: "0.7em", padding: "2.0em" }}>
                 <Basic></Basic>
             </Flex>
 

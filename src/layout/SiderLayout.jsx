@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Typography, Layout, Menu, Drawer, Input, Select, DatePicker, Table, Grid} from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
@@ -8,6 +8,7 @@ import { colors } from "../utils/colors";
 import { paths } from "../utils/paths";
 import { startLogout } from "../store/actions/authActionAsync";
 import { useDispatch, useSelector } from "react-redux";
+import { Perfiles } from "../utils/constants";
 const { useBreakpoint } = Grid;
 import {
     Lightning,
@@ -21,72 +22,7 @@ import {
     EnvelopeSimple,
     MicrosoftExcelLogo
 } from "@phosphor-icons/react";
-const items = [
-    {
-        key: 'sub1',
-        label: 'Consulta Legajos',
-        icon: <FileText size={20} weight="fill" />,
-        children: [
-            {
-                key: paths.MIS_LEGAJOS,
-                label: 'Consultar mis Legajos',
-            },
-            {
-                key: paths.TODOS_LEGAJOS,
-                label: 'Todos los Legajos',
-            },
-        ],
-    },
-    {
-        key: 'sub2',
-        label: 'Ver Audiencias',
-        icon: <CalendarBlank size={20} weight="fill" />,
-        children: [
-            {
-                key: paths.MIS_AUDIENCIAS,
-                label: 'Mis Audiencias',
-            },
-            {
-                key: paths.TODAS_AUDIENCIAS,
-                label: 'Todos las Audiencias',
-            },
-        ],
-    },
-    {
-        key: 'sub3',
-        label: 'Reporte Legajos',
-        icon: <ChartBar size={20} weight="fill" />,
-        children: [
-            {
-                key: paths.REPORTE_GENERAL,
-                label: 'Reporte General',
-            },
-            {
-                key: paths.SEGUIMIENTO,
-                label: 'Seguimiento',
-            },
-        ],
-    },
-    {
-        key: 'sub4',
-        icon: <HandArrowDown size={20} weight="fill" />,
-        label: 'Recepción Legajos',
-        children: [
-            {
-                key: paths.RECEPCION_LEGAJOS,
-                label: 'Recepcionar',
-            },
-
-
-        ],
-    },
-    {
-        key: 'logout',
-        icon: <SignOut size={20} weight="fill" />,
-        label: 'Cerrar Sesión',
-
-    },
-];
+import { getMenuItemsForUser } from "../utils/generalFunctions";
 
 function SiderLayout(props) {
     const {collapsed,setCollapsed} = props;
@@ -94,6 +30,16 @@ function SiderLayout(props) {
     const dispatch = useDispatch();
     const screens = useBreakpoint();
     console.log("BREAKPOINT!!!", screens);
+    const { perfilId } = useSelector((state) => state.auth.user);
+    const [items, setItems] = useState([]);
+    
+    useEffect(() => {
+        if (perfilId) {
+            const its = getMenuItemsForUser(perfilId);
+            console.log("its ", its);
+            setItems(its);
+        }
+    }, [perfilId]);
 
     const onCollapse = (collapsed, type) => {
         setCollapsed(collapsed);
@@ -141,7 +87,7 @@ function SiderLayout(props) {
                 </Drawer>
             ) : (
                 <Sider breakpoint="md" width="280px" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
-                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em", overflow: "auto",scrollbarWidth: "thin",scrollbarColor: "unset" }}>
+                    <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em", overflow: "auto" }}>
                         <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
                             <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
                                 <Lightning size={28} weight="fill" color={colors.white} />

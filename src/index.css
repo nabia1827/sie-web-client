@@ -189,7 +189,20 @@ body {
 .sie-event-gantt {
   font-family: 'DM Sans';
   color: white;
+  font-size: 1.0em;
+}
 
+.sie-event-title-personal-schedule {
+  font-family: 'DM Sans';
+  color: white;
+  font-weight: 600;
+  font-size: 1.0em;
+  text-align: left;
+}
+
+.sie-event-subtitle-personal-schedule {
+  font-family: 'DM Sans';
+  color: white;
   font-size: 1.0em;
 }
 

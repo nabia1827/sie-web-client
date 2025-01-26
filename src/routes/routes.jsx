@@ -13,7 +13,7 @@ import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
   CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos, 
   cargarDelitos,cargarTiposPena,cargarTiposSentencia,
   cargarTiposAudiencia, cargarTiposRemitente,
-  cargarDistritosJudicial} from '../store/actions/app/appActionAsync';
+  cargarDistritosJudicial, cargarNotificaciones} from '../store/actions/app/appActionAsync';
 
 
 //General
@@ -48,9 +48,11 @@ import RecepcionPage from '../pages/internalPages/recepcionLegajos/RecepcionPage
 import NuevoLegajoPage from '../pages/internalPages/recepcionLegajos/nuevoLegajo/NuevoLegajoPage';
 import AdicionarDocsPage from '../pages/internalPages/recepcionLegajos/adicionarDocumentos/AdicionarDocsPage';
 import InicioRecepcionPage from '../pages/internalPages/recepcionLegajos/InicioRecepcionPage';
-
+import { Button, Divider, notification, Space } from 'antd';
+import { initializeNotifications} from '../services/notificationService';
 
 const RoutesApp = () => {
+  const [api, contextHolder] = notification.useNotification();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const userId = store.getState().auth.user.usuId;
   const perfilId = store.getState().auth.user.perfilId;
@@ -69,7 +71,7 @@ const RoutesApp = () => {
         usuNombre: tokenDecode.UsuNombre,
         usuApellidoPat: tokenDecode.UsuApellidoPat,
         usuApellidoMat: tokenDecode.UsuApellidoMat,
-        perfilId: tokenDecode.PerfilId,
+        perfilId: Number(tokenDecode.PerfilId),
         usuEmail: tokenDecode.UsuEmail,
         usuImage: tokenDecode.UsuImage,
       };
@@ -94,13 +96,16 @@ const RoutesApp = () => {
       dispatch(cargarTiposRemitente())
       dispatch(cargarTiposPena())
       dispatch(cargarTiposSentencia())  
-      dispatch(cargarDistritosJudicial()) 
+      dispatch(cargarDistritosJudicial())
+      dispatch(cargarNotificaciones(userId))
+      initializeNotifications(api);
       
     }
   }, [dispatch, isAuthenticated]);
 
   return (
     <Router>
+      {contextHolder}
       <Routes>
         {/* Rutas públicas */}
 

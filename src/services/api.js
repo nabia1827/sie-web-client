@@ -25,6 +25,7 @@ const requestsPython = {
 const Auth = {
     loginApp: body => requests.post('/Auth/Authenticate', body),
     logOutApp: (body) => requests.post('/Auth/Logout', body),
+    renewToken: (body) => requests.post('/Auth/RenewToken', body),
 };
 
 const ListaLegajos = {
@@ -63,6 +64,7 @@ const DataLegajo ={
     UpdateHecho: (body) => requests.patch(`/DataLegajo/UpdateHecho`,body),
     UpdateObservacionesAudiencia: (body) => requests.patch(`/DataLegajo/UpdateObservacionesAudiencia`,body),
     UpdateEstadoAsistencia: (audienciaId) => requests.patch(`/DataLegajo/UpdateEstadoAsistencia?audienciaId=${audienciaId}`),
+    UpdateTipoProceso: (legajoId,esProcesoInmediato) => requests.patch(`/DataLegajo/UpdateTipoProceso?legajoId=${legajoId}&esProcesoInmediato=${esProcesoInmediato}`),
     ListarDelegados: () => requests.get(`/DataLegajo/ListarDelegado`),
     GetDelitosByLegajoId: (legajoId) => requests.get(`/DataLegajo/GetDelitosByLegajoId?legajoId=${legajoId}`),
 }
@@ -129,6 +131,23 @@ const Audiencia = {
     ListLegajosByTermino: (terminoBusqueda) => requests.get(`/Audiencia/ListLegajosByTermino?terminoBusqueda=${terminoBusqueda}`),
 }
 
+const Reporte = {
+    GetCantidadAudiencias: (anio,mes,delitoId) => requests.get(`/Reporte/GetCantidadAudiencias?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetCantidadLegajos: (anio,mes,delitoId) => requests.get(`/Reporte/GetCantidadLegajos?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartBarsData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartBarsData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartLineData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartLineData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartMapData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartMapData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartPieData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartPieData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetChartStackedBarsData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartStackedBarsData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+    GetLugarMasComun: (anio,mes,delitoId) => requests.get(`/Reporte/GetLugarMasComun?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
+}
+
+const Seguimiento = {
+    GetSeguimientoAudiencias: () => requests.get(`/Seguimiento/GetSeguimientoAudiencias`),
+    GetSeguimientoLegajos: () => requests.get(`/Seguimiento/GetSeguimientoLegajos`),
+    GetSeguimientoRecursosLegales: () => requests.get(`/Seguimiento/GetSeguimientoRecursosLegales`),
+}
+
 
 const PythonService = {
     //(usuId, formData) => requestsPython.post(`/text-processing-first/?usuId=${usuId}`, formData),
@@ -140,4 +159,39 @@ const PythonService = {
     AdicionarDocumento: (legajoId, usuId, formData) => requestsPython.post(`/text-processing-others?legajoId=${legajoId}&usuId=${usuId}`, formData),
 }
 
-export default { Auth, ListaLegajos,GenerarPDF,DataLegajo,DocumentosLegajo,GenerarWord,RecepcionLegajos, Audiencia,PythonService};
+const MisAudiencias = {
+    GetMisAudienciasByWeek: (startDateTime,endDateTime,usuId) => requests.get(`/MisAudiencias/GetMisAudienciasByWeek?startDateTime=${startDateTime}&endDateTime=${endDateTime}&usuId=${usuId}`),
+    EditMiAudiencia: (body) => requests.patch(`/MisAudiencias/EditMiAudiencia`,body),
+    NewMiAudiencia: (body) => requests.post(`/MisAudiencias/NewMiAudiencia`,body),
+    DeleteMiAudiencia: (id) => requests.post(`/MisAudiencias/DeleteMiAudiencia?id=${id}`),
+}
+
+const User = {
+    UpdateUserEmail: (usuId,email) => requests.patch(`/User/UpdateUserEmail?usuId=${usuId}&email=${email}`),
+    UpdateUserImage: (usuId,file) => requests.patch(`/User/UpdateUserImage?usuId=${usuId}`,file),
+    RemoveUserImage: (usuId) => requests.patch(`/User/RemoveUserImage?usuId=${usuId}`),
+    GetUserImageUrl: (usuId) => requests.get(`/User/GetUserImageUrl?usuId=${usuId}`),
+}
+
+const Notification = {
+    GetNotificacionesUser: (usuId) => requests.get(`/Notification/GetNotificacionesUser?usuId=${usuId}`),
+    MarkNotificationsAsRead: (notificationIds) => requests.patch(`/Notification/MarkNotificationsAsRead`,notificationIds),
+    MarkNotificationAsReceived: (notificationId) => requests.patch(`/Notification/MarkNotificationAsReceived?notificationId=${notificationId}`),
+}
+
+export default { 
+    Auth, 
+    ListaLegajos,
+    GenerarPDF,
+    DataLegajo,
+    DocumentosLegajo,
+    GenerarWord,
+    RecepcionLegajos, 
+    Audiencia,
+    PythonService, 
+    Reporte,
+    Seguimiento,
+    MisAudiencias,
+    User,
+    Notification,
+};

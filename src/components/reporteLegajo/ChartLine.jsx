@@ -6,13 +6,15 @@ import { colors } from '../../utils/colors';
 const { Text } = Typography;
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend);
 
-const ChartLines = () => {
+const ChartLines = (props) => {
+    const {chartData} = props;
+
     const data = {
-        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'],
+        labels: chartData.nombresMeses,
         datasets: [
             {
-                label: 'M2',
-                data: [150, 200, 300, 500, 700, 900, 500, 700, 900, 500, 700, 900], // Valores de crecimiento de usuarios por mes
+                label: 'Cantidad de Legajos',
+                data: chartData.cantidades, // Valores de crecimiento de usuarios por mes
                 borderColor: 'rgba(82, 113, 255, 1)',
                 backgroundColor: 'rgba(82, 113, 255, 1)',
 

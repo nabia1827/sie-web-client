@@ -7,8 +7,8 @@ const refreshTokenName = "refreshToken-sie";
 export const setAccessToken = (token) => {
   Cookies.set(tokenName, token, {
     path: "/",
-    //secure: true, // Solo se enviará a través de HTTPS
-    //sameSite: 'strict' // Contra ataques CSRF
+    secure: true, // Solo se enviará a través de HTTPS
+    sameSite: 'strict' // Contra ataques CSRF
   });
 };
 
@@ -16,8 +16,8 @@ export const setAccessToken = (token) => {
 export const setRefreshToken = (refreshToken) => {
   Cookies.set(refreshTokenName, refreshToken, { 
     path: "/",
-    //secure: true, // Solo se enviará a través de HTTPS
-    //sameSite: 'strict' // Contra ataques CSRF
+    secure: true, // Solo se enviará a través de HTTPS
+    sameSite: 'strict' // Contra ataques CSRF
   });
 };
 

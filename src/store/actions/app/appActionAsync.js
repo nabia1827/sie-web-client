@@ -1,30 +1,33 @@
 import { message } from "antd";
-import { setAbogados,setSubfases,setDelegados,setClasesDocEntrada,setClasesDocSalida,
-  setTiposDanio,setDependenciasMininter,setProcuradores, setDepartamentos, 
+import {
+  setAbogados, setSubfases, setDelegados, setClasesDocEntrada, setClasesDocSalida,
+  setTiposDanio, setDependenciasMininter, setProcuradores, setDepartamentos,
   setDelitos,
   setTiposAudiencia,
   setTiposRemitente,
   setTiposPena,
   setTiposSentencia,
-  setDistritosJudicial} from "./appActionSync";
+  setDistritosJudicial,
+  setNotificaciones
+} from "./appActionSync";
 import api from "../../../services/api";
 
 export const cargarAbogados = () => async (dispatch) => {
-    try {
-      const resp = await api.ListaLegajos.ListarAbogados();
-      dispatch(setAbogados(resp.data));
-    } catch (error) {
-      message.error(error.message);
-    }
+  try {
+    const resp = await api.ListaLegajos.ListarAbogados();
+    dispatch(setAbogados(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
 };
 
 export const cargarSubfases = () => async (dispatch) => {
-    try {
-      const resp = await api.ListaLegajos.ListarSubfases();
-      dispatch(setSubfases(resp.data));
-    } catch (error) {
-      message.error(error.message);
-    }
+  try {
+    const resp = await api.ListaLegajos.ListarSubfases();
+    dispatch(setSubfases(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
 };
 
 export const cargarDelegados = () => async (dispatch) => {
@@ -39,12 +42,12 @@ export const cargarDelegados = () => async (dispatch) => {
 export const cargarClasesDoc = (esRecursoLegal) => async (dispatch) => {
   try {
     const resp = await api.DataLegajo.ListTipoDoc(esRecursoLegal);
-    if(esRecursoLegal==1){
+    if (esRecursoLegal == 1) {
       dispatch(setClasesDocSalida(resp.data));
-    }else{
+    } else {
       dispatch(setClasesDocEntrada(resp.data));
     }
-    
+
   } catch (error) {
     message.error(error.message);
   }
@@ -80,7 +83,7 @@ export const CargarProcuradores = () => async (dispatch) => {
 
 export const CargarDepartamentos = () => async (dispatch) => {
   try {
-    const resp = await api.RecepcionLegajos.ListarLugarByTipo(1,0);
+    const resp = await api.RecepcionLegajos.ListarLugarByTipo(1, 0);
 
     dispatch(setDepartamentos(resp.data));
   } catch (error) {
@@ -143,3 +146,12 @@ export const cargarDistritosJudicial = () => async (dispatch) => {
   }
 };
 
+
+export const cargarNotificaciones = (usuId) => async (dispatch) => {
+  try {
+    const resp = await api.Notification.GetNotificacionesUser(usuId)
+    dispatch(setNotificaciones(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};

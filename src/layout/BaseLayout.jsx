@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Typography, Layout, FloatButton, Select, DatePicker, Table, Grid } from "antd";
 const { Text } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
@@ -10,13 +10,19 @@ import {
 import HeaderLayout from "./HeaderLayout";
 import SiderLayout from "./SiderLayout";
 import { MenuOutlined } from '@ant-design/icons';
+import { notification } from "antd";
+
 
 function BaseLayout({ children }) {
+    const [api, contextHolder] = notification.useNotification();
     const [collapsed, setCollapsed] = useState(false)
     const screens = useBreakpoint();
+
+    
     return (
         <>
             <Layout style={{ width: "100%", height: "100vh", backgroundColor: "white" }}>
+                {contextHolder}
                 <SiderLayout collapsed={collapsed} setCollapsed={setCollapsed}></SiderLayout>
                 <Layout>
                     <HeaderLayout></HeaderLayout>

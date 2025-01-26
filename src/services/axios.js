@@ -5,12 +5,13 @@ import { removeExpiredRefreshToken, startLogout } from "../store/actions/authAct
 
 // Instancia para la API en .NET
 const axiosDotNet = axios.create({
+  //baseURL: `https://psei-sie-api-gwdug2a4egf7bxe4.brazilsouth-01.azurewebsites.net/api`
   baseURL: `https://localhost:44393/api`
 });
 
 // Instancia para la API en Python
 const axiosPython = axios.create({
-  baseURL: `http://127.0.0.1:5000` // Cambia la URL por la de tu API en Python
+  baseURL: `https://sie-text-processing-api-s2loldrkeq-ue.a.run.app` // Cambia la URL por la de tu API en Python
 });
 
 let isRefreshing = false;

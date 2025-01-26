@@ -12,7 +12,7 @@ const RolesAuthRoute = ({ children, perfilesAutorizados }) => {
 
   if (canAccess) return <>{children}</>;
 
-  return <Navigate to={paths.HOME} />;
+  return <Navigate to={paths.TODOS_LEGAJOS} />;
 };
 
 export default RolesAuthRoute;

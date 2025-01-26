@@ -124,3 +124,65 @@ export const BotonesVistasGantt = [
     },
     { id: 3, viewName: "Mensual", viewType: ViewType.Month },
 ];
+
+export const ListAnios = [
+    {
+        anioId: 2024,
+        anioDescripcion: "2024"
+    },
+    {
+        anioId: 2023,
+        anioDescripcion: "2023"
+    }
+];
+
+export const ListMeses = [
+    {
+        mesId: 1,
+        mesDescripcion: "Enero"
+    },
+    {
+        mesId: 2,
+        mesDescripcion: "Febrero"
+    },
+    {
+        mesId: 3,
+        mesDescripcion: "Marzo"
+    },
+    {
+        mesId: 4,
+        mesDescripcion: "Abril"
+    },
+    {
+        mesId: 5,
+        mesDescripcion: "Mayo"
+    },
+    {
+        mesId: 6,
+        mesDescripcion: "Junio"
+    },
+    {
+        mesId: 7,
+        mesDescripcion: "Julio"
+    },
+    {
+        mesId: 8,
+        mesDescripcion: "Agosto"
+    },
+    {
+        mesId: 9,
+        mesDescripcion: "Septiembre"
+    },
+    {
+        mesId: 10,
+        mesDescripcion: "Octubre"
+    },
+    {
+        mesId: 11,
+        mesDescripcion: "Noviembre"
+    },
+    {
+        mesId: 12,
+        mesDescripcion: "Diciembre"
+    },
+];
