@@ -64,9 +64,9 @@ function AdicionarDocsPage() {
     const [dataRes, setDataRes] = useState(null);
 
 
-    const fetchJuzgados = async (nombre,callback) => {
+    const fetchJuzgados = async (nombre,faseId,callback) => {
         try {
-            const juzgadoResponse = await SearchJuzgado(nombre);
+            const juzgadoResponse = await SearchJuzgado(nombre,faseId);
             callback(juzgadoResponse.data);
         } finally {
             //callback([]);
@@ -200,7 +200,8 @@ function AdicionarDocsPage() {
         const nroExpediente = formDg.getFieldValue("expedienteJudicial")
         const estadoId = formDg.getFieldValue("estado")
         const subfaseId = formDg.getFieldValue("subfase")
-        const juzgadoId = formDg.getFieldValue("juzgado")
+        const juzgadoIpId = formDg.getFieldValue("juzgadoIp")
+        const juzgadoEId = formDg.getFieldValue("juzgadoE")
         const tipoProcesoId = formDg.getFieldValue("tipoProceso")
 
         const datosGeneralesTemp ={
@@ -209,7 +210,8 @@ function AdicionarDocsPage() {
             nroExpediente:nroExpediente,
             estadoId: isNull(estadoId)?0:estadoId,
             subfaseId: isNull(subfaseId)?0:subfaseId, 
-            juzgadoId: isNull(juzgadoId)?0:juzgadoId,
+            juzgadoIpId: isNull(juzgadoIpId)?0:juzgadoIpId,
+            juzgadoEId: isNull(juzgadoEId)?0:juzgadoEId,
             tipoProcesoId: isNull(tipoProcesoId)?0:tipoProcesoId
         }
 

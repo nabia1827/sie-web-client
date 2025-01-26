@@ -97,7 +97,7 @@ const RecepcionLegajos = {
     ListarTipoPena:() => requests.get(`/RecepcionLegajos/ListarTipoPena`),
     ListarTipoSentencia: () => requests.get(`/RecepcionLegajos/ListarTipoSentencia`),
     SearchFiscalia: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchFiscalia?nombreCompleto=${nombreCompleto}`),
-    SearchJuzgado: (nombreCompleto) => requests.get(`/RecepcionLegajos/SearchJuzgado?nombreCompleto=${nombreCompleto}`),
+    SearchJuzgado: (nombreCompleto, faseId) => requests.get(`/RecepcionLegajos/SearchJuzgado?nombreCompleto=${nombreCompleto}&faseId=${faseId}`),
     GetDatosGeneralesTemp: (legajoId) => requests.get(`/RecepcionLegajos/GetDatosGeneralesTemp?legajoId=${legajoId}`),
     GetDatosGenerales: (legajoId) => requests.get(`/RecepcionLegajos/GetDatosGenerales?legajoId=${legajoId}`),
     GetDocumento: (documentoId) => requests.get(`/RecepcionLegajos/GetDocumento?documentoId=${documentoId}`),

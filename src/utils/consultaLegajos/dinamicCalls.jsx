@@ -456,10 +456,10 @@ export const GetAudiencia = async (audienciaId) => {
   }
 };
 
-export const SearchJuzgado = async (nombreCompleto) => {
+export const SearchJuzgado = async (nombreCompleto, faseId) => {
   try {
 
-    const response = await api.RecepcionLegajos.SearchJuzgado(nombreCompleto);
+    const response = await api.RecepcionLegajos.SearchJuzgado(nombreCompleto,faseId);
     return response;
   } catch (error) {
     message.error(error.message);

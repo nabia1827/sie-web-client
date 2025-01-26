@@ -4,15 +4,17 @@ import { Flex,Typography, Input, Collapse, Select,Row, Col, Form, Spin} from "an
 import { colors } from "../../../utils/colors";
 const { Text } = Typography;
 const { TextArea } = Input;
-import { ListTipoProceso, ListEstado } from "../../../utils/constants";
+import { ListTipoProceso, ListEstado, FaseJuzgado} from "../../../utils/constants";
 import { ListarProvincias, ListarDistritos } from "../../../utils/consultaLegajos/dinamicCalls";
 
 
 function CollapserDatosGen(props) {
     const { form,loading, handleOnFieldsChange, data, fetchJuzgados, fetchFiscalias} = props;
 
-    const [dataJuzgados, setDataJuzgados] = useState([]);
-    const [nombreJuzgado, setNombreJuzgado] = useState();
+    const [dataJuzgadosIp, setDataJuzgadosIp] = useState([]);
+    const [dataJuzgadosE, setDataJuzgadosE] = useState([]);
+    const [nombreJuzgadoIp, setNombreJuzgadoIp] = useState();
+    const [nombreJuzgadoE, setNombreJuzgadoE] = useState();
 
     const [dataFiscalias, setDataFiscalias] = useState([]);
     const [nombreFiscalia, setNombreFiscalia] = useState();
@@ -25,9 +27,15 @@ function CollapserDatosGen(props) {
 
     const { subfases,departamentos,distritosJudicial } = useSelector((state) => state.app)
 
-    const handleJuzSearch = (nombreJuzgado) => {
+    const handleSearchIp = (nombreJuzgado) => {
         if (nombreJuzgado!=null && nombreJuzgado!=undefined && nombreJuzgado !=''){
-            fetchJuzgados(nombreJuzgado,setDataJuzgados)
+            fetchJuzgados(nombreJuzgado,FaseJuzgado.INVESTIGACION_PREPARATORIA,setDataJuzgadosIp)
+        }
+    };
+    
+    const handleSearchE = (nombreJuzgado) => {
+        if (nombreJuzgado!=null && nombreJuzgado!=undefined && nombreJuzgado !=''){
+            fetchJuzgados(nombreJuzgado,FaseJuzgado.ENJUICIAMIENTO,setDataJuzgadosE)
         }
     };
 
@@ -46,8 +54,12 @@ function CollapserDatosGen(props) {
         setDataDistrito(distritos.data)
     };
 
-    const handleJuzChange = (newNomJuzgado) => {
-        setNombreJuzgado(newNomJuzgado);
+    const handleChangeIp = (newNomJuzgado) => {
+        setNombreJuzgadoIp(newNomJuzgado);
+    };
+
+    const handleChangeE = (newNomJuzgado) => {
+        setNombreJuzgadoE(newNomJuzgado);
     };
 
     const handleFisSearch = (nombreFiscalia) => {
@@ -78,7 +90,8 @@ function CollapserDatosGen(props) {
     useEffect(() => {
         if (data !== null && data !== undefined) {
             console.log(data)
-            fetchJuzgados("juzgado",setDataJuzgados)
+            fetchJuzgados("juzgado",FaseJuzgado.ENJUICIAMIENTO,setDataJuzgadosE)
+            fetchJuzgados("juzgado",FaseJuzgado.INVESTIGACION_PREPARATORIA,setDataJuzgadosIp)
             fetchFiscalias("fiscalia",setDataFiscalias)
             fetchLugares(data.departamentoId, data.provinciaId)
             form.setFieldsValue(
@@ -89,7 +102,8 @@ function CollapserDatosGen(props) {
                     subfase: data.subFaseId===0?null:data.subFaseId,
                     correoJuzgado:data.emailJuzgado,
                     tipoProceso: data.esProcesoInmediatoId+1,
-                    juzgado: data.juzgadoId===0?null:data.juzgadoId,
+                    juzgadoIp: data.juzgadoIpId===0?null:data.juzgadoIpId,
+                    juzgadoE: data.juzgadoEId===0?null:data.juzgadoEId,
                     departamento:data.departamentoId===0?null:data.departamentoId,
                     provincia:data.provinciaId===0?null:data.provinciaId,
                     distrito:data.distritoId===0?null:data.distritoId,
@@ -196,6 +210,8 @@ function CollapserDatosGen(props) {
                                                     </Form.Item>
                                                 </Col>
 
+                                                
+
                                                 <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                     <Form.Item label={<Text>Departamento:</Text >} name='departamento'>
                                                         <Select
@@ -276,6 +292,7 @@ function CollapserDatosGen(props) {
                                                     </Form.Item>
                                                 </Col>
 
+
                                                 <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                     <Form.Item label={<Text>Fiscalia:</Text >} name='fiscalia'>
                                                         <Select
@@ -301,12 +318,8 @@ function CollapserDatosGen(props) {
                                                     </Form.Item>
                                                 </Col>
 
-                                                <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                    <Form.Item label={<Text>Correo Fiscalia:</Text >} name='correoFiscalia'>
-                                                        <Input /*status={status}*/ placeholder="Ingrese un correo ..." size="large" /*onChange={onChangeUsername}*/
-                                                                /*prefix={<User size={24} color={colors.gray} />*/  />
-                                                    </Form.Item>
-                                                </Col>
+                                                
+
 
                                                 <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                     <Form.Item label={<Text>Fiscal Titular:</Text >} name='fiscalTitular'>
@@ -322,6 +335,8 @@ function CollapserDatosGen(props) {
                                                         
                                                     </Form.Item>
                                                 </Col>
+
+                                                
 
                                                 <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                     <Form.Item label={<Text>Tipo Proceso:</Text >} name='tipoProceso'>
@@ -342,22 +357,102 @@ function CollapserDatosGen(props) {
                                                     </Form.Item>
                                                 </Col>
 
-                                                <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                    <Form.Item label={<Text>Juzgado:</Text >} name='juzgado'>
+                                                
+
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{justifyItems:"flex-start"}}>
+                                                    <Flex>
+                                                        <Text className="sie-info-column-subtitle">
+                                                            JUZGADOS
+                                                        </Text>
+                                                    </Flex>
+                                                </Col>
+    
+                                                
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                                    <Form.Item 
+                                                        label={<Text>Juzgado IP:</Text >} 
+                                                        name='juzgadoIp'
+    
+                                                        labelCol={{
+                                                            xxl: 5,
+                                                            xl: 5,
+                                                            lg: 5,
+                                                            md: 5,
+                                                            sm: 5,
+                                                            xs: 5,
+                                                        }}
+                                                        wrapperCol={{
+                                                            xxl: 19,
+                                                            xl: 19,
+                                                            lg: 19,
+                                                            md: 19,
+                                                            sm: 19,
+                                                            xs: 19,
+                                                        }}
+    
+                                                        
+                                                    >
                                                         <Select
                                                             showSearch
-                                                            value={nombreJuzgado}
-
-                                                            placeholder={"Seleccione un Juzgado ..."}
+                                                            value={nombreJuzgadoIp}
+    
+                                                            placeholder={"Seleccione un Juzgado de Inv. Preparatoria ..."}
                                                             defaultActiveFirstOption={false}
                                                             filterOption={false}
-                                                            onSearch={handleJuzSearch}
-                                                            onChange={handleJuzChange}
+                                                            onSearch={handleSearchIp}
+                                                            onChange={handleChangeIp}
                                                             notFoundContent={null}
                                                             allowClear
                                                         >
                                                             {
-                                                                dataJuzgados.map((c) => (
+                                                                dataJuzgadosIp.map((c) => (
+                                                                    <Select.Option key={c.juzgadoId} value={c.juzgadoId}>
+                                                                        {c.nombreCompleto}
+                                                                    </Select.Option>
+                                                                ))
+                                                            }
+                                                        </Select>
+                                                    </Form.Item>
+                                                </Col>
+    
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+                                                    <Form.Item 
+                                                        label={<Text>Juzgado Enjuiciamiento:</Text >} 
+                                                        name='juzgadoE'
+                                                        
+                                                        labelCol={{
+                                                            xxl: 7,
+                                                            xl: 7,
+                                                            lg: 7,
+                                                            md: 7,
+                                                            sm: 7,
+                                                            xs: 7,
+                                                        }}
+                                                        wrapperCol={{
+                                                            xxl: 17,
+                                                            xl: 17,
+                                                            lg: 17,
+                                                            md: 17,
+                                                            sm: 17,
+                                                            xs: 17,
+                                                        }}
+    
+                                                        
+                                                    >
+                                                        <Select
+                                                            showSearch
+                                                            value={nombreJuzgadoE}
+    
+                                                            placeholder={"Seleccione un Juzgado de Enjuciamiento ..."}
+                                                            defaultActiveFirstOption={false}
+                                                            filterOption={false}
+                                                            onSearch={handleSearchE}
+                                                            onChange={handleChangeE}
+                                                            notFoundContent={null}
+                                                            allowClear
+                                                        >
+                                                            {
+                                                                dataJuzgadosE.map((c) => (
                                                                     <Select.Option key={c.juzgadoId} value={c.juzgadoId}>
                                                                         {c.nombreCompleto}
                                                                     </Select.Option>
@@ -367,42 +462,28 @@ function CollapserDatosGen(props) {
                                                     </Form.Item>
                                                 </Col>
 
-                                                <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                    <Form.Item label={<Text>Correo Juzgado:</Text >} name='correoJuzgado'>
-                                                        <Input /*status={status}*/ placeholder="Ingrese un correo ..." size="large" /*onChange={onChangeUsername}*/
-                                                                    /*prefix={<User size={24} color={colors.gray} />*/  />
-                                                    </Form.Item>
-                                                </Col>
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                                                    <Flex>
+                                                        <Text className="sie-info-column-subtitle">
+                                                            HECHOS
+                                                        </Text>
+                                                    </Flex>
 
-                                                <Col xs={24} sm={24} md={24} lg={12} xl={8}>
-                                                    
                                                 </Col>
 
                                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                                                     <Form.Item 
-                                                        label={<Text>Hechos:</Text >} 
                                                         name='hechos'
-
-                                                        labelCol={{
-                                                            xxl: 3, // Ancho personalizado para este campo
-                                                            xl: 3,
-                                                            lg: 4,
-                                                            md: 4,
-                                                            sm: 5,
-                                                            xs: 5,
-                                                        }}
                                                         
                                                         wrapperCol={{
-                                                            xxl: 21, // Ancho personalizado para el wrapper de este campo
-                                                            xl: 21,
-                                                            lg: 20,
-                                                            md: 20,
-                                                            sm: 19,
-                                                            xs: 19,
+                                                            xxl: 24, // Ancho personalizado para el wrapper de este campo
+                                                            xl: 24,
+                                                            lg: 24,
+                                                            md: 24,
+                                                            sm: 24,
+                                                            xs: 24,
                                                         }}
-
-    
-                                                        
+                                                 
                                                     >
                                                         <TextArea style={{width: "100%"}} rows={4} />
                                                     </Form.Item>

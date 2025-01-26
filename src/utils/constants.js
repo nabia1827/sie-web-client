@@ -31,6 +31,11 @@ export const TipoDoc = {
     DOCUMENTO_SALIDA: 2,
 }
 
+export const FaseJuzgado = {
+    INVESTIGACION_PREPARATORIA: 2,
+    ENJUICIAMIENTO: 3,
+}
+
 export const ClaseDocPath = ["actor-civil", "archivo", "denuncia", "queja"]
 export const ClaseDoc = {
     ACTOR_CIVIL: 10,

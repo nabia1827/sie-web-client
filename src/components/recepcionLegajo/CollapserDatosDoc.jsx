@@ -26,7 +26,7 @@ function CollapserDatosDoc(props) {
                 fetchFiscalias(nombreRemitente,setDataFiscalias)    
             }
             if(tipoRemitenteId === TipoDestinatario.JUZGADO){
-                fetchJuzgados(nombreRemitente,setDataJuzgados)
+                fetchJuzgados(nombreRemitente,0,setDataJuzgados)
             }
 
             setTipoRemitenteId(tipoRemitenteId)    
@@ -47,7 +47,7 @@ function CollapserDatosDoc(props) {
                 fetchFiscalias("fiscalia",setDataFiscalias)  
             }
             if(tipoRemitenteId === TipoDestinatario.JUZGADO){
-                fetchJuzgados("juzgado",setDataJuzgados)
+                fetchJuzgados("juzgado",0,setDataJuzgados)
             }
 
             setTipoRemitenteId(tipoRemitenteId)    
