@@ -167,3 +167,43 @@ export const AdicionarDocumento = async (legajoId,usuId, file) => {
     message.error(error.message);
   }
 };
+
+
+export const InsertImputado = async (legajoId,nombre,tipoDocId,nroDoc,delitosIds) => {
+
+  try {
+    const body = {
+      imputadoId:0,
+      legajoId:legajoId,
+      nombre:nombre,
+      tipoDocId:tipoDocId?tipoDocId:"",
+      nroDoc:nroDoc?nroDoc:"",
+      delitosIds:delitosIds,
+    }
+
+    const response = await api.RecepcionLegajos.InsertImputado(body)
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+export const InsertAgraviado = async (legajoId,nombre,tipoDocId,nroDoc) => {
+
+  try {
+    const body = {
+      agraviadoId:0,
+      legajoId:legajoId,
+      nombre:nombre,
+      tipoDocId:tipoDocId?tipoDocId:"",
+      nroDoc:nroDoc?nroDoc:"",
+    }
+
+    const response = await api.RecepcionLegajos.InsertAgraviado(body);
+    return response;
+
+  } catch (error) {
+    message.error(error.message);
+  }
+};

@@ -186,3 +186,13 @@ export const ListMeses = [
         mesDescripcion: "Diciembre"
     },
 ];
+
+export const OperationType = {
+    CREAR:1,
+    EDITAR:2,
+}
+
+export const OperationTypeName = {
+    1:'Crear',
+    2: 'Editar'
+}

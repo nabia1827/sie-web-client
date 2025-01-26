@@ -3,22 +3,33 @@ import { Flex, Modal, Form, Button, Select, Row, Col, Input, Typography } from "
 import { motion } from "framer-motion";
 import { enableButtonStyle, hoverButtonStyle, enableModalButtonStyle } from "../../../utils/styles";
 import {ListTipoDocIdentidad} from "../../../utils/constants";
+import { OperationType, OperationTypeName } from "../../../utils/constants";
 
 const { Text } = Typography;
 const { TextArea } = Input;
 
 function ModalEditAgraviado(props) {
-    const { modalOpen, handleOk, handleCancel, modalLoading, form, dataAgraviado} = props;
+    const { modalOpen, handleOk, handleCancel, modalLoading, form, dataAgraviado, type} = props;
 
     // Usamos useEffect para establecer los valores iniciales cuando currentRecord cambia
     useEffect(() => {
         if (modalOpen) {
-            form.setFieldsValue({
-                nombreAgraviado: dataAgraviado.agraviadoNombre,
-                tipoDoc:dataAgraviado.tipoIdentidadId===0?null:dataAgraviado.tipoIdentidadId,
-                nroDoc:dataAgraviado.nroDoc,
-
-            });
+            if(type == OperationType.CREAR){
+                form.setFieldsValue({
+                    nombreAgraviado: "",
+                    tipoDoc:null,
+                    nroDoc:"",
+    
+                });
+            }else{
+                form.setFieldsValue({
+                    nombreAgraviado: dataAgraviado.agraviadoNombre,
+                    tipoDoc:dataAgraviado.tipoIdentidadId===0?null:dataAgraviado.tipoIdentidadId,
+                    nroDoc:dataAgraviado.nroDoc,
+    
+                });
+            }
+            
         }
     }, [modalOpen, form]);
 
@@ -28,7 +39,7 @@ function ModalEditAgraviado(props) {
             <Modal
                 style={{ width: "40vh" }}
                 open={modalOpen}
-                title="Editar Imputados"
+                title={`${OperationTypeName[type]} Agraviado`}
                 onOk={handleOk}
                 onCancel={handleCancel}
                 footer={[

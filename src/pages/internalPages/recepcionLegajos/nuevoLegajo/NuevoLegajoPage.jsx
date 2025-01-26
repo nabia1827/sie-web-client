@@ -1,11 +1,11 @@
 import React, { useState ,useEffect} from "react";
-import {Grid, Form} from "antd";
+import {Grid, Form, message} from "antd";
 import NuevoLegajoMobile from "./NuevoLegajoMobile";
 import NuevoLegajoWeb from "./NuevoLegajoWeb";
 import ModalApelacion from "../../../../components/consultaLegajos/ModalApelacion";
 import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
-
+import { OperationType,OperationTypeName } from "../../../../utils/constants";
 import {
     GetImputadosByLegajoId,GetAgraviadosByLegajoId,
     GetResultadosByLegajoId,GetAudienciasByLegajoId,
@@ -19,7 +19,7 @@ import {
     UpdateImputadoById, DeleteImputado,
     UpdateImputadoDelito, DeleteImputadoDelito, DeleteAgraviado,
     UpdateAudiencia, UpdateDatosDocumento, UpdateDatosGenerales,
-    GetDatosGenerales, UpdateAgraviadoById
+    GetDatosGenerales, UpdateAgraviadoById, InsertAgraviado, InsertImputado
 } from "../../../../utils/recepcionLegajos/dinamicCalls";
 
 import ModalEditResultado from "../../../../components/recepcionLegajo/ModalEditResultado";
@@ -284,10 +284,10 @@ function NuevoLegajoPage() {
         const resultadoApelacionId = resForm.getFieldValue("resApelacionId")
         const imputadoDelito = {
             imputadoDelitoId: imputadoDelitoId,
-            reparacionCivil: reparacionCivil,
+            reparacionCivil: reparacionCivil?reparacionCivil:0,
             tipoSentenciaId: isNull(tipoSentenciaId)?0:tipoSentenciaId,
             tipoPenaId: isNull(tipoPenaId)?0:tipoPenaId,
-            cantidad: cantidad,
+            cantidad: cantidad?cantidad:0,
             fechaApelacion: isNull(fechaApelacion)?"":fechaApelacion,
             resultadoApelacionId: isNull(resultadoApelacionId)?0:resultadoApelacionId,
         }
@@ -304,6 +304,83 @@ function NuevoLegajoPage() {
         resForm.resetFields();
         setCurrentResultado(null);
         setMdResOpen(false);
+    };
+
+    //Modal Crear Imputado
+    const [mdAddImpOpen, setMdAddImpOpen] = useState(false);
+    const [mdAddImpLoading, setMdAddImpLoading] = useState(false);
+    const [addImpForm] = Form.useForm();
+
+    const showMdAddImp = () => {
+        setMdAddImpOpen(true);
+    };
+
+    const onOkMdAddImp = async () => {
+        setMdAddImpLoading(true);
+        try{
+            const values = await addImpForm.validateFields();
+            InsertImputado(
+                legajoId,
+                values.nombreImputado,
+                values.tipoDoc,
+                values.nroDoc,
+                values.nombreDelito
+            ).then(() => {
+                setMdAddImpLoading(false);
+                setMdAddImpOpen(false);
+                addImpForm.resetFields();
+                fetchPartesProcesales(legajoId);
+                fetchResultados(legajoId);
+            });
+            
+        }catch (error){
+            message.error("Por favor completar todos los campos.");
+            setMdAddImpLoading(false);
+        }
+        
+    };
+    const onCancelMdAddImp = () => {
+        setMdAddImpOpen(false);
+        addImpForm.resetFields();
+        
+    };
+
+    //Modal Crear Agraviado
+    const [mdAddAgrOpen, setMdAddAgrOpen] = useState(false);
+    const [mdAddAgrLoading, setMdAddAgrLoading] = useState(false);
+    const [addAgrForm] = Form.useForm();
+
+    const showMdAddAgr = () => {
+        setMdAddAgrOpen(true);
+    };
+
+    const onOkMdAddAgr = async() => {
+        setMdAddAgrLoading(true);
+        try{
+            const values = await addAgrForm.validateFields();
+            InsertAgraviado(
+                legajoId,
+                values.nombreAgraviado,
+                values.tipoDoc,
+                values.nroDoc
+            ).then(()=>{
+                setMdAddAgrLoading(false);
+                setMdAddAgrOpen(false);
+                addAgrForm.resetFields();
+                fetchPartesProcesales(legajoId);
+                fetchResultados(legajoId);
+            });
+            
+        }catch (error){
+            message.error("Por favor completar todos los campos.");
+            setMdAddAgrLoading(false);
+        }
+        
+    };
+
+    const onCancelMdAddAgr = () => {
+        setMdAddAgrOpen(false);
+        addAgrForm.resetFields();
     };
 
 
@@ -561,6 +638,9 @@ function NuevoLegajoPage() {
                 dataLeg={dataLeg}
                 loadingCl = {loadingCl}
 
+                showMdAddImp = {showMdAddImp}
+                showMdAddAgr={showMdAddAgr}
+
                 showMdEditRes={showMdEditRes}
                 showMdEditImp={showMdEditImp}
                 showMdEditAgr={showMdEditAgr}
@@ -591,6 +671,7 @@ function NuevoLegajoPage() {
             modalLoading={mdImpLoading}
             dataImputado={currentImputado}
             form={impForm}
+            type = {OperationType.EDITAR}
         ></ModalEditImputado>
 
         <ModalEditAgraviado
@@ -600,6 +681,7 @@ function NuevoLegajoPage() {
             modalLoading={mdAgrLoading}
             dataAgraviado={currentAgraviado}
             form={agrForm}
+            type = {OperationType.EDITAR}
         ></ModalEditAgraviado>
 
 
@@ -645,6 +727,26 @@ function NuevoLegajoPage() {
             modalLoading = {mdBtnSvLoading}
 
         ></ModalGuardarDatos>
+        {/*Modals Create */}
+        <ModalEditImputado
+            modalOpen={mdAddImpOpen}
+            handleOk={onOkMdAddImp}
+            handleCancel={onCancelMdAddImp}
+            modalLoading={mdAddImpLoading}
+            dataImputado={null}
+            form={addImpForm}
+            type = {OperationType.CREAR}
+        ></ModalEditImputado>
+
+        <ModalEditAgraviado
+            modalOpen={mdAddAgrOpen}
+            handleOk={onOkMdAddAgr}
+            handleCancel={onCancelMdAddAgr}
+            modalLoading={mdAddAgrLoading}
+            dataAgraviado={null}
+            form={addAgrForm}
+            type = {OperationType.CREAR}
+        ></ModalEditAgraviado>
     </>;
 }
 

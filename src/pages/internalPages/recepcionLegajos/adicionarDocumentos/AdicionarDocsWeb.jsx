@@ -18,7 +18,7 @@ function AdicionarDocsWeb(props){
         loadingDg,dataDg,formDg,fetchJuzgados,
         loadingAud,dataAud,formAud,showMdApel,
         loadingPp,dataImp,
-        loadingCl,dataLeg,
+        loadingCl,dataLeg,showMdAddImp,
         loadingRes,dataRes, showMdEditRes,showMdEditImp,showMdAgr,showMdDelImp,showMdDelAgr,showMdDelRes,
 
         showMdBtnSv
@@ -84,12 +84,10 @@ function AdicionarDocsWeb(props){
                         <CollapserPartesProc
                             loading = {loadingPp}
                             imputados = {dataImp}
-                            
+
+                            showMdAddImp = {showMdAddImp}
                             showMdEditImp={showMdEditImp}
                             showMdDelImp={showMdDelImp}
-
-                            showMdEditAgr={showMdAgr}
-                            showMdDelAgr={showMdDelAgr}
                         ></CollapserPartesProc>
 
                         <CollapserAudiencia

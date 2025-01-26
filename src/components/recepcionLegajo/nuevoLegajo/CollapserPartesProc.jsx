@@ -1,13 +1,18 @@
-import { Flex,Typography, Input, Collapse, Empty,Row, Col, Spin, Table} from "antd";
+import { Flex, Typography, Input, Collapse, Empty, Row, Col, Spin, Table, Button } from "antd";
 import { ColumnsImputados, ColumnsAgraviados } from "../../../utils/nuevoLegajo/columnsPartesColapserTable";
 import { colors } from "../../../utils/colors";
+import {
+    PlusOutlined
+} from '@ant-design/icons';
 const { Text } = Typography;
 import {
     Users
 } from "@phosphor-icons/react";
 function CollapserPartesProc(props) {
-    const { imputados, agraviados, loadingPp, showMdEditImp, showMdDelImp, showMdEditAgr, showMdDelAgr} = props;
-    
+    const { imputados, agraviados, loadingPp, showMdEditImp, showMdDelImp, showMdEditAgr, showMdDelAgr,
+        showMdAddAgr,showMdAddImp
+     } = props;
+
 
     const columnsImputados = ColumnsImputados(showMdEditImp, showMdDelImp)
     const columnsAgraviados = ColumnsAgraviados(showMdEditAgr, showMdDelAgr)
@@ -16,13 +21,13 @@ function CollapserPartesProc(props) {
 
     return (
         <>
-            <Collapse style={{width: "100%", backgroundColor: colors.background}} 
+            <Collapse style={{ width: "100%", backgroundColor: colors.background }}
                 items={[
                     {
                         key: '1',
                         label:
                             <Flex gap={"small"} justify="flex-start" align="left">
-                                <Text style={{width: "100%", textAlign:"left"}} >Partes Procesales</Text>
+                                <Text style={{ width: "100%", textAlign: "left" }} >Partes Procesales</Text>
                             </Flex>,
 
                         children:
@@ -31,8 +36,9 @@ function CollapserPartesProc(props) {
                                     {
                                         imputados && agraviados ? (
                                             <Flex vertical justify="flex-start" align="center" style={{ width: "100%", padding: "1.0em" }}>
-                                               
-                                                <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%" }}>
+
+                                                <Flex vertical gap={"middle"} justify="flex-start" align="flex-end" style={{ width: "100%" }}>
+                                                    <Button onClick={showMdAddImp} icon={<PlusOutlined />} type="text" >Añadir Imputado</Button>
                                                     <Table
                                                         rowKey={"imputadoId"}
                                                         style={{ width: "100%" }}
@@ -41,7 +47,7 @@ function CollapserPartesProc(props) {
                                                         pagination={false}
                                                         size="small"
                                                     />
-
+                                                    <Button onClick={showMdAddAgr} icon={<PlusOutlined />} type="text" >Añadir Agraviado</Button>
                                                     <Table
                                                         rowKey={"agraviadoId"}
                                                         style={{ width: "100%" }}

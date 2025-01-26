@@ -119,6 +119,8 @@ const RecepcionLegajos = {
     DeleteAgraviado: (agraviadoId) =>requests.patch(`/RecepcionLegajos/DeleteAgraviado?agraviadoId=${agraviadoId}`),
     UpdateAgraviadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateAgraviadoById`, body),
     GetLegajoIdByCarpetaOrExpediente: (tipoDestinatario,nroDocumento) => requests.get(`/RecepcionLegajos/GetLegajoIdByCarpetaOrExpediente?tipoDestinatario=${tipoDestinatario}&nroDocumento=${nroDocumento}`),
+    InsertImputado: (imputado) =>requests.post(`/RecepcionLegajos/InsertImputado`,imputado),
+    InsertAgraviado: (agraviado) =>requests.post(`/RecepcionLegajos/InsertAgraviado`,agraviado),
 }
 
 const Audiencia = {

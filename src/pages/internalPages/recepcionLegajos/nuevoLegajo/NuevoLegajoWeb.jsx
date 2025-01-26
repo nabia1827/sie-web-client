@@ -17,7 +17,7 @@ function NuevoLegajoWeb(props){
     const {
         loadingDd,dataDd,formDd,fetchFiscalias,
         loadingDg,dataDg,formDg,fetchJuzgados,
-        loadingAud,dataAud,formAud,showMdApel,
+        loadingAud,dataAud,formAud,showMdApel,showMdAddImp,showMdAddAgr,
         loadingPp,dataImp,showMdEditImp,showMdEditAgr,showMdDelImp,showMdDelAgr,dataAgr,
         loadingRes,dataRes, showMdEditRes,showMdDelRes,
         loadingCl,dataLeg,
@@ -87,10 +87,10 @@ function NuevoLegajoWeb(props){
                             loadingPp = {loadingPp}
                             imputados = {dataImp}
                             agraviados = {dataAgr}
-                            
+                            showMdAddImp = {showMdAddImp}
                             showMdEditImp={showMdEditImp}
                             showMdDelImp={showMdDelImp}
-
+                            showMdAddAgr={showMdAddAgr}
                             showMdEditAgr={showMdEditAgr}
                             showMdDelAgr={showMdDelAgr}
                         ></CollapserPartesProc>

@@ -1,15 +1,15 @@
-import React, { useState ,useEffect} from "react";
-import {Grid, Form} from "antd";
+import React, { useState, useEffect } from "react";
+import { Grid, Form, message } from "antd";
 import AdicionarDocsMobile from "./AdicionarDocsMobile";
 import AdicionarDocsWeb from "./AdicionarDocsWeb";
 import ModalApelacion from "../../../../components/consultaLegajos/ModalApelacion";
 import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
-
+import { OperationType, OperationTypeName } from "../../../../utils/constants";
 import {
     GetImputadosByLegajoId,
-    GetResultadosByLegajoId,GetInfoLegajoById,
-    GetDocumento,GetDatosGeneralesTemp, SearchJuzgado,SearchFiscalia,
+    GetResultadosByLegajoId, GetInfoLegajoById,
+    GetDocumento, GetDatosGeneralesTemp, SearchJuzgado, SearchFiscalia,
     GetAudiencia
 } from "../../../../utils/consultaLegajos/dinamicCalls";
 
@@ -17,7 +17,7 @@ import {
 import {
     UpdateImputadoById, DeleteImputado,
     UpdateImputadoDelito, DeleteImputadoDelito,
-    UpdateAudiencia, UpdateDatosDocumento, UpdateDatosGeneralesTemp,
+    UpdateAudiencia, UpdateDatosDocumento, UpdateDatosGeneralesTemp, InsertAgraviado, InsertImputado
 } from "../../../../utils/recepcionLegajos/dinamicCalls";
 
 import ModalEditResultado from "../../../../components/recepcionLegajo/ModalEditResultado";
@@ -64,16 +64,16 @@ function AdicionarDocsPage() {
     const [dataRes, setDataRes] = useState(null);
 
 
-    const fetchJuzgados = async (nombre,faseId,callback) => {
+    const fetchJuzgados = async (nombre, faseId, callback) => {
         try {
-            const juzgadoResponse = await SearchJuzgado(nombre,faseId);
+            const juzgadoResponse = await SearchJuzgado(nombre, faseId);
             callback(juzgadoResponse.data);
         } finally {
             //callback([]);
         }
     };
 
-    const fetchFiscalias = async (nombre,callback) => {
+    const fetchFiscalias = async (nombre, callback) => {
         try {
             const fiscaliaResponse = await SearchFiscalia(nombre);
             callback(fiscaliaResponse.data);
@@ -129,10 +129,10 @@ function AdicionarDocsPage() {
         setLoadingAud(true);
         try {
             const audienciaResponse = await GetAudiencia(id);
-            if(audienciaResponse && audienciaResponse.data){
+            if (audienciaResponse && audienciaResponse.data) {
                 setDataAud(audienciaResponse.data);
             }
-            
+
         } finally {
             setLoadingAud(false);
         }
@@ -158,11 +158,11 @@ function AdicionarDocsPage() {
     }, [legajoId]);
 
     useEffect(() => {
-        if (audienciaId !== null && audienciaId !== undefined && audienciaId!=0) {
+        if (audienciaId !== null && audienciaId !== undefined && audienciaId != 0) {
             fetchAudiencias(audienciaId);
         }
     }, [audienciaId]);
-    
+
 
     useEffect(() => {
         if (documentoId !== null && documentoId !== undefined) {
@@ -174,7 +174,7 @@ function AdicionarDocsPage() {
 
     //Modal Guardar Datos
     const [mdBtnSvOpen, setMdBtnSvOpen] = useState(false);
-    const [mdBtnSvLoading,setMdBtnSvLoading]= useState(false);
+    const [mdBtnSvLoading, setMdBtnSvLoading] = useState(false);
 
     const showMdBtnSv = () => {
         setMdBtnSvOpen(true);
@@ -187,12 +187,12 @@ function AdicionarDocsPage() {
         const nroDoc = formDd.getFieldValue("nroDocumento")
         const remitenteId = formDd.getFieldValue("remitente")
 
-        const datosDocumento ={
-            docId:documentoId,
-            claseId:  isNull(claseId)?0:claseId,
-            tipoRemitenteId: isNull(tipoRemitenteId)?0:tipoRemitenteId,
+        const datosDocumento = {
+            docId: documentoId,
+            claseId: isNull(claseId) ? 0 : claseId,
+            tipoRemitenteId: isNull(tipoRemitenteId) ? 0 : tipoRemitenteId,
             nroDoc: nroDoc,
-            remitenteId: isNull(remitenteId)?0:remitenteId,
+            remitenteId: isNull(remitenteId) ? 0 : remitenteId,
             usuModificacion: 1
         }
 
@@ -204,42 +204,42 @@ function AdicionarDocsPage() {
         const juzgadoEId = formDg.getFieldValue("juzgadoE")
         const tipoProcesoId = formDg.getFieldValue("tipoProceso")
 
-        const datosGeneralesTemp ={
+        const datosGeneralesTemp = {
             legajoId: legajoId,
-            nroCarpeta: nroCarpeta, 
-            nroExpediente:nroExpediente,
-            estadoId: isNull(estadoId)?0:estadoId,
-            subfaseId: isNull(subfaseId)?0:subfaseId, 
-            juzgadoIpId: isNull(juzgadoIpId)?0:juzgadoIpId,
-            juzgadoEId: isNull(juzgadoEId)?0:juzgadoEId,
-            tipoProcesoId: isNull(tipoProcesoId)?0:tipoProcesoId
+            nroCarpeta: nroCarpeta,
+            nroExpediente: nroExpediente,
+            estadoId: isNull(estadoId) ? 0 : estadoId,
+            subfaseId: isNull(subfaseId) ? 0 : subfaseId,
+            juzgadoIpId: isNull(juzgadoIpId) ? 0 : juzgadoIpId,
+            juzgadoEId: isNull(juzgadoEId) ? 0 : juzgadoEId,
+            tipoProcesoId: isNull(tipoProcesoId) ? 0 : tipoProcesoId
         }
 
         const fecha = formAud.getFieldValue("fecha");
         const fechaFormateada = fecha ? fecha.format('YYYY-MM-DD') : "2024-01-01";
-        const tipo = isNull(formAud.getFieldValue("tipo")) || formAud.getFieldValue("tipo") === undefined?0:formAud.getFieldValue("tipo")
+        const tipo = isNull(formAud.getFieldValue("tipo")) || formAud.getFieldValue("tipo") === undefined ? 0 : formAud.getFieldValue("tipo")
         const hora = formAud.getFieldValue("hora");
         const horaFormateada = hora ? hora.format('hh:mm a') : "02:20 am";
         const link = formAud.getFieldValue("link")
 
-        console.log(fechaFormateada,horaFormateada)
+        console.log(fechaFormateada, horaFormateada)
 
 
-        
+
         //
         Promise.all([
-            UpdateDatosDocumento(datosDocumento), 
-            UpdateDatosGeneralesTemp(datosGeneralesTemp), 
-            UpdateAudiencia(audienciaId,fechaFormateada, horaFormateada,tipo,link,legajoId)
+            UpdateDatosDocumento(datosDocumento),
+            UpdateDatosGeneralesTemp(datosGeneralesTemp),
+            UpdateAudiencia(audienciaId, fechaFormateada, horaFormateada, tipo, link, legajoId)
         ])
-        .then(() => {
-            setMdBtnSvLoading(false);
-            setMdBtnSvOpen(false);
-        })
-        
+            .then(() => {
+                setMdBtnSvLoading(false);
+                setMdBtnSvOpen(false);
+            })
+
         //UpdateDatosGeneralesTemp
 
-        
+
     };
     const onCancelMdBtnSv = () => {
         setMdBtnSvOpen(false);
@@ -252,7 +252,7 @@ function AdicionarDocsPage() {
     const [mdResLoading, setMdResLoading] = useState(false);
     const [resForm] = Form.useForm();
     const [currentResultado, setCurrentResultado] = useState(null);
-    
+
 
     const showMdEditRes = (record) => {
         setCurrentResultado(record);
@@ -271,11 +271,11 @@ function AdicionarDocsPage() {
         const imputadoDelito = {
             imputadoDelitoId: imputadoDelitoId,
             reparacionCivil: reparacionCivil,
-            tipoSentenciaId: isNull(tipoSentenciaId)?0:tipoSentenciaId,
-            tipoPenaId: isNull(tipoPenaId)?0:tipoPenaId,
+            tipoSentenciaId: isNull(tipoSentenciaId) ? 0 : tipoSentenciaId,
+            tipoPenaId: isNull(tipoPenaId) ? 0 : tipoPenaId,
             cantidad: cantidad,
-            fechaApelacion: isNull(fechaApelacion)?"":fechaApelacion,
-            resultadoApelacionId: isNull(resultadoApelacionId)?0:resultadoApelacionId,
+            fechaApelacion: isNull(fechaApelacion) ? "" : fechaApelacion,
+            resultadoApelacionId: isNull(resultadoApelacionId) ? 0 : resultadoApelacionId,
         }
 
         UpdateImputadoDelito(imputadoDelito).then(() => {
@@ -312,10 +312,10 @@ function AdicionarDocsPage() {
         const nroDoc = impForm.getFieldValue("nroDoc")
         const tipoDocId = impForm.getFieldValue("tipoDoc")
         const imputadoEdit = {
-            imputadoId:imputadoId,
-            nombre:nombre,
+            imputadoId: imputadoId,
+            nombre: nombre,
             tipoDocId: tipoDocId,
-            nroDoc:nroDoc,
+            nroDoc: nroDoc,
             delitosIds: delitosIds,
         }
         UpdateImputadoById(imputadoEdit).then(() => {
@@ -333,19 +333,56 @@ function AdicionarDocsPage() {
         setMdImpOpen(false);
     };
 
+    //Modal Crear Imputado
+    const [mdAddImpOpen, setMdAddImpOpen] = useState(false);
+    const [mdAddImpLoading, setMdAddImpLoading] = useState(false);
+    const [addImpForm] = Form.useForm();
 
-    
+    const showMdAddImp = () => {
+        setMdAddImpOpen(true);
+    };
+
+    const onOkMdAddImp = async () => {
+        setMdAddImpLoading(true);
+        try {
+            const values = await addImpForm.validateFields();
+            InsertImputado(
+                legajoId,
+                values.nombreImputado,
+                values.tipoDoc,
+                values.nroDoc,
+                values.nombreDelito
+            ).then(() => {
+                setMdAddImpLoading(false);
+                setMdAddImpOpen(false);
+                addImpForm.resetFields();
+                fetchPartesProcesales(legajoId);
+                fetchResultados(legajoId);
+            });
+
+        } catch (error) {
+            message.error("Por favor completar todos los campos.");
+            setMdAddImpLoading(false);
+        }
+
+    };
+    const onCancelMdAddImp = () => {
+        setMdAddImpOpen(false);
+        addImpForm.resetFields();
+
+    };
+
     //Modal de Detalle de Apelacion
     const [mdApelLoading, setMdApelLoading] = useState(false);
     const [mdApelOpen, setMdApelOpen] = useState(false);
     const FORMAT_DATE = "DD/MM/YYYY";
 
     const showMdApel = (record) => {
-        console.log("nuuu",record)
+        console.log("nuuu", record)
         resForm.setFieldsValue({
             imputado: record.imputado,
             delito: record.delito,
-            fechaApelacion: record.fechaApelacion !== null? dayjs(record.fechaApelacion, FORMAT_DATE) : "",
+            fechaApelacion: record.fechaApelacion !== null ? dayjs(record.fechaApelacion, FORMAT_DATE) : "",
             resApelacionId: record.resApelacionId,
         }
         );
@@ -356,7 +393,7 @@ function AdicionarDocsPage() {
         setMdApelLoading(true);
 
         setTimeout(() => {
-            
+
             resForm.resetFields();
             setMdApelLoading(false);
             setMdApelOpen(false);
@@ -367,7 +404,7 @@ function AdicionarDocsPage() {
         setMdApelOpen(false);
     };
 
-    
+
     //Modal Delete Imputado
     const [mdDelImpOpen, setMdDelImpOpen] = useState(false);
     const [mdDelImpLoading, setMdDelImpLoading] = useState(false);
@@ -393,7 +430,7 @@ function AdicionarDocsPage() {
     };
 
 
-    
+
 
     //Modal Delete Resultados
     const [mdDelResOpen, setMdDelResOpen] = useState(false);
@@ -434,7 +471,7 @@ function AdicionarDocsPage() {
 
                 loadingDg={loadingDg}
                 dataDg={dataDg}
-                formDd = {formDd}
+                formDd={formDd}
 
                 loadingAud={loadingAud}
                 dataAud={dataAud}
@@ -449,16 +486,16 @@ function AdicionarDocsPage() {
             <AdicionarDocsWeb
 
                 loadingDd={loadingDd} // loadingDd, dataDd, formDd
-                dataDd={dataDd} 
-                formDd = {formDd}
+                dataDd={dataDd}
+                formDd={formDd}
 
                 loadingDg={loadingDg}  //loadingDg , dataDg, formDg
                 dataDg={dataDg}
                 formDg={formDg}
-                fetchJuzgados = {fetchJuzgados}
-                fetchFiscalias = {fetchFiscalias}
+                fetchJuzgados={fetchJuzgados}
+                fetchFiscalias={fetchFiscalias}
 
-                loadingAud={loadingAud} 
+                loadingAud={loadingAud}
                 dataAud={dataAud}
                 formAud={formAud}
 
@@ -469,8 +506,10 @@ function AdicionarDocsPage() {
                 dataRes={dataRes}
 
                 dataLeg={dataLeg}
-                loadingCl = {loadingCl}
+                loadingCl={loadingCl}
 
+                showMdAddImp = {showMdAddImp}
+                
                 showMdEditRes={showMdEditRes}
                 showMdEditImp={showMdEditImp}
 
@@ -479,7 +518,7 @@ function AdicionarDocsPage() {
 
                 showMdApel={showMdApel}
 
-                showMdBtnSv = {showMdBtnSv}
+                showMdBtnSv={showMdBtnSv}
             />
         }
 
@@ -499,6 +538,7 @@ function AdicionarDocsPage() {
             modalLoading={mdImpLoading}
             dataImputado={currentImputado}
             form={impForm}
+            type = {OperationType.EDITAR}
         ></ModalEditImputado>
 
 
@@ -515,7 +555,7 @@ function AdicionarDocsPage() {
             handleOk={onOkMdApel}
             handleCancel={onCancelMdApel}
             modalLoading={mdApelLoading}
-            form = {resForm}
+            form={resForm}
         ></ModalApelacion>
 
 
@@ -529,12 +569,22 @@ function AdicionarDocsPage() {
 
         <ModalGuardarDatos
 
-            modalOpen = {mdBtnSvOpen}
-            handleOk = {onOkMdBtnSv}
-            handleCancel = {onCancelMdBtnSv}
-            modalLoading = {mdBtnSvLoading}
+            modalOpen={mdBtnSvOpen}
+            handleOk={onOkMdBtnSv}
+            handleCancel={onCancelMdBtnSv}
+            modalLoading={mdBtnSvLoading}
 
         ></ModalGuardarDatos>
+        {/*Modals Create */}
+        <ModalEditImputado
+            modalOpen={mdAddImpOpen}
+            handleOk={onOkMdAddImp}
+            handleCancel={onCancelMdAddImp}
+            modalLoading={mdAddImpLoading}
+            dataImputado={null}
+            form={addImpForm}
+            type = {OperationType.CREAR}
+        ></ModalEditImputado>
     </>;
 }
 
