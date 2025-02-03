@@ -18,6 +18,7 @@ import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
 
 //General
 import LoginPage from '../pages/externalPages/login/LoginPage';
+import ForgotPasswordPage from '../pages/externalPages/forgotPassword/ForgotPasswordPage';
 import NotFoundPage from '../pages/extra/NotFoundPage';
 import InternalPage from '../pages/internalPages/InternalPage';
 import HomePage from '../pages/internalPages/home/HomePage';
@@ -110,6 +111,7 @@ const RoutesApp = () => {
         {/* Rutas públicas */}
 
         <Route path={endpoints.LOGIN} element={<LoginPage />} />
+        <Route path={endpoints.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
 
         {/* Rutas protegidas*/}
         <Route path="/" element={<InternalPage isAuthenticated={isAuthenticated} />}>

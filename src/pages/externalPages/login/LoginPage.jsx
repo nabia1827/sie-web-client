@@ -64,8 +64,8 @@ function LoginPage() {
 
     }
 
-    const onSwitchRemember = (checked) => {
-        setRememberMe(checked)
+    const onClickForgotPassword = () => {
+        navigate(paths.FORGOT_PASSWORD)
     }
 
     
@@ -77,7 +77,7 @@ function LoginPage() {
                 password={password}
                 onChangeUsername={onChangeUsername}
                 onChangePassword={onChangePassword}
-                onSwitchRemember={onSwitchRemember}
+                onClickForgotPassword={onClickForgotPassword}
                 onLogin={onLogin}
                 status={status}
                 textError={textError}
@@ -88,7 +88,7 @@ function LoginPage() {
                 password={password}
                 onChangeUsername={onChangeUsername}
                 onChangePassword={onChangePassword}
-                onSwitchRemember={onSwitchRemember}
+                onClickForgotPassword={onClickForgotPassword}
                 onLogin={onLogin}
                 status={status}
                 textError={textError}

@@ -181,6 +181,12 @@ const Notification = {
     MarkNotificationAsReceived: (notificationId) => requests.patch(`/Notification/MarkNotificationAsReceived?notificationId=${notificationId}`),
 }
 
+const ForgotPassword = {
+    CreateOTPCode: (body) => requests.post(`/OTP/CreateOTPCode`,body),
+    VerifyOTP: (body) => requests.post(`/OTP/VerifyOTP`,body),
+    ResetPassword: (body) => requests.post(`/OTP/ResetPassword`,body),
+}
+
 export default { 
     Auth, 
     ListaLegajos,
@@ -196,4 +202,5 @@ export default {
     MisAudiencias,
     User,
     Notification,
+    ForgotPassword,
 };
