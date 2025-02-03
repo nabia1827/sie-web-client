@@ -217,6 +217,7 @@ function NuevoLegajoPage() {
         const fiscalTitular = formDg.getFieldValue("fiscalTitular")
         const fiscalResponsable = formDg.getFieldValue("fiscalResponsable")
         const hechos = formDg.getFieldValue("hechos")
+        const dependenciaId = formDg.getFieldValue("dependenciaMininter")
         
 
         const datosGenerales ={
@@ -235,7 +236,8 @@ function NuevoLegajoPage() {
             fiscaliaId: isNull(fiscaliaId)?0:fiscaliaId,
             fiscalTitular: fiscalTitular,
             fiscalResponsable:fiscalResponsable,
-            hechos:hechos
+            hechos:hechos,
+            dependenciaId: isNull(dependenciaId) ? 0 : dependenciaId
         }
 
         const fecha = formAud.getFieldValue("fecha");

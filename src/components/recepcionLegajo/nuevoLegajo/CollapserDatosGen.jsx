@@ -25,7 +25,7 @@ function CollapserDatosGen(props) {
     const [departamentoId, setDepartamentoId] = useState();
     const [provinciaId, setProvinciaId] = useState();
 
-    const { subfases,departamentos,distritosJudicial } = useSelector((state) => state.app)
+    const { subfases,departamentos,distritosJudicial, dependenciasMininter } = useSelector((state) => state.app)
 
     const handleSearchIp = (nombreJuzgado) => {
         if (nombreJuzgado!=null && nombreJuzgado!=undefined && nombreJuzgado !=''){
@@ -112,7 +112,8 @@ function CollapserDatosGen(props) {
                     fiscalTitular:data.fiscalTitular,
                     fiscalResponsable:data.fiscalResponsable,
                     hechos:data.hecho,
-                    distritoJudicial: data.disJudId===0?null:data.disJudId
+                    distritoJudicial: data.disJudId===0?null:data.disJudId,
+                    dependenciaMininter: data.dependenciaId===0?null:data.dependenciaId
                 }
             )
         }
@@ -350,6 +351,45 @@ function CollapserDatosGen(props) {
                                                                 ListTipoProceso.map((c) => (
                                                                     <Select.Option key={c.procesoId} value={c.procesoId}>
                                                                         {c.procesoNombre}
+                                                                    </Select.Option>
+                                                                ))
+                                                            }
+                                                        </Select>
+                                                    </Form.Item>
+                                                </Col>
+
+                                                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                                                    <Form.Item 
+                                                        label={<Text>Dependencia Mininter:</Text >} 
+                                                        name='dependenciaMininter'
+    
+                                                        labelCol={{
+                                                            xxl: 4,
+                                                            xl: 4,
+                                                            lg: 10,
+                                                            md: 10,
+                                                            sm: 10,
+                                                            xs: 10,
+                                                        }}
+                                                        wrapperCol={{
+                                                            xxl: 10,
+                                                            xl: 10,
+                                                            lg: 14,
+                                                            md: 14,
+                                                            sm: 14,
+                                                            xs: 14,
+                                                        }}
+                                                    >
+                                                        <Select
+                                                            style={{ textAlign: 'left' }}
+                                                            placeholder="Seleccione una dependencia ..."
+                                                            allowClear
+                                                        >
+    
+                                                            {
+                                                                dependenciasMininter.map((c) => (
+                                                                    <Select.Option key={c.dependenciaId} value={c.dependenciaId}>
+                                                                        {c.nombreCompleto}
                                                                     </Select.Option>
                                                                 ))
                                                             }

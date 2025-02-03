@@ -203,6 +203,7 @@ function AdicionarDocsPage() {
         const juzgadoIpId = formDg.getFieldValue("juzgadoIp")
         const juzgadoEId = formDg.getFieldValue("juzgadoE")
         const tipoProcesoId = formDg.getFieldValue("tipoProceso")
+        const dependenciaId = formDg.getFieldValue("dependenciaMininter")
 
         const datosGeneralesTemp = {
             legajoId: legajoId,
@@ -212,7 +213,8 @@ function AdicionarDocsPage() {
             subfaseId: isNull(subfaseId) ? 0 : subfaseId,
             juzgadoIpId: isNull(juzgadoIpId) ? 0 : juzgadoIpId,
             juzgadoEId: isNull(juzgadoEId) ? 0 : juzgadoEId,
-            tipoProcesoId: isNull(tipoProcesoId) ? 0 : tipoProcesoId
+            tipoProcesoId: isNull(tipoProcesoId) ? 0 : tipoProcesoId,
+            dependenciaId: isNull(dependenciaId) ? 0 : dependenciaId
         }
 
         const fecha = formAud.getFieldValue("fecha");

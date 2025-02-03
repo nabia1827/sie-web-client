@@ -15,7 +15,7 @@ function CollapserDatosGen(props) {
     const [nombreJuzgadoIp, setNombreJuzgadoIp] = useState();
     const [nombreJuzgadoE, setNombreJuzgadoE] = useState();
 
-    const { subfases } = useSelector((state) => state.app)
+    const { subfases, dependenciasMininter} = useSelector((state) => state.app)
 
     const handleSearchIp = (nombreJuzgado) => {
         if (nombreJuzgado!=null && nombreJuzgado!=undefined && nombreJuzgado !=''){
@@ -52,7 +52,8 @@ function CollapserDatosGen(props) {
                     correoJuzgado:data.emailJuzgado,
                     tipoProceso: data.esProcesoInmediatoId+1,
                     juzgadoIp: data.juzgadoIpId===0?null:data.juzgadoIpId,
-                    juzgadoE: data.juzgadoEId===0?null:data.juzgadoEId
+                    juzgadoE: data.juzgadoEId===0?null:data.juzgadoEId,
+                    dependenciaMininter: data.dependenciaId===0?null:data.dependenciaId
                 }
             )
         }
@@ -134,26 +135,26 @@ function CollapserDatosGen(props) {
                                                 </Form.Item>
                                             </Col>
 
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item 
                                                     label={<Text>Subfase:</Text >} 
                                                     name='subfase'
 
                                                     labelCol={{
-                                                        xxl: 5,
-                                                        xl: 5,
-                                                        lg: 5,
-                                                        md: 5,
-                                                        sm: 5,
-                                                        xs: 5,
+                                                        xxl: 6,
+                                                        xl: 6,
+                                                        lg: 6,
+                                                        md: 6,
+                                                        sm: 6,
+                                                        xs: 6,
                                                     }}
                                                     wrapperCol={{
-                                                        xxl: 19,
-                                                        xl: 19,
-                                                        lg: 19,
-                                                        md: 19,
-                                                        sm: 19,
-                                                        xs: 19,
+                                                        xxl: 18,
+                                                        xl: 18,
+                                                        lg: 18,
+                                                        md: 18,
+                                                        sm: 18,
+                                                        xs: 18,
                                                     }}
                                                 
                                                 >
@@ -174,26 +175,26 @@ function CollapserDatosGen(props) {
                                                 </Form.Item>
                                             </Col>
 
-                                            <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
                                                 <Form.Item 
                                                     label={<Text>Tipo Proceso:</Text >} 
                                                     name='tipoProceso'
 
                                                     labelCol={{
-                                                        xxl: 5,
-                                                        xl: 5,
-                                                        lg: 5,
-                                                        md: 5,
-                                                        sm: 5,
-                                                        xs: 5,
+                                                        xxl: 10,
+                                                        xl: 10,
+                                                        lg: 10,
+                                                        md: 10,
+                                                        sm: 10,
+                                                        xs: 10,
                                                     }}
                                                     wrapperCol={{
-                                                        xxl: 19,
-                                                        xl: 19,
-                                                        lg: 19,
-                                                        md: 19,
-                                                        sm: 19,
-                                                        xs: 19,
+                                                        xxl: 14,
+                                                        xl: 14,
+                                                        lg: 14,
+                                                        md: 14,
+                                                        sm: 14,
+                                                        xs: 14,
                                                     }}
                                                 >
                                                     <Select
@@ -212,6 +213,46 @@ function CollapserDatosGen(props) {
                                                     </Select>
                                                 </Form.Item>
                                             </Col>
+
+                                            <Col xs={24} sm={24} md={24} lg={12} xl={8}>
+                                                <Form.Item 
+                                                    label={<Text>Dependencia Mininter:</Text >} 
+                                                    name='dependenciaMininter'
+
+                                                    labelCol={{
+                                                        xxl: 10,
+                                                        xl: 10,
+                                                        lg: 10,
+                                                        md: 10,
+                                                        sm: 10,
+                                                        xs: 10,
+                                                    }}
+                                                    wrapperCol={{
+                                                        xxl: 14,
+                                                        xl: 14,
+                                                        lg: 14,
+                                                        md: 14,
+                                                        sm: 14,
+                                                        xs: 14,
+                                                    }}
+                                                >
+                                                    <Select
+                                                        style={{ textAlign: 'left' }}
+                                                        placeholder="Seleccione una dependencia ..."
+                                                        allowClear
+                                                    >
+
+                                                        {
+                                                            dependenciasMininter.map((c) => (
+                                                                <Select.Option key={c.dependenciaId} value={c.dependenciaId}>
+                                                                    {c.nombreCompleto}
+                                                                </Select.Option>
+                                                            ))
+                                                        }
+                                                    </Select>
+                                                </Form.Item>
+                                            </Col>
+                                            
                                             
                                             <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{justifyItems:"flex-start"}}>
                                                 <Flex>
