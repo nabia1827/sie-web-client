@@ -23,6 +23,7 @@ function ListadoLegajosPage(props) {
     const isXsScreen = screens.xs !== undefined && screens.xs;
 
     const { abogados } = useSelector((state) => state.app);
+    const { user } = useSelector((state) => state.auth);
     const [loadingsPDF, setLoadingsPDF] = useState([]);
     const [currentRecord, setCurrentRecord] = useState(null);
     const [modalLoading, setModalLoading] = useState(false);
@@ -93,6 +94,7 @@ function ListadoLegajosPage(props) {
             legajoId: currentRecord.legajoId,
             estadoId: editEstadoForm.getFieldValue("estadoId"),
             subfaseId: editEstadoForm.getFieldValue("subfaseId"),
+            usuarioId:user.usuId
         };
         UpdateEstadoLegajo(params).then(
             (response) =>{

@@ -30,7 +30,7 @@ import ModalDelResultado from "../../../../components/recepcionLegajo/ModalDelRe
 import ModalDelAgraviado from "../../../../components/recepcionLegajo/nuevoLegajo/ModalDelAgraviado";
 import ModalGuardarDatos from "../../../../components/recepcionLegajo/ModalGuardarDatos";
 import { isNull } from "lodash";
-
+import { useSelector } from "react-redux";
 
 
 const { useBreakpoint } = Grid;
@@ -38,6 +38,7 @@ const { useBreakpoint } = Grid;
 function NuevoLegajoPage() {
 
     //Legajo actual
+    const { usuId } = useSelector((state) => state.auth.user);
     const { legajoId, documentoId, audienciaId } = useParams();
 
     const [loadingCl, setlogadingCl] = useState(true);
@@ -249,8 +250,8 @@ function NuevoLegajoPage() {
 
         Promise.all([
             UpdateDatosDocumento(datosDocumento), 
-            UpdateDatosGenerales(datosGenerales), 
-            UpdateAudiencia(audienciaId,fechaFormateada, horaFormateada,tipo,link,legajoId)
+            UpdateDatosGenerales(datosGenerales, usuId), 
+            UpdateAudiencia(audienciaId,fechaFormateada, horaFormateada,tipo,link,legajoId,usuId)
         ])
         .then(() => {
             setMdBtnSvLoading(false);
@@ -294,7 +295,7 @@ function NuevoLegajoPage() {
             resultadoApelacionId: isNull(resultadoApelacionId)?0:resultadoApelacionId,
         }
 
-        UpdateImputadoDelito(imputadoDelito).then(() => {
+        UpdateImputadoDelito(imputadoDelito, usuId).then(() => {
             resForm.resetFields();
             setCurrentResultado(null);
             fetchResultados(legajoId);
@@ -326,7 +327,8 @@ function NuevoLegajoPage() {
                 values.nombreImputado,
                 values.tipoDoc,
                 values.nroDoc,
-                values.nombreDelito
+                values.nombreDelito,
+                usuId
             ).then(() => {
                 setMdAddImpLoading(false);
                 setMdAddImpOpen(false);
@@ -364,7 +366,8 @@ function NuevoLegajoPage() {
                 legajoId,
                 values.nombreAgraviado,
                 values.tipoDoc,
-                values.nroDoc
+                values.nroDoc,
+                usuId
             ).then(()=>{
                 setMdAddAgrLoading(false);
                 setMdAddAgrOpen(false);
@@ -410,8 +413,9 @@ function NuevoLegajoPage() {
             tipoDocId: tipoDocId,
             nroDoc:nroDoc,
             delitosIds: delitosIds,
+            usuarioId: usuId,
         }
-        UpdateImputadoById(imputadoEdit).then(() => {
+        UpdateImputadoById(imputadoEdit, usuId).then(() => {
             impForm.resetFields();
             setCurrentImputado(null);
             fetchPartesProcesales(legajoId);
@@ -451,7 +455,8 @@ function NuevoLegajoPage() {
             agraviadoId:agraviadoId,
             nombre:nombre,
             tipoDocId: tipoDocId,
-            nroDoc:nroDoc
+            nroDoc:nroDoc,
+            usuarioId:usuId
         }
 
         console.log(agraviadoEdit)
@@ -517,7 +522,7 @@ function NuevoLegajoPage() {
 
     const onOkMdDelImp = () => {
         setMdDelImpLoading(true)
-        DeleteImputado(currentImputadoId).then(() => {
+        DeleteImputado(currentImputadoId, usuId).then(() => {
             setCurrentImputadoId(null);
             setMdDelImpLoading(false);
             fetchPartesProcesales(legajoId);
@@ -545,7 +550,7 @@ function NuevoLegajoPage() {
 
     const onOkMdDelAgr = () => {
         setMdDelAgrLoading(true)
-        DeleteAgraviado(currentAgraviadoId).then(() => {
+        DeleteAgraviado(currentAgraviadoId, usuId).then(() => {
             setCurrentAgraviadoId(null);
             setMdDelAgrLoading(false);
             fetchPartesProcesales(legajoId);
@@ -572,7 +577,7 @@ function NuevoLegajoPage() {
         setMdDelResLoading(true);
         console.log(currentResultadoId)
 
-        DeleteImputadoDelito(currentResultadoId).then(() => {
+        DeleteImputadoDelito(currentResultadoId, usuId).then(() => {
             setCurrentResultadoId(null);
             fetchResultados(legajoId);
             setMdDelResLoading(false);

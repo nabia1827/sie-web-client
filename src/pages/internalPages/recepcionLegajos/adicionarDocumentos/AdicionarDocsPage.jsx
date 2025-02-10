@@ -28,12 +28,14 @@ import ModalDelResultado from "../../../../components/recepcionLegajo/ModalDelRe
 import ModalDelAgraviado from "../../../../components/recepcionLegajo/nuevoLegajo/ModalDelAgraviado";
 import ModalGuardarDatos from "../../../../components/recepcionLegajo/ModalGuardarDatos";
 import { isNull } from "lodash";
+import { useSelector } from "react-redux";
 
 const { useBreakpoint } = Grid;
 
 function AdicionarDocsPage() {
 
     //Legajo actual
+    const { usuId } = useSelector((state) => state.auth.user);
     const { legajoId, documentoId, audienciaId } = useParams();
 
     const [loadingCl, setlogadingCl] = useState(true);
@@ -231,8 +233,8 @@ function AdicionarDocsPage() {
         //
         Promise.all([
             UpdateDatosDocumento(datosDocumento),
-            UpdateDatosGeneralesTemp(datosGeneralesTemp),
-            UpdateAudiencia(audienciaId, fechaFormateada, horaFormateada, tipo, link, legajoId)
+            UpdateDatosGeneralesTemp(datosGeneralesTemp, usuId),
+            UpdateAudiencia(audienciaId, fechaFormateada, horaFormateada, tipo, link, legajoId,usuId)
         ])
             .then(() => {
                 setMdBtnSvLoading(false);
@@ -280,7 +282,7 @@ function AdicionarDocsPage() {
             resultadoApelacionId: isNull(resultadoApelacionId) ? 0 : resultadoApelacionId,
         }
 
-        UpdateImputadoDelito(imputadoDelito).then(() => {
+        UpdateImputadoDelito(imputadoDelito, usuId).then(() => {
             resForm.resetFields();
             setCurrentResultado(null);
             fetchResultados(legajoId);
@@ -319,8 +321,9 @@ function AdicionarDocsPage() {
             tipoDocId: tipoDocId,
             nroDoc: nroDoc,
             delitosIds: delitosIds,
+            usuarioId: usuId,
         }
-        UpdateImputadoById(imputadoEdit).then(() => {
+        UpdateImputadoById(imputadoEdit, usuId).then(() => {
             impForm.resetFields();
             setCurrentImputado(null);
             fetchPartesProcesales(legajoId);
@@ -353,7 +356,8 @@ function AdicionarDocsPage() {
                 values.nombreImputado,
                 values.tipoDoc,
                 values.nroDoc,
-                values.nombreDelito
+                values.nombreDelito,
+                usuId
             ).then(() => {
                 setMdAddImpLoading(false);
                 setMdAddImpOpen(false);
@@ -419,7 +423,7 @@ function AdicionarDocsPage() {
 
     const onOkMdDelImp = () => {
         setMdDelImpLoading(true)
-        DeleteImputado(currentImputadoId).then(() => {
+        DeleteImputado(currentImputadoId,usuId).then(() => {
             setCurrentImputadoId(null);
             setMdDelImpLoading(false);
             fetchPartesProcesales(legajoId);
@@ -448,7 +452,7 @@ function AdicionarDocsPage() {
         setMdDelResLoading(true);
         console.log(currentResultadoId)
 
-        DeleteImputadoDelito(currentResultadoId).then(() => {
+        DeleteImputadoDelito(currentResultadoId, usuId).then(() => {
             setCurrentResultadoId(null);
             fetchResultados(legajoId);
             setMdDelResLoading(false);

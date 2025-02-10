@@ -160,11 +160,11 @@ export const GetResultadosByLegajoId = async (legajoId) => {
   }
 };
 
-export const UpdateDelegado = async (legajoId,delegadoId) => {
+export const UpdateDelegado = async (legajoId,delegadoId,usuarioId) => {
 
   try {
 
-    const response = await api.DataLegajo.UpdateDelegado(legajoId,delegadoId)
+    const response = await api.DataLegajo.UpdateDelegado(legajoId,delegadoId,usuarioId)
     return response;
 
   } catch (error) {
@@ -172,11 +172,11 @@ export const UpdateDelegado = async (legajoId,delegadoId) => {
   }
 };
 
-export const UpdateTipoProceso = async (legajoId,esProcesoInmediato) => {
+export const UpdateTipoProceso = async (legajoId,esProcesoInmediato,usuarioId) => {
 
   try {
 
-    const response = await api.DataLegajo.UpdateTipoProceso(legajoId,esProcesoInmediato);
+    const response = await api.DataLegajo.UpdateTipoProceso(legajoId,esProcesoInmediato,usuarioId);
     return response;
 
   } catch (error) {
@@ -185,12 +185,13 @@ export const UpdateTipoProceso = async (legajoId,esProcesoInmediato) => {
 };
 
 
-export const UpdateHecho = async (legajoHechoId,hecho) => {
+export const UpdateHecho = async (legajoHechoId,hecho,usuarioId) => {
 
   try {
     const body = {
       legajoHechoId:legajoHechoId,
-      hecho:hecho
+      hecho:hecho,
+      usuarioId:usuarioId
     }
 
     const response = await api.DataLegajo.UpdateHecho(body)
@@ -201,12 +202,13 @@ export const UpdateHecho = async (legajoHechoId,hecho) => {
   }
 };
 
-export const UpdateObservacionesAudiencia = async (audienciaId,observacion) => {
+export const UpdateObservacionesAudiencia = async (audienciaId,observacion,usuId) => {
 
   try {
     const body = {
       audienciaId:audienciaId,
-      observacion:observacion
+      observacion:observacion,
+      usuarioId:usuId
     }
 
     const response = await api.DataLegajo.UpdateObservacionesAudiencia(body)
@@ -217,11 +219,11 @@ export const UpdateObservacionesAudiencia = async (audienciaId,observacion) => {
   }
 };
 
-export const UpdateEstadoAsistencia = async (audienciaId) => {
+export const UpdateEstadoAsistencia = async (audienciaId,usuarioId) => {
 
   try {
 
-    const response = await api.DataLegajo.UpdateEstadoAsistencia(audienciaId);
+    const response = await api.DataLegajo.UpdateEstadoAsistencia(audienciaId,usuarioId);
     return response;
 
   } catch (error) {

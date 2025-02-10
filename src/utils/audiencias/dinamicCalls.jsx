@@ -2,7 +2,7 @@ import api from "../../services/api";
 import { message } from "antd";
 import dayjs from "dayjs";
 import { DATETIME_FORMAT } from "./default";
-export const InsertNuevasAudiencias = async (events) => {
+export const InsertNuevasAudiencias = async (events, usuarioId) => {
 
     try {
         const audiencias = events.map(event => {
@@ -25,7 +25,7 @@ export const InsertNuevasAudiencias = async (events) => {
         });
         console.log("ENVIANDO GANT A API ", audiencias);
 
-        const response = await api.Audiencia.InsertNuevasAudiencias(audiencias);
+        const response = await api.Audiencia.InsertNuevasAudiencias(audiencias,usuarioId);
         return response;
 
     } catch (error) {
@@ -46,10 +46,10 @@ export const ListLegajosByTermino = async (termino) => {
     }
 };
 
-export const RemoveAudiencias = async (dataIds) => {
+export const RemoveAudiencias = async (dataIds, usuarioId) => {
 
     try {
-        const response = await api.Audiencia.RemoveAudiencias(dataIds);
+        const response = await api.Audiencia.RemoveAudiencias(dataIds,usuarioId);
         return response;
 
     } catch (error) {
@@ -57,7 +57,7 @@ export const RemoveAudiencias = async (dataIds) => {
     }
 };
 
-export const EditAudiencias = async (events) => {
+export const EditAudiencias = async (events,usuarioId) => {
 
     try {
         const audiencias = events
@@ -77,7 +77,7 @@ export const EditAudiencias = async (events) => {
         });
         console.log("ENVIANDO EDIT A API ", audiencias);
 
-        const response = await api.Audiencia.EditAudiencias(audiencias);
+        const response = await api.Audiencia.EditAudiencias(audiencias, usuarioId);
         return response;
 
     } catch (error) {
@@ -96,7 +96,7 @@ export const GetAudienciaDetail = async (audienciaId) => {
     }
 };
 
-export const EditAudienciaDetail = async (audienciaId,color,link, obs) => {
+export const EditAudienciaDetail = async (audienciaId,color,link, obs,usuarioId) => {
 
     try {
         const body = {
@@ -111,7 +111,7 @@ export const EditAudienciaDetail = async (audienciaId,color,link, obs) => {
             codigoLegajo:"",
         }
 
-        const response = await api.Audiencia.EditAudienciaDetail(body);
+        const response = await api.Audiencia.EditAudienciaDetail(body,usuarioId);
         return response;
 
     } catch (error) {

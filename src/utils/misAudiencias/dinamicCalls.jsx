@@ -12,7 +12,7 @@ export const GetMisAudienciasByWeek = async (start,end,usuId) => {
     }
 };
 
-export const EditMiAudiencia = async (id,start,end,title,description,color,link,observaciones) => {
+export const EditMiAudiencia = async (id,start,end,title,description,color,link,observaciones,usuarioId) => {
     try {
       const body = {
         id:id,
@@ -24,7 +24,7 @@ export const EditMiAudiencia = async (id,start,end,title,description,color,link,
         link:link,
         observaciones:observaciones
       }
-      const response = await api.MisAudiencias.EditMiAudiencia(body);
+      const response = await api.MisAudiencias.EditMiAudiencia(body, usuarioId);
       return response;
   
     } catch (error) {
@@ -32,10 +32,10 @@ export const EditMiAudiencia = async (id,start,end,title,description,color,link,
     }
 };
 
-export const NewMiAudiencia = async (body) => {
+export const NewMiAudiencia = async (body,usuarioId) => {
     try {
       
-      const response = await api.MisAudiencias.NewMiAudiencia(body);
+      const response = await api.MisAudiencias.NewMiAudiencia(body,usuarioId);
       return response;
   
     } catch (error) {
@@ -43,10 +43,10 @@ export const NewMiAudiencia = async (body) => {
     }
 };
 
-export const DeleteMiAudiencia = async (id) => {
+export const DeleteMiAudiencia = async (id, usuarioId) => {
     try {
   
-      const response = await api.MisAudiencias.DeleteMiAudiencia(id);
+      const response = await api.MisAudiencias.DeleteMiAudiencia(id,usuarioId);
       return response;
   
     } catch (error) {

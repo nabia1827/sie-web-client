@@ -34,7 +34,7 @@ function MisAudienciasPage() {
     const saveNewAudiencia = async (audiencia) => {
         //setLoadingInfo(true);
         try {
-            const response = await NewMiAudiencia(audiencia)
+            const response = await NewMiAudiencia(audiencia, user.usuId)
             console.log("Audiencia mandada a BD: ", response.data)
 
         } finally {
@@ -63,7 +63,7 @@ function MisAudienciasPage() {
     const savEditedAudiencia = async (a) => {
         //setLoadingInfo(true);
         try {
-            const response = await EditMiAudiencia(a.id, a.start, a.end, a.title, a.description, a.color, a.link, a.observaciones)
+            const response = await EditMiAudiencia(a.id, a.start, a.end, a.title, a.description, a.color, a.link, a.observaciones, user.usuId)
             console.log("Audiencia editada mandada a BD: ", response.data)
 
         } finally {
@@ -94,7 +94,7 @@ function MisAudienciasPage() {
     const removeMiAudiencia = async () => {
         //setLoadingInfo(true);
         try {
-            const response = await DeleteMiAudiencia(currAudienciaId)
+            const response = await DeleteMiAudiencia(currAudienciaId,user.usuId)
             console.log("Audiencia eliminada mandada a BD: ", response.data)
 
         } finally {

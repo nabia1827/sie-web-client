@@ -13,6 +13,7 @@ import { li } from "framer-motion/client";
 
 function ModalDetalleAudiencia(props) {
     const { modalOpen, handleOk, handleCancel, audienciaId } = props;
+    const { user } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(true);
     const [bttnLoading, setBttnLoading] = useState(false);
     const [detalleData, setDetalleData] = useState([]);
@@ -42,7 +43,7 @@ function ModalDetalleAudiencia(props) {
 
     const onClickAsistencia = (audienciaId) => {
         if(audienciaId){
-            UpdateEstadoAsistencia(audienciaId).then(()=>{
+            UpdateEstadoAsistencia(audienciaId, user.usuId).then(()=>{
                 message.success("Asistencia marcada correctamente.")
                 fetchDetalleAudiencia(audienciaId);
             })
@@ -53,7 +54,7 @@ function ModalDetalleAudiencia(props) {
     const saveChanges = async (audienciaId, color, link, obs) => {
         setBttnLoading(true);
         try {
-            const response = await EditAudienciaDetail(audienciaId, color, link, obs);
+            const response = await EditAudienciaDetail(audienciaId, color, link, obs,user.usuId);
             if (response.isSuccess) {
                 message.success("Cambios guardados correctamente");
             } else {

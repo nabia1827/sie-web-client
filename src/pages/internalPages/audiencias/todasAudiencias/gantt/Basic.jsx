@@ -466,9 +466,10 @@ class Basic extends Component {
 
     removeItems = async (itemsList) => {
         const { viewModel } = this.state;
+        const { user } = this.props;
         this.setState({ loadingScheduler: true });
         try {
-            const response = await RemoveAudiencias(itemsList);
+            const response = await RemoveAudiencias(itemsList, user.usuId);
             itemsList.forEach((e) => {
                 const eventArr = viewModel.events.filter((elem) => elem.id === e);
                 if (eventArr.length > 0) this.sendDelete(eventArr.pop());
@@ -534,11 +535,12 @@ class Basic extends Component {
 
     handleConfirmEditScheduler = async () => {
         const { viewModel, events, eventIsMoving } = this.state;
+        const { user } = this.props;
         this.setState({ loadingScheduler: true });
 
         try {
             if (events.length > 0) {
-                await InsertNuevasAudiencias(events)
+                await InsertNuevasAudiencias(events, user.usuId)
                     .then((response) => {
                         response.isSuccess
                             ? message.success(response.message)
@@ -552,7 +554,7 @@ class Basic extends Component {
                     });
             } else if (eventIsMoving) {
                 
-                await EditAudiencias(viewModel.events)
+                await EditAudiencias(viewModel.events, user.usuId)
                     .then((response) => {
                         response.isSuccess
                             ?

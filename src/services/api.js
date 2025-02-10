@@ -40,7 +40,7 @@ const ListaLegajos = {
             Accept: 'application/octet-stream',
         },
     }),
-    UpdateEstadoLegajo: (params) => requests.patch(`/ListaLegajos/UpdateEstadoLegajo?estadoId=${params.estadoId}&subfaseId=${params.subfaseId}&legajoId=${params.legajoId}`),
+    UpdateEstadoLegajo: (params) => requests.patch(`/ListaLegajos/UpdateEstadoLegajo?estadoId=${params.estadoId}&subfaseId=${params.subfaseId}&legajoId=${params.legajoId}&usuarioId=${params.usuarioId}`),
 };
 
 const GenerarPDF = {
@@ -60,11 +60,11 @@ const DataLegajo ={
     GetAudienciasByLegajoId: (legajoId) => requests.get(`/DataLegajo/GetAudienciasByLegajoId?legajoId=${legajoId}`),
     GetInfoLegajoById: (legajoId) => requests.get(`/DataLegajo/GetInfoLegajoById?legajoId=${legajoId}`),
     GetResultadosByLegajoId: (legajoId) => requests.get(`/DataLegajo/GetResultadosByLegajoId?legajoId=${legajoId}`),
-    UpdateDelegado: (legajoId,delegadoId) => requests.patch(`/DataLegajo/UpdateDelegado?legajoId=${legajoId}&delegadoId=${delegadoId}`),
+    UpdateDelegado: (legajoId,delegadoId,usuarioId) => requests.patch(`/DataLegajo/UpdateDelegado?legajoId=${legajoId}&delegadoId=${delegadoId}&usuarioId=${usuarioId}`),
     UpdateHecho: (body) => requests.patch(`/DataLegajo/UpdateHecho`,body),
     UpdateObservacionesAudiencia: (body) => requests.patch(`/DataLegajo/UpdateObservacionesAudiencia`,body),
-    UpdateEstadoAsistencia: (audienciaId) => requests.patch(`/DataLegajo/UpdateEstadoAsistencia?audienciaId=${audienciaId}`),
-    UpdateTipoProceso: (legajoId,esProcesoInmediato) => requests.patch(`/DataLegajo/UpdateTipoProceso?legajoId=${legajoId}&esProcesoInmediato=${esProcesoInmediato}`),
+    UpdateEstadoAsistencia: (audienciaId,usuarioId) => requests.patch(`/DataLegajo/UpdateEstadoAsistencia?audienciaId=${audienciaId}&usuarioId=${usuarioId}`),
+    UpdateTipoProceso: (legajoId,esProcesoInmediato,usuarioId) => requests.patch(`/DataLegajo/UpdateTipoProceso?legajoId=${legajoId}&esProcesoInmediato=${esProcesoInmediato}&usuarioId=${usuarioId}`),
     ListarDelegados: () => requests.get(`/DataLegajo/ListarDelegado`),
     GetDelitosByLegajoId: (legajoId) => requests.get(`/DataLegajo/GetDelitosByLegajoId?legajoId=${legajoId}`),
 }
@@ -108,15 +108,15 @@ const RecepcionLegajos = {
     ListarDelito: () => requests.get(`/RecepcionLegajos/ListarDelito`),
     ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`),
     UpdateImputadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateImputadoById`, body),
-    DeleteImputado: (imputadoId) =>requests.patch(`/RecepcionLegajos/DeleteImputado?imputadoId=${imputadoId}`),
-    UpdateImputadoDelito: (body) => requests.patch(`/RecepcionLegajos/UpdateImputadoDelito`, body),
-    DeleteImputadoDelito: (imputadoDelitoId) =>requests.patch(`/RecepcionLegajos/DeleteImputadoDelito?imputadoDelitoId=${imputadoDelitoId}`),
-    UpdateAudiencia: (audienciaId, fecha,hora,tipoAudienciaId,link,legajoId)=>requests.patch(`/RecepcionLegajos/UpdateAudiencia?audienciaId=${audienciaId}&fecha=${fecha}&hora=${hora}&tipoAudienciaId=${tipoAudienciaId}&link=${link}&legajoId=${legajoId}`),
-    UpdateDatosGeneralesTemp: (body) => requests.patch(`/RecepcionLegajos/UpdateDatosGeneralesTemp`, body),
-    UpdateDatosGenerales: (body) => requests.patch(`/RecepcionLegajos/UpdateDatosGenerales`, body),
+    DeleteImputado: (imputadoId,usuarioId) =>requests.patch(`/RecepcionLegajos/DeleteImputado?imputadoId=${imputadoId}&usuarioId=${usuarioId}`),
+    UpdateImputadoDelito: (body, usuarioId) => requests.patch(`/RecepcionLegajos/UpdateImputadoDelito?usuarioId=${usuarioId}`, body),
+    DeleteImputadoDelito: (imputadoDelitoId,usuarioId) =>requests.patch(`/RecepcionLegajos/DeleteImputadoDelito?imputadoDelitoId=${imputadoDelitoId}&usuarioId=${usuarioId}`),
+    UpdateAudiencia: (audienciaId, fecha,hora,tipoAudienciaId,link,legajoId,usuarioId)=>requests.patch(`/RecepcionLegajos/UpdateAudiencia?audienciaId=${audienciaId}&fecha=${fecha}&hora=${hora}&tipoAudienciaId=${tipoAudienciaId}&link=${link}&legajoId=${legajoId}&usuarioId=${usuarioId}`),
+    UpdateDatosGeneralesTemp: (body,usuarioId) => requests.patch(`/RecepcionLegajos/UpdateDatosGeneralesTemp?usuarioId=${usuarioId}`, body),
+    UpdateDatosGenerales: (body,usuarioId) => requests.patch(`/RecepcionLegajos/UpdateDatosGenerales?usuarioId=${usuarioId}`, body),
     UpdateDatosDocumento: (body) => requests.patch(`/RecepcionLegajos/UpdateDatosDocumento`, body),
     ListarDisJudicial: ()=> requests.get(`/RecepcionLegajos/ListarDisJudicial`),
-    DeleteAgraviado: (agraviadoId) =>requests.patch(`/RecepcionLegajos/DeleteAgraviado?agraviadoId=${agraviadoId}`),
+    DeleteAgraviado: (agraviadoId,usuarioId) =>requests.patch(`/RecepcionLegajos/DeleteAgraviado?agraviadoId=${agraviadoId}&usuarioId=${usuarioId}`),
     UpdateAgraviadoById: (body) => requests.patch(`/RecepcionLegajos/UpdateAgraviadoById`, body),
     GetLegajoIdByCarpetaOrExpediente: (tipoDestinatario,nroDocumento) => requests.get(`/RecepcionLegajos/GetLegajoIdByCarpetaOrExpediente?tipoDestinatario=${tipoDestinatario}&nroDocumento=${nroDocumento}`),
     InsertImputado: (imputado) =>requests.post(`/RecepcionLegajos/InsertImputado`,imputado),
@@ -124,12 +124,12 @@ const RecepcionLegajos = {
 }
 
 const Audiencia = {
-    EditAudienciaDetail: (body) => requests.patch(`/Audiencia/EditAudienciaDetail`,body),
-    EditAudiencias: (body) => requests.patch(`/Audiencia/EditAudiencias`,body),
+    EditAudienciaDetail: (body,usuarioId) => requests.patch(`/Audiencia/EditAudienciaDetail?usuarioId=${usuarioId}`,body),
+    EditAudiencias: (body,usuarioId) => requests.patch(`/Audiencia/EditAudiencias?usuarioId=${usuarioId}`,body),
     GetAudienciaDetail: audienciaId => requests.get(`/Audiencia/GetAudienciaDetail?audienciaId=${audienciaId}`),
     GetAudienciasByWeek: (fecha,daysToAdd,usuId) => requests.get(`/Audiencia/GetAudienciasByWeek?fecha=${fecha}&daysToAdd=${daysToAdd}&usuId=${usuId}`),
-    InsertNuevasAudiencias: audiencias => requests.post('/Audiencia/InsertNuevasAudiencias', audiencias),
-    RemoveAudiencias: dataIds => requests.patch('/Audiencia/RemoveAudiencias', dataIds),
+    InsertNuevasAudiencias: (audiencias, usuarioId) => requests.post(`/Audiencia/InsertNuevasAudiencias?usuarioId=${usuarioId}`, audiencias),
+    RemoveAudiencias: (dataIds,usuarioId) => requests.patch(`/Audiencia/RemoveAudiencias?usuarioId=${usuarioId}`, dataIds),
     ListLegajosByTermino: (terminoBusqueda) => requests.get(`/Audiencia/ListLegajosByTermino?terminoBusqueda=${terminoBusqueda}`),
 }
 
@@ -163,9 +163,9 @@ const PythonService = {
 
 const MisAudiencias = {
     GetMisAudienciasByWeek: (startDateTime,endDateTime,usuId) => requests.get(`/MisAudiencias/GetMisAudienciasByWeek?startDateTime=${startDateTime}&endDateTime=${endDateTime}&usuId=${usuId}`),
-    EditMiAudiencia: (body) => requests.patch(`/MisAudiencias/EditMiAudiencia`,body),
-    NewMiAudiencia: (body) => requests.post(`/MisAudiencias/NewMiAudiencia`,body),
-    DeleteMiAudiencia: (id) => requests.post(`/MisAudiencias/DeleteMiAudiencia?id=${id}`),
+    EditMiAudiencia: (body, usuarioId) => requests.patch(`/MisAudiencias/EditMiAudiencia?usuarioId=${usuarioId}`,body),
+    NewMiAudiencia: (body,usuarioId) => requests.post(`/MisAudiencias/NewMiAudiencia?usuarioId=${usuarioId}`,body),
+    DeleteMiAudiencia: (id,usuarioId) => requests.post(`/MisAudiencias/DeleteMiAudiencia?id=${id}&usuarioId=${usuarioId}`),
 }
 
 const User = {

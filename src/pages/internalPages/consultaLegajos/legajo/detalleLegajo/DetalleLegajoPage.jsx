@@ -21,6 +21,7 @@ import { update } from "lodash";
 function DetalleLegajoPage() {
     const screens = useBreakpoint();
     const dispacth = useDispatch();
+    const { user } = useSelector((state) => state.auth);
     const isXsScreen = screens.xs !== undefined && screens.xs;
     //Legajo actual
     const { id } = useParams();
@@ -101,7 +102,7 @@ function DetalleLegajoPage() {
     }, [legajo]);
 
     const onClickTipoProceso = (value) =>{
-        UpdateTipoProceso(legajo.legajoId,value).then(()=>{
+        UpdateTipoProceso(legajo.legajoId,value,user.usuId).then(()=>{
             fetchInfoGeneral(id);
         });
     }
@@ -120,7 +121,7 @@ function DetalleLegajoPage() {
     const onOkMdObs = () => {
         setMdObsLoading(true);
         const observacion = obsForm.getFieldValue("observacion")
-        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion).then(() => {
+        UpdateObservacionesAudiencia(currentAudiencia.audienciaId, observacion, user.usuId).then(() => {
             obsForm.resetFields();
             setCurrentAudiencia(null);
             fetchAudiencias(id);
@@ -179,7 +180,7 @@ function DetalleLegajoPage() {
     const onOkMdDele = () => {
         setMdDeleLoading(true);
         const delegadoId = delegadoForm.getFieldValue("delegadoId")
-        UpdateDelegado(legajo.legajoId, delegadoId).then(() => {
+        UpdateDelegado(legajo.legajoId, delegadoId,user.usuId).then(() => {
             delegadoForm.resetFields();
             fetchInfoGeneral(id);
             setMdDeleLoading(false);
@@ -205,7 +206,7 @@ function DetalleLegajoPage() {
     const onOkMdHechos = () => {
         setMdHechosLoading(true);
         const hechos = hechosForm.getFieldValue("hechos")
-        UpdateHecho(legajo.hechosId, hechos).then(() => {
+        UpdateHecho(legajo.hechosId, hechos,user.usuId).then(() => {
             hechosForm.resetFields();
             fetchInfoGeneral(id);
             setMdHechosLoading(false);
@@ -219,7 +220,7 @@ function DetalleLegajoPage() {
     };
     //Marcar asistencia
     const onClickAsistencia = (audienciaId) => {
-        UpdateEstadoAsistencia(audienciaId).then(()=>{
+        UpdateEstadoAsistencia(audienciaId, user.usuId).then(()=>{
             message.success("Asistencia marcada correctamente.")
             fetchAudiencias(id);
         })

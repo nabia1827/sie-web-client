@@ -14,11 +14,11 @@ export const UpdateImputadoById = async (imputado) => {
 };
 
 
-export const DeleteImputado = async (imputadoId) => {
+export const DeleteImputado = async (imputadoId,usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.DeleteImputado(imputadoId);
+    const response = await api.RecepcionLegajos.DeleteImputado(imputadoId, usuarioId);
     return response;
 
   } catch (error) {
@@ -27,11 +27,11 @@ export const DeleteImputado = async (imputadoId) => {
 };
 
 
-export const UpdateImputadoDelito = async (imputadoDelito) => {
+export const UpdateImputadoDelito = async (imputadoDelito, usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.UpdateImputadoDelito(imputadoDelito);
+    const response = await api.RecepcionLegajos.UpdateImputadoDelito(imputadoDelito,usuarioId);
     return response;
 
   } catch (error) {
@@ -40,11 +40,11 @@ export const UpdateImputadoDelito = async (imputadoDelito) => {
 };
 
 
-export const DeleteImputadoDelito = async (imputadoDelitoId) => {
+export const DeleteImputadoDelito = async (imputadoDelitoId,usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.DeleteImputadoDelito(imputadoDelitoId);
+    const response = await api.RecepcionLegajos.DeleteImputadoDelito(imputadoDelitoId, usuarioId);
     return response;
 
   } catch (error) {
@@ -53,11 +53,11 @@ export const DeleteImputadoDelito = async (imputadoDelitoId) => {
 };
 
 
-export const UpdateAudiencia = async (audienciaId, fecha,hora,tipoAudienciaId,link, legajoId) => {
+export const UpdateAudiencia = async (audienciaId, fecha,hora,tipoAudienciaId,link, legajoId,usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.UpdateAudiencia(audienciaId, fecha,hora,tipoAudienciaId,link, legajoId);
+    const response = await api.RecepcionLegajos.UpdateAudiencia(audienciaId, fecha,hora,tipoAudienciaId,link, legajoId,usuarioId);
     return response;
 
   } catch (error) {
@@ -66,11 +66,11 @@ export const UpdateAudiencia = async (audienciaId, fecha,hora,tipoAudienciaId,li
 };
 
 
-export const UpdateDatosGeneralesTemp = async (datosGeneralesTemp) => {
+export const UpdateDatosGeneralesTemp = async (datosGeneralesTemp, usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.UpdateDatosGeneralesTemp(datosGeneralesTemp);
+    const response = await api.RecepcionLegajos.UpdateDatosGeneralesTemp(datosGeneralesTemp, usuarioId);
     return response;
 
   } catch (error) {
@@ -78,11 +78,11 @@ export const UpdateDatosGeneralesTemp = async (datosGeneralesTemp) => {
   }
 };
 
-export const UpdateDatosGenerales = async (datosGenerales) => {
+export const UpdateDatosGenerales = async (datosGenerales, usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.UpdateDatosGenerales(datosGenerales);
+    const response = await api.RecepcionLegajos.UpdateDatosGenerales(datosGenerales, usuarioId);
     return response;
 
   } catch (error) {
@@ -116,11 +116,11 @@ export const GetDatosGenerales = async (legajoId) => {
 
 
 
-export const DeleteAgraviado = async (agraviadoId) => {
+export const DeleteAgraviado = async (agraviadoId, usuarioId) => {
 
   try {
 
-    const response = await api.RecepcionLegajos.DeleteAgraviado(agraviadoId);
+    const response = await api.RecepcionLegajos.DeleteAgraviado(agraviadoId, usuarioId);
     return response;
 
   } catch (error) {
@@ -169,7 +169,7 @@ export const AdicionarDocumento = async (legajoId,usuId, file) => {
 };
 
 
-export const InsertImputado = async (legajoId,nombre,tipoDocId,nroDoc,delitosIds) => {
+export const InsertImputado = async (legajoId,nombre,tipoDocId,nroDoc,delitosIds, usuId) => {
 
   try {
     const body = {
@@ -179,6 +179,7 @@ export const InsertImputado = async (legajoId,nombre,tipoDocId,nroDoc,delitosIds
       tipoDocId:tipoDocId?tipoDocId:"",
       nroDoc:nroDoc?nroDoc:"",
       delitosIds:delitosIds,
+      usuarioId: usuId,
     }
 
     const response = await api.RecepcionLegajos.InsertImputado(body)
@@ -189,7 +190,7 @@ export const InsertImputado = async (legajoId,nombre,tipoDocId,nroDoc,delitosIds
   }
 };
 
-export const InsertAgraviado = async (legajoId,nombre,tipoDocId,nroDoc) => {
+export const InsertAgraviado = async (legajoId,nombre,tipoDocId,nroDoc, usuId) => {
 
   try {
     const body = {
@@ -198,6 +199,7 @@ export const InsertAgraviado = async (legajoId,nombre,tipoDocId,nroDoc) => {
       nombre:nombre,
       tipoDocId:tipoDocId?tipoDocId:"",
       nroDoc:nroDoc?nroDoc:"",
+      usuarioId:usuId
     }
 
     const response = await api.RecepcionLegajos.InsertAgraviado(body);
