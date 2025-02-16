@@ -21,5 +21,6 @@ export const types = {
     tiposPena: '[APP] Lista de tipos de pena',
     tiposSentencia: '[APP] Lista de tipos de sentencia',
     tiposRemitente: '[APP] Lista de tipos de Remitente',
+    listAnios: '[APP] Lista de Anios',
     currentLegajoCod:'[CONSULTA LEGAJOS] Actualizar el codigo del legajo actual',
 }

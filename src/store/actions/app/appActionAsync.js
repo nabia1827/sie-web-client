@@ -8,9 +8,21 @@ import {
   setTiposPena,
   setTiposSentencia,
   setDistritosJudicial,
-  setNotificaciones
+  setNotificaciones,
+  setAnios
 } from "./appActionSync";
 import api from "../../../services/api";
+
+
+export const cargarAnios = () => async (dispatch) => {
+  try {
+    const resp = await api.Reporte.ListarAnios();
+    dispatch(setAnios(resp.data));
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
 
 export const cargarAbogados = () => async (dispatch) => {
   try {

@@ -12,7 +12,7 @@ import { login } from '../store/actions/authActionSync';
 import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
   CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos, 
   cargarDelitos,cargarTiposPena,cargarTiposSentencia,
-  cargarTiposAudiencia, cargarTiposRemitente,
+  cargarTiposAudiencia, cargarTiposRemitente,cargarAnios,
   cargarDistritosJudicial, cargarNotificaciones} from '../store/actions/app/appActionAsync';
 
 
@@ -92,6 +92,7 @@ const RoutesApp = () => {
       dispatch(CargarDependenciaMininter())
       dispatch(CargarProcuradores())
       dispatch(CargarDepartamentos())
+      dispatch(cargarAnios())
       dispatch(cargarDelitos())
       dispatch(cargarTiposAudiencia())
       dispatch(cargarTiposRemitente())

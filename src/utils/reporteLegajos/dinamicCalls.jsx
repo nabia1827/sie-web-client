@@ -1,6 +1,19 @@
 import api from "../../services/api";
 import { message } from "antd";
 
+
+export const GetMesesbyAnio = async (anio) => {
+
+  try {
+
+    const response = await api.Reporte.GetMesesbyAnio(anio);
+    return response;
+  } catch (error) {
+    message.error(error.message);
+  }
+};
+
+
 export const GetCantidadLegajos = async (anio,mes,delitoId) => {
 
     try {

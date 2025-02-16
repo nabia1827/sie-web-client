@@ -1,5 +1,12 @@
 import { types } from "../../types";
 
+
+export const setAnios = data => ({
+    type: types.listAnios,
+    payload: data,
+});
+
+
 export const setAbogados = data => ({
     type: types.abogados,
     payload: data,
