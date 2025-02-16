@@ -17,6 +17,7 @@ const initialValues = {
     tiposSentencia: [],
     distritosJudicial: [],
     notificaciones:[],
+    listAnios: []
 };
 
 export const appReducer = (state = initialValues, action) => {
@@ -107,6 +108,12 @@ export const appReducer = (state = initialValues, action) => {
             return {
                 ...state,
                 distritosJudicial: [...action.payload],
+            };
+        
+        case types.listAnios:
+            return {
+                ...state,
+                listAnios: [...action.payload],
             };
         case types.notificaciones:
             return {

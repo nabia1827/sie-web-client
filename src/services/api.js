@@ -134,6 +134,8 @@ const Audiencia = {
 }
 
 const Reporte = {
+    ListarAnios:()=> requests.get(`/Reporte/ListarAnios`),
+    GetMesesbyAnio:(anio) => requests.get(`/Reporte/GetMesesbyAnio?anio=${anio}`),
     GetCantidadAudiencias: (anio,mes,delitoId) => requests.get(`/Reporte/GetCantidadAudiencias?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
     GetCantidadLegajos: (anio,mes,delitoId) => requests.get(`/Reporte/GetCantidadLegajos?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),
     GetChartBarsData: (anio,mes,delitoId) => requests.get(`/Reporte/GetChartBarsData?anio=${anio}&mes=${mes}&delitoId=${delitoId}`),

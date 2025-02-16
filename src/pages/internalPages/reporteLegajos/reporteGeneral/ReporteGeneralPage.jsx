@@ -3,6 +3,7 @@ import { Flex, Grid, Form} from "antd";
 import ReporteGeneralMobile from "./ReporteGeneralMobile";
 import ReporteGeneralWeb from "./ReporteGeneralWeb";
 import { 
+    GetMesesbyAnio,
     GetCantidadAudiencias, 
     GetCantidadLegajos, 
     GetChartBarsData, 
@@ -54,6 +55,15 @@ function ReporteGeneralPage() {
                 break;
         }
     }
+
+    const fetchFilterMonth = async (anio, callback) => {
+        try {
+            const mesResponse = await GetMesesbyAnio(anio);
+            callback(mesResponse.data);
+        } finally {
+            //callback([]);
+        }
+    };
 
     const fetchDataLineChart = async (pAnio, pMes, pDelitoId) => {
         //setLoadingInfo(true);
@@ -179,6 +189,7 @@ function ReporteGeneralPage() {
             dataLegajoCard  = {dataLegajoCard}
             dataAudienciaCard = {dataAudienciaCard}
             dataLugarCard = {dataLugarCard}
+            fetchFilterMonth = {fetchFilterMonth}
         /> :
         <ReporteGeneralWeb
             form = {form}

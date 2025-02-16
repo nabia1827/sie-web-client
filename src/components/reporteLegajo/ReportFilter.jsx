@@ -3,7 +3,7 @@ import { Flex, Form, Typography, Layout, Menu, Breadcrumb, Button, Row, Col, Col
 const { Text } = Typography;
 const { RangePicker } = DatePicker;
 const { Header, Footer, Sider, Content } = Layout;
-import { ListAnios, ListMeses } from "../../utils/constants";
+import { ListMeses } from "../../utils/constants";
 import { colors } from "../../utils/colors";
 import { useSelector } from "react-redux";
 import {
@@ -13,7 +13,7 @@ import {
 
 function ReportFilter(props) {
     const { form, handleOnFieldsChange } = props;
-    const { delitos } = useSelector((state) => state.app);
+    const { delitos, listAnios} = useSelector((state) => state.app);
     
     return (
         <>
@@ -52,7 +52,7 @@ function ReportFilter(props) {
 
                             >
                                 {
-                                    ListAnios.map((d) => (
+                                    listAnios.map((d) => (
                                         <Select.Option key={d.anioId} value={d.anioId}>
                                             {d.anioDescripcion}
                                         </Select.Option>
