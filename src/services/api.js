@@ -147,9 +147,9 @@ const Reporte = {
 }
 
 const Seguimiento = {
-    GetSeguimientoAudiencias: () => requests.get(`/Seguimiento/GetSeguimientoAudiencias`),
-    GetSeguimientoLegajos: () => requests.get(`/Seguimiento/GetSeguimientoLegajos`),
-    GetSeguimientoRecursosLegales: () => requests.get(`/Seguimiento/GetSeguimientoRecursosLegales`),
+    GetSeguimientoAudiencias: (anio, mes) => requests.get(`/Seguimiento/GetSeguimientoAudiencias?anio=${anio}&mes=${mes}`),
+    GetSeguimientoLegajos: (anio, mes) => requests.get(`/Seguimiento/GetSeguimientoLegajos?anio=${anio}&mes=${mes}`),
+    GetSeguimientoRecursosLegales: (anio, mes) => requests.get(`/Seguimiento/GetSeguimientoRecursosLegales?anio=${anio}&mes=${mes}`),
 }
 
 

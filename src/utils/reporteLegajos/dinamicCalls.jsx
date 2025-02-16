@@ -110,11 +110,11 @@ export const GetChartStackedBarsData = async (anio,mes,delitoId) => {
     }
 };
 
-export const GetSeguimientoAudiencias = async () => {
+export const GetSeguimientoAudiencias = async (anio, mes) => {
 
   try {
 
-    const response = await api.Seguimiento.GetSeguimientoAudiencias()
+    const response = await api.Seguimiento.GetSeguimientoAudiencias(anio, mes)
     return response;
 
   } catch (error) {
@@ -122,11 +122,11 @@ export const GetSeguimientoAudiencias = async () => {
   }
 };
 
-export const GetSeguimientoLegajos = async () => {
+export const GetSeguimientoLegajos = async (anio, mes) => {
 
   try {
 
-    const response = await api.Seguimiento.GetSeguimientoLegajos()
+    const response = await api.Seguimiento.GetSeguimientoLegajos(anio, mes)
     return response;
 
   } catch (error) {
@@ -134,11 +134,11 @@ export const GetSeguimientoLegajos = async () => {
   }
 };
 
-export const GetSeguimientoRecursosLegales = async () => {
+export const GetSeguimientoRecursosLegales = async (anio, mes) => {
 
   try {
 
-    const response = await api.Seguimiento.GetSeguimientoRecursosLegales()
+    const response = await api.Seguimiento.GetSeguimientoRecursosLegales(anio, mes)
     return response;
 
   } catch (error) {
