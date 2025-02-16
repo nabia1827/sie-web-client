@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Grid} from "antd";
+import { Flex, Grid, Form} from "antd";
 import SeguimientoMobile from "./SeguimientoMobile";
 import SeguimientoWeb from "./SeguimientoWeb";
 import { useSelector } from "react-redux";
@@ -10,61 +10,99 @@ const { useBreakpoint } = Grid;
 function SeguimientoPage() {
     const screens = useBreakpoint();
     const isXsScreen = screens.xs !== undefined && screens.xs;
+    const { listAnios } = useSelector((state) => state.app);
 
+    //Variables generales
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false);
+    //Data de los desplegables
+    const [selectedAnio, setSelectedAnio] = useState(0);
+    const [selectedMes, setSelectedMes] = useState(0);
+    const [listMeses, setListMeses]=useState([]);
+
+    //Resultados de seguimiento
     const [dataLeg, setDataLeg] = useState([]);
     const [dataAud, setDataAud] = useState([]);
     const [dataRl, setDataRl] = useState([]);
-    const [loading, setLoading] = useState(false);
+    
 
-    const fetchSeguimientoAudiencias = async () => {
+    const fetchSeguimientoAudiencias = async (anio, mes) => {
         //setLoadingInfo(true);
         try {
-            const response = await GetSeguimientoAudiencias()
+            const response = await GetSeguimientoAudiencias(anio, mes)
             setDataAud(response.data)
         } finally {
             //setLoadingInfo(false);
         }
     };
-    const fetchSeguimientoLegajos = async () => {
+    const fetchSeguimientoLegajos = async (anio, mes) => {
         //setLoadingInfo(true);
         try {
-            const response = await GetSeguimientoLegajos()
+            const response = await GetSeguimientoLegajos(anio, mes)
             setDataLeg(response.data)
         } finally {
             //setLoadingInfo(false);
         }
     };
 
-    const fetchSeguimientoRecursosLegales = async () => {
+    const fetchSeguimientoRecursosLegales = async (anio, mes) => {
         //setLoadingInfo(true);
         try {
-            const response = await GetSeguimientoRecursosLegales()
+            const response = await GetSeguimientoRecursosLegales(anio, mes)
             setDataRl(response.data)
         } finally {
             //setLoadingInfo(false);
         }
     };
+    const fetchListaMeses = async(anio) =>{
+        //setLoadingInfo(true);
+        try {
+            const response = await GetMesesbyAnio(anio, mes)
+            setListMeses(response.data)
+        } finally {
+            //setLoadingInfo(false);
+        }
+    }
+
+    const fetchAllData = async (anio, mes) => {
+            
+        try {
+            setLoading(true)
+            await Promise.all([
+                fetchSeguimientoAudiencias(anio, mes),
+                fetchSeguimientoLegajos(anio, mes),
+                fetchSeguimientoRecursosLegales(anio, mes),
+            ]);
+            setLoading(false)
+
+        } catch (error) {
+            console.error("Error al realizar las llamadas fetch seg:", error);
+        }
+    };
 
     useEffect(() => {
-        
-        const fetchAllData = async () => {
-            
-            try {
-                setLoading(true)
-                await Promise.all([
-                    fetchSeguimientoAudiencias(),
-                    fetchSeguimientoLegajos(),
-                    fetchSeguimientoRecursosLegales(),
-                ]);
-                setLoading(false)
+        fetchAllData(selectedAnio,selectedMes);
+    }, [selectedAnio,selectedMes]);
 
-            } catch (error) {
-                console.error("Error al realizar las llamadas fetch seg:", error);
-            }
-        };
-    
-        fetchAllData();
-    }, []);
+    useEffect(() => {
+        fetchListaMeses(selectedAnio)
+
+    }, [selectedAnio]);
+
+
+
+    const handleOnFieldsChange = (changeFields, allFields) =>{
+        const campo = changeFields[0].name[0]?changeFields[0].name[0]:0;
+        const valor = changeFields[0].value?changeFields[0].value:0;
+        switch(campo){
+            case "anio":
+                setSelectedAnio(valor)
+                break;
+            case "mes":
+                setSelectedMes(valor)
+                break;
+        }
+    }
 
 
     return <>{isXsScreen ?
@@ -73,12 +111,20 @@ function SeguimientoPage() {
         dataAud = {dataAud}
         dataRl = {dataRl}
         loading = {loading}
+        form = {form}
+        handleOnFieldsChange = {handleOnFieldsChange}
+        listAnios = {listAnios}
+        listMeses = {listMeses}
         /> :
         <SeguimientoWeb
         dataLeg = {dataLeg}
         dataAud = {dataAud}
         dataRl = {dataRl}
         loading = {loading}
+        form = {form}
+        handleOnFieldsChange = {handleOnFieldsChange}
+        listAnios = {listAnios}
+        listMeses = {listMeses}
         />
     }
         
