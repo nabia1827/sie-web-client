@@ -3,7 +3,7 @@ import { Flex, Form, Typography, Layout, Menu, Breadcrumb, Button, Row, Col, Col
 const { Text } = Typography;
 const { RangePicker } = DatePicker;
 const { Header, Footer, Sider, Content } = Layout;
-import { ListMeses } from "../../utils/constants";
+//import { ListMeses } from "../../utils/constants";
 import { colors } from "../../utils/colors";
 import { useSelector } from "react-redux";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 
 function ReportFilter(props) {
-    const { form, handleOnFieldsChange } = props;
+    const { form, handleOnFieldsChange, listMeses } = props;
     const { delitos, listAnios} = useSelector((state) => state.app);
     
     return (
@@ -75,7 +75,7 @@ function ReportFilter(props) {
                                 allowClear
                             >
                                 {
-                                    ListMeses.map((d) => (
+                                    listMeses.map((d) => (
                                         <Select.Option key={d.mesId} value={d.mesId}>
                                             {d.mesDescripcion}
                                         </Select.Option>
