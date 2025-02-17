@@ -34,6 +34,7 @@ function ReporteGeneralPage() {
 
     //Filtros (IDS)
     const [anio, setAnio] = useState(0);
+    const [listMeses, setListMeses] = useState(0);
     const [mes, setMes] = useState(0);
     const [delitoId, setDelitoId] = useState(0);
 
@@ -46,6 +47,7 @@ function ReporteGeneralPage() {
         switch(campo){
             case "anio":
                 setAnio(valor)
+                fetchFilterMonth(valor)
                 break;
             case "mes":
                 setMes(valor)
@@ -56,10 +58,10 @@ function ReporteGeneralPage() {
         }
     }
 
-    const fetchFilterMonth = async (anio, callback) => {
+    const fetchFilterMonth = async (anio) => {
         try {
             const mesResponse = await GetMesesbyAnio(anio);
-            callback(mesResponse.data);
+            setListMeses(mesResponse.data);
         } finally {
             //callback([]);
         }
@@ -161,7 +163,8 @@ function ReporteGeneralPage() {
                         fetchDataMapChart(anio, mes, delitoId),
                         fetchDataLegajoCard(anio, mes, delitoId),
                         fetchDataAudienciaCard(anio, mes, delitoId),
-                        fetchDataLugarCard(anio, mes, delitoId)
+                        fetchDataLugarCard(anio, mes, delitoId),
+                        fetchFilterMonth(anio)
                     ]);
                     
                     setLoading(false)
@@ -189,7 +192,7 @@ function ReporteGeneralPage() {
             dataLegajoCard  = {dataLegajoCard}
             dataAudienciaCard = {dataAudienciaCard}
             dataLugarCard = {dataLugarCard}
-            fetchFilterMonth = {fetchFilterMonth}
+            listMeses = {listMeses}
         /> :
         <ReporteGeneralWeb
             form = {form}
@@ -203,6 +206,7 @@ function ReporteGeneralPage() {
             dataLegajoCard  = {dataLegajoCard}
             dataAudienciaCard = {dataAudienciaCard}
             dataLugarCard = {dataLugarCard}
+            listMeses = {listMeses}
         />
     }
         

@@ -14,7 +14,7 @@ import ReportFilter from "../../../../components/reporteLegajo/ReportFilter";
 function ReporteGeneralWeb(props) {
     const { form, handleOnFieldsChange,
         dataLineChart, dataStackedChart, dataPieChart, dataBarChart, dataMapChart,
-        dataLegajoCard, dataAudienciaCard, dataLugarCard,loading
+        dataLegajoCard, dataAudienciaCard, dataLugarCard,loading, listMeses
     } = props;
 
     return (
@@ -34,7 +34,7 @@ function ReporteGeneralWeb(props) {
                                 <ReportCard IconComponent={MapPin} subtitle="REGION CON MAS CASOS" title={dataLugarCard.descripcion} copyable={false}></ReportCard>
                             </Col>
                             <Col xs={12} sm={24} md={24} lg={24} xl={9}>
-                                <ReportFilter form={form} handleOnFieldsChange={handleOnFieldsChange}></ReportFilter>
+                                <ReportFilter form={form} handleOnFieldsChange={handleOnFieldsChange} listMeses={listMeses}></ReportFilter>
                             </Col>
 
                         </Row>
