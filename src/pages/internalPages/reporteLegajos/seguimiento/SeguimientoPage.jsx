@@ -3,7 +3,7 @@ import { Flex, Grid, Form} from "antd";
 import SeguimientoMobile from "./SeguimientoMobile";
 import SeguimientoWeb from "./SeguimientoWeb";
 import { useSelector } from "react-redux";
-import { GetSeguimientoAudiencias, GetSeguimientoLegajos, GetSeguimientoRecursosLegales } from "../../../../utils/reporteLegajos/dinamicCalls";
+import { GetSeguimientoAudiencias, GetSeguimientoLegajos, GetSeguimientoRecursosLegales,GetMesesbyAnio } from "../../../../utils/reporteLegajos/dinamicCalls";
 
 const { useBreakpoint } = Grid;
 
@@ -57,7 +57,7 @@ function SeguimientoPage() {
     const fetchListaMeses = async(anio) =>{
         //setLoadingInfo(true);
         try {
-            const response = await GetMesesbyAnio(anio, mes)
+            const response = await GetMesesbyAnio(anio)
             setListMeses(response.data)
         } finally {
             //setLoadingInfo(false);
