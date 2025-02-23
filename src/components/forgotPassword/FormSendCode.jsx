@@ -12,7 +12,7 @@ function FormSendCode(props) {
         <>
             <Form
                 form={sendCodeForm}
-                style={{ width: "60%" }}
+                style={{ width: "100%", paddingLeft: "4em", paddingRight: "4em"}}
                 labelWrap={true}
                 labelCol={{
                     xxl: 24,
@@ -34,7 +34,7 @@ function FormSendCode(props) {
                 <Flex gap={"large"} vertical justify="center" align="flex-start" style={{ width: "100%" }}>
 
                     <Flex gap={"small"} vertical justify="center" align="flex-start" style={{ width: "100%" }}>
-                        <Text className="sie-login-title">Olvidé mi contraseña</Text>
+                        <Text className= "sie-login-title" style={{textAlign:"left"}}>Olvidé mi contraseña</Text>
                         <Text className="sie-login-subtitle" style={{textAlign:"left"}}>Ingresa tu email para restablecer tu contraseña. Te enviaremos un código de seguridad.</Text>
                     </Flex>
 
