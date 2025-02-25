@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Row, Col, Calendar, Typography, Table } from "antd";
+import { Flex, Row, Col, Calendar, Typography, Table, ConfigProvider } from "antd";
 import { colors } from "../../../utils/colors";
 import {
     CalendarBlank,
@@ -8,6 +8,11 @@ import {
 const { Text } = Typography;
 import { ColumnsAnclados } from "../../../utils/home/columnsAnclados";
 import imgHome from "../../../assets/images/illustrationHome.svg"
+import esES from "antd/locale/es_ES"; // Importar la localización en español
+import dayjs from "dayjs";
+import "dayjs/locale/es"; // Importar el locale de dayjs en español
+
+dayjs.locale("es"); // Establecer dayjs en español
 
 function HomeWeb() {
 
@@ -43,6 +48,14 @@ function HomeWeb() {
             lugar: "Cajamarca",
             distritoJudicial: "Cajamarca",
             situacionJuridica: "Inv. Preparatoria",
+        },
+        {
+            legajoCodigo: "LP000001",
+            tipoCaso: "Carpeta Fiscal",
+            nroCaso: "00035",
+            lugar: "Cajamarca",
+            distritoJudicial: "Cajamarca",
+            situacionJuridica: "Inv. Preparatoria",
         }
     ]
 
@@ -51,18 +64,18 @@ function HomeWeb() {
 
     }
 
+    const onPanelChange = (value) => {
+        console.log(value.format('DD/MM/YYYY'));
+    };
+
     return (
         <>
             <Flex justify="center" align="center" style={{ width: "100%", minHeight: "78vh" }}>
                 <Row gutter={[8, 0]} justify={"center"} align={"center"} style={{ width: "100%", }}>
                     <Col xs={24} sm={24} md={24} lg={16} xl={16}>
                         <Flex vertical gap={"small"} justify="center" align="center" style={{ width: "100%", height: "78vh" }}>
-                            <Flex gap={"small"} justify="flex-end" align="flex-end" style={{ width: "100%", height: "260px", backgroundColor: colors.lightBlue, borderRadius: "7px" }}>
+                            <Flex gap={"small"} justify="flex-end" align="flex-end" style={{ width: "100%", height: "220px", backgroundColor: colors.lightBlue, borderRadius: "7px" }}>
                                 <Flex vertical justify="flex-end" align="flex-start" style={{ width: "50%", padding: "16px" }}>
-
-                                    <Flex vertical justify="flex-start" align="flex-start" style={{paddingLeft:"14px"}}>
-                                        <PresentationChart size={32} color={colors.blue}/>
-                                    </Flex>
                                     <Flex vertical justify="flex-start" align="flex-start" style={{ padding: "14px" }}>
 
                                         <Text className="home-stats-section">Nuevos Legajos Hoy</Text>
@@ -80,10 +93,10 @@ function HomeWeb() {
                                     </Flex>
                                 </Flex>
                                 <Flex justify="center" align="flex-end" style={{ width: "50%" }}>
-                                    <img src={imgHome} alt="Imagen Crear Documento Salida" style={{ maxWidth: '85%', maxHeight: 'auto' }} />
+                                    <img src={imgHome} alt="Imagen Crear Documento Salida" style={{ width: 'auto', height: "190px" }} />
                                 </Flex>
                             </Flex>
-                            <Flex gap={"small"} vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "39vh", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
+                            <Flex gap={"small"} vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "calc(100% - 220px)", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
                                 <Text className="home-title-section">Legajos Anclados</Text>
                                 <Table
                                     style={{ width: "100%" }}
@@ -94,7 +107,7 @@ function HomeWeb() {
                                     pagination={{
                                         onChange,
                                         total: 8,
-                                        pageSize: 4,
+                                        pageSize: 5,
                                         current: 1,
                                         showTotal: (total) => `Hay ${total} registros`,
                                     }}
@@ -108,7 +121,10 @@ function HomeWeb() {
                     <Col xs={24} sm={24} md={24} lg={8} xl={8} >
                         <Flex vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "78vh", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
                             <Text className="home-title-section">Calendario de Audiencias</Text>
-                            <Calendar fullscreen={false} />
+                            <ConfigProvider locale={esES}>
+                                <Calendar fullscreen={false} onChange={onPanelChange} />
+                            </ConfigProvider>
+
                             {
                                 dataAud.map((a) => (
                                     <Flex gap={"small"} align="center" justify="flex-start" style={{ width: "100%", backgroundColor: colors.lightCian, padding: "8px", borderRadius: "7px" }}>
