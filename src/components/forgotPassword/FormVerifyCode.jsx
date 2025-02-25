@@ -18,7 +18,7 @@ function FormVerifyCode(props) {
                 form={otpForm}
                 onFinish={onValidateOTP}
                 onValuesChange={onValuesChange}                
-                style={{ width: "60%" }}
+                style={{ width: "100%", paddingLeft: "4em", paddingRight: "4em"}}
                 labelWrap={true}
                 labelCol={{
                     xxl: 24,

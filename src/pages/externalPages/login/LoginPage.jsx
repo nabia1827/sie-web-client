@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "antd";
-import LoginMobile from "./loginMobile";
-import LoginWeb from "./loginWeb";
+import LoginMobile from "./LoginMobile";
+import LoginWeb from "./LoginWeb";
 import { login } from "../../../store/actions/authActionSync";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ function LoginPage() {
     const screens = useBreakpoint();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isXsScreen = screens.xs !== undefined && screens.xs;
+    
     const { isAuthenticated } = useSelector((state) => state.auth);
 
     const [loading, setLoading] = useState(false);
@@ -34,6 +34,11 @@ function LoginPage() {
         console.log(e.target.value);
         setPassword(e.target.value);
     }
+
+    useEffect(() => {
+        console.log(screens)
+    }, [screens]);
+
 
     const onLogin = (username, password) => {
         setLoading(true);
@@ -71,7 +76,7 @@ function LoginPage() {
     
 
     return <>{
-        isXsScreen ?
+        (screens.sm || screens.xs) && (!screens.md && !screens.lg && !screens.xl && !screens.xxl) ?
             <LoginMobile
                 username={username}
                 password={password}
@@ -93,7 +98,8 @@ function LoginPage() {
                 status={status}
                 textError={textError}
                 loading={loading}
-            />}</>;
+            />
+    }</>;
 }
 
 export default LoginPage;

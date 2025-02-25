@@ -21,7 +21,7 @@ function FormResetPassword(props) {
                 form={passwordForm}
                 onFinish={onResetPassword}
                 onFieldsChange={onFieldsChange}
-                style={{ width: "60%" }}
+                style={{ width: "100%", paddingLeft: "4em", paddingRight: "4em"}}
                 labelWrap={true}
                 labelCol={{
                     xxl: 24,
