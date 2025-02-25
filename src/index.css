@@ -459,6 +459,45 @@ table.scheduler-table tr:last-child td {
 .selected-area {
   position: absolute;
 }
+.home-title-section {
+  color: #2D3748;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.home-stats-section {
+  color: #2D3748;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.home-aud-title {
+  color: #2D3748;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.home-aud-subtitle {
+  color: #2D3748;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+}
+.home-stats {
+  color: #2D3748;
+  text-align: left;
+  font-size: 32px;
+  font-weight: 700;
+}
 
 /* Personalización del scrollbar para navegadores basados en WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {

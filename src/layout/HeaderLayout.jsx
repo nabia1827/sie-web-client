@@ -91,7 +91,7 @@ function HeaderLayout() {
     const getTitle = (path) => {
         switch (path) {
             case paths.HOME:
-                return "Home";
+                return `¡Bienvenido, ${user.usuNombre}!`;
             case paths.ROOT:
                 return "Home";
             case paths.MIS_LEGAJOS:

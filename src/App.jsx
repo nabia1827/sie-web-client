@@ -22,7 +22,7 @@ function App() {
             colorLinkHover:colors.blue,
             colorSuccess:colors.green,
             colorBgContainerDisabled:"rgba(244, 247, 254, 1)",
-            colorTextDisabled:"rgba(45, 55, 72, 1)"
+            colorTextDisabled:"rgb(146, 156, 173)"
           },
           components: {
             Input: {
