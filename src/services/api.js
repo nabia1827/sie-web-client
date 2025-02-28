@@ -189,6 +189,13 @@ const ForgotPassword = {
     ResetPassword: (body) => requests.post(`/OTP/ResetPassword`,body),
 }
 
+const Home = {
+    AnclarDesanclarLegajo: (usuId,legajoId) => requests.post(`/Home/AnclarDesanclarLegajo?usuId=${usuId}&legajoId=${legajoId}`),
+    GetLegajosAnclados: (usuId) => requests.get(`/Home/GetLegajosAnclados?usuId=${usuId}`),
+    GetMetricasMesActual: (usuId) => requests.get(`/Home/GetMetricasMesActual?usuId=${usuId}`),
+    GetMisAudienciasByDate: (usuId,fecha) => requests.get(`/Home/GetMisAudienciasByDate?usuId=${usuId}&fecha=${fecha}`),
+}
+
 export default { 
     Auth, 
     ListaLegajos,
@@ -205,4 +212,5 @@ export default {
     User,
     Notification,
     ForgotPassword,
+    Home
 };

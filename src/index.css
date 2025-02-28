@@ -471,7 +471,7 @@ table.scheduler-table tr:last-child td {
 
 .home-stats-section {
   color: #2D3748;
-  text-align: center;
+  text-align: left;
   font-size: 14px;
   font-style: normal;
   font-weight: 600;

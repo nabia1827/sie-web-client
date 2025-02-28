@@ -7,14 +7,14 @@ import {
     PushPin,
  } from "@phosphor-icons/react";
 
-export const ColumnsAnclados = () => {
+export const ColumnsAnclados = (onPinClick) => {
     const columns = [
         {
             title: '',
             dataIndex: '',
             key: 'anclar',
             render: (_, record) => (
-                <Button size="small" shape="circle" type="text" icon={<PushPin size={16} weight="fill"/>} ></Button>
+                <Button onClick={onPinClick} size="small" shape="circle" type="text" icon={<PushPin size={16} weight="fill"/>} ></Button>
             ),
         },
         {

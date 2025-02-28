@@ -14,59 +14,12 @@ import "dayjs/locale/es"; // Importar el locale de dayjs en español
 
 dayjs.locale("es"); // Establecer dayjs en español
 
-function HomeWeb() {
+function HomeWeb(props) {
+    const { anclados, audiencias, metricas, onAncladosChange, 
+        currentPage, onDateChange, onClickVerTodo,onPinClick } = props;
 
-    const dataAud = [
-        {
-            audienciaTitle: "Audiencia XXX",
-            audienciaLegajo: "LP0000001",
-            audienciaHora: "4pm"
-        }
-    ]
+    const columns = ColumnsAnclados(onPinClick);
 
-    const dataLeg = [
-        {
-            legajoCodigo: "LP000001",
-            tipoCaso: "Carpeta Fiscal",
-            nroCaso: "00035",
-            lugar: "Cajamarca",
-            distritoJudicial: "Cajamarca",
-            situacionJuridica: "Inv. Preparatoria",
-        },
-        {
-            legajoCodigo: "LP000001",
-            tipoCaso: "Carpeta Fiscal",
-            nroCaso: "00035",
-            lugar: "Cajamarca",
-            distritoJudicial: "Cajamarca",
-            situacionJuridica: "Inv. Preparatoria",
-        },
-        {
-            legajoCodigo: "LP000001",
-            tipoCaso: "Carpeta Fiscal",
-            nroCaso: "00035",
-            lugar: "Cajamarca",
-            distritoJudicial: "Cajamarca",
-            situacionJuridica: "Inv. Preparatoria",
-        },
-        {
-            legajoCodigo: "LP000001",
-            tipoCaso: "Carpeta Fiscal",
-            nroCaso: "00035",
-            lugar: "Cajamarca",
-            distritoJudicial: "Cajamarca",
-            situacionJuridica: "Inv. Preparatoria",
-        }
-    ]
-
-    const columns = ColumnsAnclados();
-    const onChange = () => {
-
-    }
-
-    const onPanelChange = (value) => {
-        console.log(value.format('DD/MM/YYYY'));
-    };
 
     return (
         <>
@@ -74,21 +27,21 @@ function HomeWeb() {
                 <Row gutter={[8, 0]} justify={"center"} align={"center"} style={{ width: "100%", }}>
                     <Col xs={24} sm={24} md={24} lg={16} xl={16}>
                         <Flex vertical gap={"small"} justify="center" align="center" style={{ width: "100%", height: "78vh" }}>
-                            <Flex gap={"small"} justify="flex-end" align="flex-end" style={{ width: "100%", height: "220px", backgroundColor: colors.lightBlue, borderRadius: "7px" }}>
+                            <Flex gap={"small"} justify="flex-end" align="flex-end" style={{ width: "100%", height: "240px", backgroundColor: colors.lightBlue, borderRadius: "7px" }}>
                                 <Flex vertical justify="flex-end" align="flex-start" style={{ width: "50%", padding: "16px" }}>
                                     <Flex vertical justify="flex-start" align="flex-start" style={{ padding: "14px" }}>
 
-                                        <Text className="home-stats-section">Nuevos Legajos Hoy</Text>
-                                        <Text className="home-stats">40</Text>
+                                        <Text className="home-stats-section">{metricas[0] ? metricas[0].nombreMedida : ""}</Text>
+                                        <Text className="home-stats">{metricas[0] ? metricas[0].cantidad : 0}</Text>
                                     </Flex>
                                     <Flex gap={"small"} justify="flex-start" align="flex-start">
-                                        <Flex vertical align="flex-start" justify="flex-start" style={{ width: "200px", backgroundColor: "#CED8FF", padding: "14px", borderRadius: "7px" }}>
-                                            <Text className="home-stats-section">Legajos Asignados</Text>
-                                            <Text className="home-stats">40</Text>
+                                        <Flex vertical align="flex-start" justify="flex-start" style={{ width: "210px", height: "100px", backgroundColor: "#CED8FF", padding: "14px", borderRadius: "7px" }}>
+                                            <Text className="home-stats-section">{metricas[1] ? metricas[1].nombreMedida : ""}</Text>
+                                            <Text className="home-stats">{metricas[1] ? metricas[1].cantidad : 0}</Text>
                                         </Flex>
-                                        <Flex vertical align="flex-start" justify="flex-start" style={{ width: "200px", backgroundColor: "#CED8FF", padding: "14px", borderRadius: "7px" }}>
-                                            <Text className="home-stats-section">Audiencias Asignadas</Text>
-                                            <Text className="home-stats">40</Text>
+                                        <Flex vertical align="flex-start" justify="flex-start" style={{ width: "210px", height: "100px", backgroundColor: "#CED8FF", padding: "14px", borderRadius: "7px" }}>
+                                            <Text className="home-stats-section">{metricas[2] ? metricas[2].nombreMedida : ""}</Text>
+                                            <Text className="home-stats">{metricas[2] ? metricas[2].cantidad : 0}</Text>
                                         </Flex>
                                     </Flex>
                                 </Flex>
@@ -96,19 +49,19 @@ function HomeWeb() {
                                     <img src={imgHome} alt="Imagen Crear Documento Salida" style={{ width: 'auto', height: "190px" }} />
                                 </Flex>
                             </Flex>
-                            <Flex gap={"small"} vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "calc(100% - 220px)", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
+                            <Flex gap={"small"} vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "calc(100% - 240px)", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
                                 <Text className="home-title-section">Legajos Anclados</Text>
                                 <Table
                                     style={{ width: "100%" }}
                                     loading={false}
                                     rowKey="legajoId"
                                     columns={columns}
-                                    dataSource={dataLeg}
+                                    dataSource={anclados}
                                     pagination={{
-                                        onChange,
-                                        total: 8,
-                                        pageSize: 5,
-                                        current: 1,
+                                        onAncladosChange,
+                                        total: anclados.length,
+                                        pageSize: 4,
+                                        current: currentPage,
                                         showTotal: (total) => `Hay ${total} registros`,
                                     }}
                                     size="small"
@@ -119,26 +72,37 @@ function HomeWeb() {
 
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={8} xl={8} >
-                        <Flex vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "78vh", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
-                            <Text className="home-title-section">Calendario de Audiencias</Text>
+                        <Flex gap={"small"} vertical justify="flex-start" align="flex-start" style={{ width: "100%", height: "78vh", backgroundColor: "white", borderRadius: "7px", padding: "16px" }}>
+
                             <ConfigProvider locale={esES}>
-                                <Calendar fullscreen={false} onChange={onPanelChange} />
+                                <Calendar fullscreen={false} onChange={onDateChange}  />
                             </ConfigProvider>
 
-                            {
-                                dataAud.map((a) => (
-                                    <Flex gap={"small"} align="center" justify="flex-start" style={{ width: "100%", backgroundColor: colors.lightCian, padding: "8px", borderRadius: "7px" }}>
-                                        <div style={{ borderRadius: "50px", width: "35px", height: "35px", backgroundColor: colors.cian, alignContent: "center", justifyContent: "center" }}>
-                                            <CalendarBlank size={20} color="white" />
-                                        </div>
-                                        <Flex vertical justify="flex-start" align="flex-start">
-                                            <Text className="home-aud-title">{a.audienciaTitle}</Text>
-                                            <Text className="home-aud-subtitle">{a.audienciaLegajo} | {a.audienciaHora}</Text>
-                                        </Flex>
+                            {audiencias.length > 0 && (
+                                <>
+                                    <Text style={{ color: colors.blue }} onClick={onClickVerTodo}>Ir a mi calendario</Text>
+                                    <Flex gap={"small"} vertical justify="flex-start" align="flex-start" style={{ width: "100%", overflow: 'auto' }}>
+                                        {
+                                            audiencias?.map((a) => (
+                                                <Flex gap={"small"} align="center" justify="flex-start" style={{ width: "100%", backgroundColor: colors.lightGray, padding: "8px", borderRadius: "7px" }}>
+                                                    <Flex vertical justify="center" align="center" style={{ borderRadius: "50px", width: "35px", height: "35px", backgroundColor: colors.lightBlack }}>
+                                                        <CalendarBlank size={20} color="white" />
+                                                    </Flex>
+                                                    <Flex vertical justify="flex-start" align="flex-start" style={{ width: 'calc(100% - 35px)' }}>
+                                                        <Text className="home-aud-title">{a.audienciaTitle}</Text>
+                                                        <Text className="home-aud-subtitle">{a.audienciaLegajo} | {a.audienciaHora}</Text>
+                                                    </Flex>
 
+                                                </Flex>
+                                            ))
+                                        }
                                     </Flex>
-                                ))
+                                </>
+
+                            )
+
                             }
+
 
                         </Flex>
                     </Col>

@@ -59,6 +59,10 @@ function SiderLayout(props) {
         }
     };
 
+    const onClickHome = () =>{
+        navigate(paths.HOME)
+    }
+
     return (
         <>
             {!screens.md && !screens.xl && !screens.xxl? (
@@ -71,11 +75,12 @@ function SiderLayout(props) {
                     bodyStyle={{ backgroundColor: "#001529", padding: "0" }}
                 >
                     <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", padding: "4.0em 0.0em" }}>
-                        <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
+                        <Flex onClick={onClickHome} gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
                             <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
                                 <Lightning size={28} weight="fill" color={colors.white} />
 
                             </Flex>
+
                             <Text className="sie-sider-logo">SIE App</Text>
 
                         </Flex>
@@ -88,7 +93,7 @@ function SiderLayout(props) {
             ) : (
                 <Sider breakpoint="md" width="280px" style={siderStyle} collapsedWidth="75px" collapsible onCollapse={onCollapse}>
                     <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%", height: "100vh", padding: "4.0em 0.0em", overflow: "auto" }}>
-                        <Flex gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
+                        <Flex onClick={onClickHome} gap={"large"} justify="center" align="center" style={{ width: "100%", marginBottom: "3.0em" }}>
                             <Flex justify="center" align="center" style={{ width: "50px", height: "50px", background: colors.gradient, borderRadius: "5.0em" }}>
                                 <Lightning size={28} weight="fill" color={colors.white} />
 
