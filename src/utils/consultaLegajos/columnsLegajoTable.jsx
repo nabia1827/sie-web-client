@@ -9,14 +9,28 @@ import {
     FileArrowDown,
     FileArrowUp,
     PencilSimpleLine,
+    PushPin,
  } from "@phosphor-icons/react";
 
-export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalida,onClickEstado,onClickDownload,loadingsPDF) => {
+export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalida,onClickEstado,onClickDownload,loadingsPDF,onPinClick) => {
     const columns = [
         {
             title: 'Legajo',
             dataIndex: 'legajoCodigo',
-            key: 'legajoCodigo'
+            key: 'legajoCodigoTxt',
+            width:'130px',
+            render: (_, record) => (
+                <Flex gap={"small"} justify="center" align="center">
+                    {record.anclado?
+                    <Button onClick={()=>onPinClick(record.legajoId)} type="text" size="small" shape="circle" icon={<PushPin size={16} weight="fill" color={colors.lightBlack} />}></Button>
+                    :
+                    <Button onClick={()=>onPinClick(record.legajoId)} type="text" size="small" shape="circle" icon={<PushPin size={16} color={colors.gray} />}></Button>
+
+                    }
+                    <Text>{record.legajoCodigo}</Text>
+                    
+                </Flex>
+            ),
         },
         {
             title: 'Caso',
@@ -56,25 +70,16 @@ export const ColumnsLegajo = (onClickDetalle,onClickDocsIngreso,onClickDocsSalid
         {
             title: 'Acciones',
             key: 'acciones',
-            render: (_, record) => (
+            render: (_, record, index) => (
                 <Flex gap={"small"} justify="center" align="center">
                     <Button onClick={() => onClickDetalle(record.legajoId)} type="primary" shape="circle" style={{backgroundColor:colors.lightBlack}} icon={<Eye size={20} color={colors.white} />} />
                     <Button onClick={() => onClickDocsIngreso(record.legajoId)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<FileArrowDown size={20} color={colors.white} />} />
                     <Button onClick={() => onClickDocsSalida(record.legajoId)} type="primary" shape="circle" style={{backgroundColor:colors.cian}} icon={<FileArrowUp size={20} color={colors.white} />} />
                     <Button onClick={() => onClickEstado(record)} type="primary" shape="circle" style={{backgroundColor:colors.blue}} icon={<PencilSimpleLine size={20} color={colors.white} />} />
-                </Flex>
-            ),
-        },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record,index) => (
-                <Flex gap={"small"} justify="center" align="center">
                     <Button loading={loadingsPDF[index]} onClick={() =>onClickDownload(index,record.legajoId)} size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28}  style={{color:colors.red}} />} />
-                    
                 </Flex>
             ),
-        },
+        }
     ];
     
     return columns;

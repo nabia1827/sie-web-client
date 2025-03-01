@@ -58,8 +58,8 @@ function HomePage() {
     const onDateChange = (value) =>{
         setSelectedDate(value.format('DD/MM/YYYY'));
     }
-    const onPinClick = () => {
-        AnclarDesanclarLegajo(user.usuId).then((response)=>{
+    const onPinClick = (legajoId) => {
+        AnclarDesanclarLegajo(user.usuId,legajoId).then((response)=>{
             if(response.isSuccess){
                 setLoading(true);
                 fetchAnclados(user.usuId).then(()=>{
@@ -87,6 +87,9 @@ function HomePage() {
     const onClickVerTodo = () => {
         navigate(paths.MIS_AUDIENCIAS)
     }
+    const onClickLegajo = (legajoId) =>{
+        navigate(`/consulta-legajos/todos/${legajoId}/detalle`)
+    }
 
     return <>{isXsScreen ?
         <HomeMobile
@@ -100,6 +103,8 @@ function HomePage() {
         onDateChange = {onDateChange}
         onClickVerTodo = {onClickVerTodo}
         onPinClick = {onPinClick}
+        loading = {loading}
+        onClickLegajo = {onClickLegajo}
         />
     }
         

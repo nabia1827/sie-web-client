@@ -12,8 +12,8 @@ const { Header, Footer, Sider, Content } = Layout;
 const { useBreakpoint } = Grid;
 import api from "../../../../services/api";
 import useLegajoFilteredData from "../../../../hooks/filters/useLegajoFilteredData";
-import { onDownloadLegajoPDF,onDownloadExcel } from "../../../../utils/consultaLegajos/dinamicCalls";
-
+import { onDownloadLegajoPDF, onDownloadExcel } from "../../../../utils/consultaLegajos/dinamicCalls";
+import { AnclarDesanclarLegajo } from "../../../../utils/home/dinamicCalls";
 function ListadoLegajosPage(props) {
     const { allLegajos } = props;
     const screens = useBreakpoint();
@@ -46,7 +46,7 @@ function ListadoLegajosPage(props) {
         form,
         reloadData,
         usuId
-    } = useLegajoFilteredData(customApiCall,allLegajos);
+    } = useLegajoFilteredData(customApiCall, allLegajos);
 
     const onClickDetalle = (legajoId) => {
         console.log(legajoId)
@@ -67,10 +67,10 @@ function ListadoLegajosPage(props) {
 
     }
     const onClickDownload = async (index, legajoId) => {
-        enterLoading(index,true);
+        enterLoading(index, true);
         try {
-            onDownloadLegajoPDF(legajoId).then(()=>{
-                enterLoading(index,false);
+            onDownloadLegajoPDF(legajoId).then(() => {
+                enterLoading(index, false);
             });
         } catch (error) {
             message.error("Error al descargar el PDF");
@@ -80,7 +80,7 @@ function ListadoLegajosPage(props) {
     const onClickExcel = async () => {
         setExcelLoading(true)
         try {
-            onDownloadExcel(request,paginador,usuId,allLegajos).then(()=>{
+            onDownloadExcel(request, paginador, usuId, allLegajos).then(() => {
                 setExcelLoading(false)
             });
         } catch (error) {
@@ -94,20 +94,20 @@ function ListadoLegajosPage(props) {
             legajoId: currentRecord.legajoId,
             estadoId: editEstadoForm.getFieldValue("estadoId"),
             subfaseId: editEstadoForm.getFieldValue("subfaseId"),
-            usuarioId:user.usuId
+            usuarioId: user.usuId
         };
         UpdateEstadoLegajo(params).then(
-            (response) =>{
-                if(response.isSuccess){
+            (response) => {
+                if (response.isSuccess) {
                     setModalLoading(false);
                     setCurrentRecord(null);
                     reloadData();
                     setModalOpen(false);
-                }else{
+                } else {
                     setModalLoading(false);
                     message.error("Error al actualizar el estado del legajo");
                 }
-                
+
             }
         )
 
@@ -126,11 +126,11 @@ function ListadoLegajosPage(props) {
 
     const enterLoading = (index, value) => {
         setLoadingsPDF((prevLoadings) => {
-          const newLoadings = [...prevLoadings];
-          newLoadings[index] = value;
-          return newLoadings;
+            const newLoadings = [...prevLoadings];
+            newLoadings[index] = value;
+            return newLoadings;
         });
-        
+
     };
 
 
@@ -143,6 +143,14 @@ function ListadoLegajosPage(props) {
 
     }, [currentRecord]);
 
+    const onPinClick = (legajoId) => {
+        AnclarDesanclarLegajo(user.usuId, legajoId).then((response) => {
+            if (response.isSuccess) {
+                reloadData();
+            }
+        });
+    }
+
     return <>{isXsScreen ?
         <ListadoLegajosMobile
             onClickDetalle={onClickDetalle}
@@ -153,16 +161,17 @@ function ListadoLegajosPage(props) {
             onChangeCollapse={onChangeCollapse}
             allLegajos={allLegajos}
             abogados={allLegajos ? abogados : null}
-            paginador = {paginador}
-            loading = {loading}
-            onChange = {onChange}
-            request = {request}
-            setRequest = {setRequest}
-            onReset = {onReset}
-            form = {form}
-            loadingsPDF = {loadingsPDF}
-            onClickExcel = {onClickExcel}
-            excelLoading = {excelLoading}
+            paginador={paginador}
+            loading={loading}
+            onChange={onChange}
+            request={request}
+            setRequest={setRequest}
+            onReset={onReset}
+            form={form}
+            loadingsPDF={loadingsPDF}
+            onClickExcel={onClickExcel}
+            excelLoading={excelLoading}
+            onPinClick = {onPinClick}
         /> :
         <ListadoLegajosWeb
             onClickDetalle={onClickDetalle}
@@ -173,16 +182,17 @@ function ListadoLegajosPage(props) {
             onChangeCollapse={onChangeCollapse}
             allLegajos={allLegajos}
             abogados={allLegajos ? abogados : null}
-            paginador = {paginador}
-            loading = {loading}
-            onChange = {onChange}
-            request = {request}
-            setRequest = {setRequest}
-            onReset = {onReset}
-            form = {form}
-            loadingsPDF = {loadingsPDF}
-            onClickExcel = {onClickExcel}
-            excelLoading = {excelLoading}
+            paginador={paginador}
+            loading={loading}
+            onChange={onChange}
+            request={request}
+            setRequest={setRequest}
+            onReset={onReset}
+            form={form}
+            loadingsPDF={loadingsPDF}
+            onClickExcel={onClickExcel}
+            excelLoading={excelLoading}
+            onPinClick = {onPinClick}
         />
     }
         <ModalEstado
@@ -192,7 +202,7 @@ function ListadoLegajosPage(props) {
             modalLoading={modalLoading}
             currentRecord={currentRecord}
             form={editEstadoForm}
-            
+
         ></ModalEstado>
     </>;
 }

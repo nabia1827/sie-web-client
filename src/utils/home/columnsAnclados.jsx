@@ -7,20 +7,23 @@ import {
     PushPin,
  } from "@phosphor-icons/react";
 
-export const ColumnsAnclados = (onPinClick) => {
+export const ColumnsAnclados = (onPinClick,onClickLegajo) => {
     const columns = [
         {
             title: '',
             dataIndex: '',
             key: 'anclar',
             render: (_, record) => (
-                <Button onClick={onPinClick} size="small" shape="circle" type="text" icon={<PushPin size={16} weight="fill"/>} ></Button>
+                <Button onClick={()=>onPinClick(record.legajoId)} size="small" shape="circle" type="text" icon={<PushPin size={16} weight="fill"/>} ></Button>
             ),
         },
         {
             title: 'Legajo',
             dataIndex: 'legajoCodigo',
-            key: 'legajoCodigo'
+            key: 'legajoCodigo',
+            render: (_, record) => (
+                <a onClick={() => onClickLegajo(record.legajoId)}>{record.legajoCodigo}</a>
+            ),
         },
         {
             title: 'Caso',

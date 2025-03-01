@@ -25,7 +25,7 @@ import useLegajoFilteredData from "../../../../hooks/filters/useLegajoFilteredDa
 import { switchOnFieldsChange } from "../../../../utils/consultaLegajos/switchOnFieldsChange";
 
 function ListadoLegajosWeb(props) {
-    const { onClickDetalle, onClickDocsIngreso, onClickDocsSalida,
+    const { onClickDetalle, onClickDocsIngreso, onClickDocsSalida,onPinClick,
         onClickEstado, onClickDownload, onChangeCollapse, abogados,allLegajos, 
         paginador,loading, onChange,request,setRequest,onReset,form,loadingsPDF,onClickExcel,excelLoading} = props;
 
@@ -44,7 +44,8 @@ function ListadoLegajosWeb(props) {
         onClickDocsSalida,
         onClickEstado,
         onClickDownload,
-        loadingsPDF
+        loadingsPDF,
+        onPinClick
     )
 
     return (

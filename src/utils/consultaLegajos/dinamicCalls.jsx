@@ -65,7 +65,7 @@ export const onDownloadExcel = async (originalRequest,paginador,usuId,allLegajos
       filteredRequest.fechaRegistroFin = fechaRegistroFin;
       delete filteredRequest.fechaRegistro;
     }
-
+    filteredRequest.usuarioId = usuId;
 
     if (!allLegajos) {
       filteredRequest.abogadoId = usuId;

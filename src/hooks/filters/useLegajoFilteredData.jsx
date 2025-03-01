@@ -60,6 +60,7 @@ function useLegajoFilteredData(
                 delete filteredRequest.fechaRegistro;
             }
 
+            filteredRequest.usuarioId = usuId
             
             if(!allLegajos){
                 filteredRequest.abogadoId = usuId;
@@ -97,6 +98,7 @@ function useLegajoFilteredData(
             delete filteredRequest.fechaRegistro;
         }
 
+        filteredRequest.usuarioId = usuId
         
         if(!allLegajos){
             filteredRequest.abogadoId = usuId;
