@@ -93,6 +93,16 @@ function HomePage() {
 
     return <>{isXsScreen ?
         <HomeMobile
+        anclados = {anclados}
+        audiencias = {audiencias}
+        metricas = {metricas}
+        onAncladosChange = {onAncladosChange}
+        currentPage = {currentPage}
+        onDateChange = {onDateChange}
+        onClickVerTodo = {onClickVerTodo}
+        onPinClick = {onPinClick}
+        loading = {loading}
+        onClickLegajo = {onClickLegajo}
         /> :
         <HomeWeb
         anclados = {anclados}
