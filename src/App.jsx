@@ -46,6 +46,9 @@ function App() {
             Progress: {
               remainingColor:"rgba(244, 247, 254, 1)"
             },
+            Steps: {
+              descriptionMaxWidth:100
+            },
           },
           
         }}
