@@ -17,17 +17,23 @@ function PartesProcesalesMobile(props) {
                     imputados && agraviados ? (
                         <Flex vertical justify="flex-start" align="center" style={{ width: "100%", padding: "1.0em" }}>
                             <Flex gap={"small"} justify="flex-start" align="center" style={{ width: "100%" }}>
-                                <Users size={24} color={colors.lightBlack} />
+
                                 <Text className="sie-content-title">Partes Procesales</Text>
                             </Flex>
                             <br></br>
-                            <Flex vertical gap={"middle"} justify="flex-start" align="center" style={{ width: "100%" }}>
+
+                            <Flex vertical gap={"middle"} justify="flex-start" align="flex-start" style={{ width: "100%" }}>
+                                <Text className="sie-info-column-subtitle" >
+                                    IMPUTADOS
+                                </Text>
                                 {imputados?.map((imp) => (
                                     <ParteProcesalCard tipo={1} pp={imp} />
                                 ))
 
                                 }
-
+                                <Text className="sie-info-column-subtitle" >
+                                    AGRAVIADOS
+                                </Text>
                                 {agraviados?.map((agr) => (
                                     <ParteProcesalCard tipo={2} pp={agr} />
                                 ))

@@ -36,6 +36,7 @@ function HeaderLayout() {
     const navigate = useNavigate();
     const location = useLocation();
     const screens = useBreakpoint();
+
     const dispatch = useDispatch();
     const pathname = location.pathname
     const [imageProfile, setImageProfile] = useState(null);
@@ -151,7 +152,7 @@ function HeaderLayout() {
     }
 
     //Modal - Update User Email
-    
+
 
     const [mdEmailLoading, setMdEmailLoading] = useState(false);
     const [mdEmailOpen, setMdEmailOpen] = useState(false);
@@ -201,7 +202,7 @@ function HeaderLayout() {
                 setImageProfile(null);
             }
         });
-        
+
     };
 
     useEffect(() => {
@@ -222,62 +223,79 @@ function HeaderLayout() {
     return (
         <>
             <Header style={headerStyle}>
-                <Flex justify="space-between" align="flex-start" style={{ background: colors.gradient, width: "100%", height: "98%", borderRadius: "0.8em", padding: "1.5em" }}>
-                    <Flex vertical gap={0} justify="flex-start" align="flex-start" style={{ height: "100%" }}>
-                        <Breadcrumb
-                            items={getBreadcumbItems(pathname)}
-                        />
-                        <Flex justify="flex-start" align="center" >
-                            {showBackIcon(pathname) &&
-                                <Button onClick={onBack} size="middle" type="text" shape="circle" icon={<ArrowLeft size={20} color={colors.white} />} />
-                            }
-                            <Text className="sie-header-title">{getTitle(pathname)}</Text>
+                {!screens.xxl && !screens.xl && !screens.lg ? (
+                    <Flex gap={"small"} vertical justify="space-between" align="flex-start" style={{ background: colors.gradient, width: "100%", height: "98%", borderRadius: "0.8em", padding: "1.5em" }}>
+                        
+                        <Flex vertical gap={0} justify="flex-start" align="flex-start" style={{width:"100%"}}>
+                            <Breadcrumb
+                                items={getBreadcumbItems(pathname)}
+                            />
+                            <Flex justify="flex-start" align="center" >
+                                {showBackIcon(pathname) &&
+                                    <Button onClick={onBack} size="middle" type="text" shape="circle" icon={<ArrowLeft size={20} color={colors.white} />} />
+                                }
+                                <Text className="sie-header-title">{getTitle(pathname)}</Text>
+                            </Flex>
                         </Flex>
+
                     </Flex>
-                    <Flex gap={"small"} justify="flex-end" align="center" >
 
-                        <Popover
-                            onOpenChange={onNotificationOpenChange}
+                ) : (
+                    <Flex justify="space-between" align="flex-start" style={{ background: colors.gradient, width: "100%", height: "98%", borderRadius: "0.8em", padding: "1.5em" }}>
+                        <Flex vertical gap={0} justify="flex-start" align="flex-start" style={{ height: "100%" }}>
+                            <Breadcrumb
+                                items={getBreadcumbItems(pathname)}
+                            />
+                            <Flex justify="flex-start" align="center" >
+                                {showBackIcon(pathname) &&
+                                    <Button onClick={onBack} size="middle" type="text" shape="circle" icon={<ArrowLeft size={20} color={colors.white} />} />
+                                }
+                                <Text className="sie-header-title">{getTitle(pathname)}</Text>
+                            </Flex>
+                        </Flex>
+                        <Flex gap={"small"} justify="flex-end" align="center" >
 
-                            placement="bottom" style={{ padding: "10px", maxHeight: "400px", overflowY: "auto" }}
-                            content={<NotificationList notifications={notificaciones} />}
-                        >
-                            {notificaciones.length > 0 ? (
-                                <Badge count={notificaciones.length} size="small" offset={[-10, 3]}>
+                            <Popover
+                                onOpenChange={onNotificationOpenChange}
+
+                                placement="bottom" style={{ padding: "10px", maxHeight: "400px", overflowY: "auto" }}
+                                content={<NotificationList notifications={notificaciones} />}
+                            >
+                                {notificaciones.length > 0 ? (
+                                    <Badge count={notificaciones.length} size="small" offset={[-10, 3]}>
+                                        <Button size="large" type="text" shape="circle" icon={<Bell size={28} color={colors.white} />} />
+                                    </Badge>
+                                ) : (
                                     <Button size="large" type="text" shape="circle" icon={<Bell size={28} color={colors.white} />} />
-                                </Badge>
-                            ) : (
-                                <Button size="large" type="text" shape="circle" icon={<Bell size={28} color={colors.white} />} />
+                                )
+
+                                }
+                            </Popover>
+                            <Tooltip title="Correo">
+                                <Button onClick={showMdEmail} size="large" type="text" shape="circle" icon={<EnvelopeSimple size={28} color={colors.white} />} />
+                            </Tooltip>
+
+
+                            {screens.lg && (
+                                <Flex vertical justify="flex-start" align="flex-start">
+                                    <Text className="sie-header-user">{`${user.usuNombre} ${user.usuApellidoPat}`}</Text>
+                                    <Text className="sie-header-rol">{`${PerfilesNombre[user.perfilId - 1]}`}</Text>
+                                </Flex>
                             )
 
                             }
-                        </Popover>
-                        <Tooltip title="Correo">
-                            <Button onClick={showMdEmail} size="large" type="text" shape="circle" icon={<EnvelopeSimple size={28} color={colors.white} />} />
-                        </Tooltip>
+                            {imageProfile ? (
+                                <Avatar onClick={showMdPhoto} style={{ border: "2px solid white" }} size={36} src={<img src={imageProfile} alt="avatar" />} />
+                            ) : (
+                                <Avatar onClick={showMdPhoto} style={{ backgroundColor: colors.lightBlack, color: 'white' }}>{user.usuNombre[0]}</Avatar>
+                            )
 
-
-                        {screens.lg && (
-                            <Flex vertical justify="flex-start" align="flex-start">
-                                <Text className="sie-header-user">{`${user.usuNombre} ${user.usuApellidoPat}`}</Text>
-                                <Text className="sie-header-rol">{`${PerfilesNombre[user.perfilId - 1]}`}</Text>
-                            </Flex>
-                        )
-
-                        }
-                        {imageProfile ? (
-                            <Avatar onClick={showMdPhoto} style={{ border: "2px solid white" }} size={36} src={<img src={imageProfile} alt="avatar" />} />
-                        ) : (
-                            <Avatar onClick={showMdPhoto} style={{ backgroundColor: colors.lightBlack, color: 'white' }}>{user.usuNombre[0]}</Avatar>
-                        )
-
-                        }
-
-
-
-
+                            }
+                        </Flex>
                     </Flex>
-                </Flex>
+                )
+
+                }
 
             </Header>
             <ModalEditarEmail
