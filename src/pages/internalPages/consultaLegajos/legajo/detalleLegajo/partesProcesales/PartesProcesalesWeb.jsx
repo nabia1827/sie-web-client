@@ -13,25 +13,6 @@ function PartesProcesalesWeb(props) {
     const columnsImputados = ColumnsImputados()
     const columnsAgraviados = ColumnsAgraviados()
 
-    /*
-    {
-            imputado:"Debora Leon Sanchez",
-            tipoDoc:"DNI",
-            nroDoc:"72606359",
-            delitos:["Tenencia Ilegal de Armas","Homicidio Culposo"],
-            estado:"Investigado",
-        },
-    */
-
-    /*
-    {
-            agraviado:"Ivan Fernandez Rodriguez",
-            tipoDoc:"DNI",
-            nroDoc:"72606348",
-        },
-    */
-
-
     return (
         <>
             <Spin spinning={loadingPp} style={{ width: "100%", minHeight: "60vh" }}>
