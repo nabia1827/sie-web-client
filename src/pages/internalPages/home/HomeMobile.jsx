@@ -22,7 +22,6 @@ function HomeMobile(props){
 
     const columns = ColumnsAnclados(onPinClick,onClickLegajo);
 
-    console.log("anclados: ", anclados)
 
 
     return (
