@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Tabs, Flex, Steps } from "antd";
 import InfoGeneralMobile from "./informacionGeneral/InfoGeneralMobile";
 import PartesProcesalesMobile from "./partesProcesales/PartesProcesalesMobile";
+import ResultadosFinalesMobile from "./resultadosFinales/ResultadosFinalesMobile";
+import HistorialAudienciasMobile from "./historialAudiencias/HistorialAudienciasMobile";
+
 function DetalleLegajoMobile(props) {
     const {showMdObs,showMdApel,legajo, loadingInfo,
         imputados, agraviados,loadingPp,audiencias,loadingAud,resultados,loadingRes,
@@ -25,11 +28,11 @@ function DetalleLegajoMobile(props) {
             status: 'process',
         },
         {
-            content: 'Third-content',
+            content: <HistorialAudienciasMobile onClickAsistencia={onClickAsistencia} onRefreshAudiencias={onRefreshAudiencias} audiencias={audiencias} loadingAud={loadingAud} showMdObs = {showMdObs}></HistorialAudienciasMobile>,
             status: 'process',
         },
         {
-            content: 'Last-content',
+            content: <ResultadosFinalesMobile resultados={resultados} loadingRes={loadingRes} showMdApel = {showMdApel}></ResultadosFinalesMobile>,
             status: 'process',
         },
     ]

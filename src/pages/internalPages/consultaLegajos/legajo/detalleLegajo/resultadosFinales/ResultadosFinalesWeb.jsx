@@ -29,10 +29,7 @@ function ResultadosFinalesWeb(props) {
                                 style={{ width: "100%" }}
                                 columns={columns}
                                 dataSource={resultados}
-                                pagination={{
-                                    pageSize: 5,
-                                    size: "small"
-                                }}
+                                pagination={false}
                                 size="small"
                             />
 
