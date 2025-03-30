@@ -29,7 +29,7 @@ function SiderLayout(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const screens = useBreakpoint();
-    console.log("BREAKPOINT!!!", screens);
+
     const { perfilId } = useSelector((state) => state.auth.user);
     const [items, setItems] = useState([]);
     

@@ -193,15 +193,20 @@ function MisAudienciasPage() {
     }, plugins)
 
     const fetchMisAudiencias = async (start, end, usuId) => {
+        console.log("UsuId: ", usuId)
         //setLoadingInfo(true);
         try {
             const response = await GetMisAudienciasByWeek(start, end, usuId)
             console.log("Mis Audiencias GET: ", response.data)
-            calendar.eventsService.set(response.data);
+            calendar.eventsService.set(response.data?response.data:[]);
         } finally {
             //setLoadingInfo(false);
         }
     };
+
+    useEffect(() => {
+        console.log("User: ", user)
+    }, [user])
 
     useEffect(() => {
         const { start, end } = calendar.calendarControls.getRange()
