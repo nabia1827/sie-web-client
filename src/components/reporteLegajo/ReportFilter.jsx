@@ -40,7 +40,7 @@ function ReportFilter(props) {
                 }}
             >
                 <Row gutter={[8,0]} justify={"center"} align={"center"} style={{ width: "100%" }}>
-                    <Col xs={12} sm={8} md={8} lg={6} xl={6} style={{ alignContent: "center", textAlign: "left" }}>
+                    <Col xs={24} sm={8} md={8} lg={6} xl={6} style={{ alignContent: "center", textAlign: "left" }}>
                         <Form.Item
                             label={<Text className="sie-info-column-content" >Filtro de Año</Text>}
                             name='anio'
@@ -63,7 +63,7 @@ function ReportFilter(props) {
                         </Form.Item>
                     </Col>
 
-                    <Col xs={12} sm={8} md={8} lg={6} xl={6} style={{ alignContent: "center", textAlign: "left" }}>
+                    <Col xs={24} sm={8} md={8} lg={6} xl={6} style={{ alignContent: "center", textAlign: "left" }}>
                         <Form.Item
                             label={<Text className="sie-info-column-content" >Filtro de Mes</Text>}
                             name='mes'
