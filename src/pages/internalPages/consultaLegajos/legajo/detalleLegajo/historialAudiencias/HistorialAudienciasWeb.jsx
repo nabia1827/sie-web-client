@@ -32,10 +32,7 @@ function HistorialAudienciasWeb(props) {
                                 style={{ width: "100%" }}
                                 columns={columns}
                                 dataSource={audiencias}
-                                pagination={{
-                                    pageSize: 5,
-                                    size: "small"
-                                }}
+                                pagination={false}
                                 size="small"
                             />
 

@@ -31,7 +31,7 @@ function ParteProcesalCard(props) {
                     </Flex>
                 </Card>
             ) : (
-                <Flex justify="flex-start" align="center" style={{padding:"10px",width:"100%",borderRadius:"5px",border:`1px solid ${colors.lightGray}`}}>
+                <Flex vertical justify="flex-start" align="flex-start" style={{padding:"10px",width:"100%",borderRadius:"5px",border:`1px solid ${colors.lightGray}`}}>
                     <Text >{pp.agraviadoNombre}</Text>
                     {pp.tipoDoc &&(
                         <Text > {pp.tipoDoc} : {pp.nroDoc} </Text>
