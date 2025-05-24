@@ -21,7 +21,7 @@ function AdicionarDocsWeb(props){
         loadingCl,dataLeg,showMdAddImp,
         loadingRes,dataRes, showMdEditRes,showMdEditImp,showMdAgr,showMdDelImp,showMdDelAgr,showMdDelRes,
 
-        showMdBtnSv
+        showMdBtnSv,typeOfDesign
 
         //loadingDd, formDd, dataDd
         // loadingDg, formDg, dataDg
@@ -84,7 +84,7 @@ function AdicionarDocsWeb(props){
                         <CollapserPartesProc
                             loading = {loadingPp}
                             imputados = {dataImp}
-
+                            typeOfDesign={typeOfDesign}
                             showMdAddImp = {showMdAddImp}
                             showMdEditImp={showMdEditImp}
                             showMdDelImp={showMdDelImp}
@@ -98,6 +98,7 @@ function AdicionarDocsWeb(props){
 
                         <CollapserResultado
                             loading={loadingRes}
+                            typeOfDesign={typeOfDesign}
                             resultados={dataRes}
                             showMdApel={showMdApel}
                             showMdEditRes={showMdEditRes}

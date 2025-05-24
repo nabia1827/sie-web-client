@@ -22,7 +22,7 @@ export default function CardLegajo(
     loadingsPDF,
     onPinClick,
     record,
-    index
+    index,
   }
 ) {
     console.log("record = ", record)

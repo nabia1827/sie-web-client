@@ -1,5 +1,6 @@
-import { Flex,Typography, Input, Collapse, Empty,Row, Col, Spin, Table, Button} from "antd";
+import { Flex,Typography, Input, Collapse, Empty,Row, Col, Spin, Table, Button,Pagination} from "antd";
 import { ColumnsImputados } from "../../../utils/nuevoLegajo/columnsPartesColapserTable";
+import ParteProcesalCard from "../../consultaLegajos/ParteProcesalCard";
 import {
     PlusOutlined
   } from '@ant-design/icons';
@@ -9,7 +10,7 @@ import {
     Users
 } from "@phosphor-icons/react";
 function CollapserPartesProc(props) {
-    const { imputados, loading, showMdEditImp, showMdDelImp,showMdAddImp} = props;
+    const { imputados, loading, showMdEditImp, showMdDelImp,showMdAddImp,typeOfDesign} = props;
     
     
     const columnsImputados = ColumnsImputados(showMdEditImp, showMdDelImp)
@@ -34,14 +35,36 @@ function CollapserPartesProc(props) {
                                                
                                                 <Flex vertical gap={"middle"} justify="flex-start" align="flex-end" style={{ width: "100%" }}>
                                                     <Button onClick={showMdAddImp} icon={<PlusOutlined />} type="text" >Añadir Imputado</Button>
-                                                    <Table
-                                                        rowKey={"imputadoId"}
-                                                        style={{ width: "100%" }}
-                                                        columns={columnsImputados}
-                                                        dataSource={imputados}
-                                                        pagination={false}
-                                                        size="small"
-                                                    />
+                                                    
+                                                    {
+
+                                                        typeOfDesign==="web"?
+                                                        (
+                                                            <Table
+                                                                rowKey={"imputadoId"}
+                                                                style={{ width: "100%" }}
+                                                                columns={columnsImputados}
+                                                                dataSource={imputados}
+                                                                pagination={false}
+                                                                size="small"
+                                                            />
+                                                        )
+                                                        :(
+
+                                                            imputados?.map((record, index) => (
+                                                                <ParteProcesalCard
+                                                                    key = {index}
+                                                                    pp = {record}
+                                                                    tipo = {1}
+                                                                    isReception = {true}
+                                                                    showMdEditImp = {showMdEditImp}
+                                                                    showMdDelImp = {showMdDelImp}
+                                                                />
+                                                            ))
+                                                            
+                                                        )
+                                                    }
+                                                    
                                                 </Flex>
 
                                             </Flex>

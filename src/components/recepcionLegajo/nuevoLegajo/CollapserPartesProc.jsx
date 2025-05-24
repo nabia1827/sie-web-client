@@ -1,6 +1,8 @@
 import { Flex, Typography, Input, Collapse, Empty, Row, Col, Spin, Table, Button } from "antd";
 import { ColumnsImputados, ColumnsAgraviados } from "../../../utils/nuevoLegajo/columnsPartesColapserTable";
 import { colors } from "../../../utils/colors";
+import ParteProcesalCard from "../../consultaLegajos/ParteProcesalCard";
+
 import {
     PlusOutlined
 } from '@ant-design/icons';
@@ -10,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 function CollapserPartesProc(props) {
     const { imputados, agraviados, loadingPp, showMdEditImp, showMdDelImp, showMdEditAgr, showMdDelAgr,
-        showMdAddAgr,showMdAddImp
+        showMdAddAgr,showMdAddImp,typeOfDesign
      } = props;
 
 
@@ -39,23 +41,67 @@ function CollapserPartesProc(props) {
 
                                                 <Flex vertical gap={"middle"} justify="flex-start" align="flex-end" style={{ width: "100%" }}>
                                                     <Button onClick={showMdAddImp} icon={<PlusOutlined />} type="text" >Añadir Imputado</Button>
-                                                    <Table
-                                                        rowKey={"imputadoId"}
-                                                        style={{ width: "100%" }}
-                                                        columns={columnsImputados}
-                                                        dataSource={imputados}
-                                                        pagination={false}
-                                                        size="small"
-                                                    />
+                                                    {
+
+                                                        typeOfDesign==="web"?
+                                                        (
+                                                            <Table
+                                                                rowKey={"imputadoId"}
+                                                                style={{ width: "100%" }}
+                                                                columns={columnsImputados}
+                                                                dataSource={imputados}
+                                                                pagination={false}
+                                                                size="small"
+                                                            />
+                                                        )
+                                                        :(
+
+                                                            imputados?.map((record, index) => (
+                                                                <ParteProcesalCard
+                                                                    key = {index}
+                                                                    pp = {record}
+                                                                    tipo = {1}
+                                                                    isReception = {true}
+                                                                    showMdEditImp = {showMdEditImp}
+                                                                    showMdDelImp = {showMdDelImp}
+                                                                />
+                                                            ))
+                                                            
+                                                        )
+                                                    }
+                                                    
+                                                    
                                                     <Button onClick={showMdAddAgr} icon={<PlusOutlined />} type="text" >Añadir Agraviado</Button>
-                                                    <Table
-                                                        rowKey={"agraviadoId"}
-                                                        style={{ width: "100%" }}
-                                                        columns={columnsAgraviados}
-                                                        dataSource={agraviados}
-                                                        pagination={false}
-                                                        size="small"
-                                                    />
+                                                    
+                                                    {
+
+                                                        typeOfDesign==="web"?
+                                                        (
+                                                            <Table
+                                                                rowKey={"agraviadoId"}
+                                                                style={{ width: "100%" }}
+                                                                columns={columnsAgraviados}
+                                                                dataSource={agraviados}
+                                                                pagination={false}
+                                                                size="small"
+                                                            />
+                                                        )
+                                                        :(
+
+                                                            agraviados?.map((record, index) => (
+                                                                <ParteProcesalCard
+                                                                    key = {index}
+                                                                    pp = {record}
+                                                                    tipo = {2}
+                                                                    isReception = {true}
+                                                                    showMdEditImp = {showMdEditImp}
+                                                                    showMdDelImp = {showMdDelImp}
+                                                                />
+                                                            ))
+                                                            
+                                                        )
+                                                    }
+                                                    
                                                 </Flex>
 
                                             </Flex>

@@ -3,16 +3,21 @@ import { Tag, Button, Flex, Typography, Card } from "antd";
 import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../../utils/colors";
 const { Text } = Typography;
+import {
+    PencilSimpleLine,
+    TrashSimple,
+} from "@phosphor-icons/react";
 
 function ParteProcesalCard(props) {
-    const { pp, tipo } = props;
+    const { pp, tipo, isReception, showMdEditImp,showMdDelImp} = props;
 
     return (
         <>
             {tipo == 1 ? (
                 <Card
+                    style={{width:"100%"}}
                     title={pp.imputadoNombre}
-                    extra={<Button size="small" type="text" shape="circle" icon={<FilePdfOutlined size={20} style={{ color: colors.red }} />} />}
+                    extra={<Button size="small" type="text" shape="circle" icon={<FilePdfOutlined size={20} style={{ color: colors.red}} />} />}
                 >
                     <Flex vertical justify="flex-start" align="flex-start" style={{ width: "100%" }}>
                         <Text style={{ textAlign: "left" }}>
@@ -28,6 +33,14 @@ function ParteProcesalCard(props) {
                             ))
                             }
                         </ul>
+                        {
+                            isReception !== undefined && (
+                                <Flex gap={"small"} justify="center" align="center" style={{width:"100%", paddingTop:"10px"}}>
+                                    <Button onClick={() => showMdEditImp(pp)} type="primary" shape="circle" style={{ backgroundColor: colors.blue }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
+                                    <Button onClick={() => showMdDelImp(pp.imputadoId)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
+                                </Flex>
+                            )
+                        }
                     </Flex>
                 </Card>
             ) : (

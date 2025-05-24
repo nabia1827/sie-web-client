@@ -454,8 +454,8 @@ function NuevoLegajoPage() {
         const agraviadoEdit = {
             agraviadoId:agraviadoId,
             nombre:nombre,
-            tipoDocId: tipoDocId,
-            nroDoc:nroDoc,
+            tipoDocId: tipoDocId?tipoDocId:0,
+            nroDoc:nroDoc?nroDoc:"",
             usuarioId:usuId
         }
 
@@ -593,29 +593,51 @@ function NuevoLegajoPage() {
     const screens = useBreakpoint();
     const isXsScreen = screens.xs !== undefined && screens.xs;
 
+
     return <>
-        {isXsScreen ?
+        {screens.xl===false && screens.xxl===false && screens.lg===false ?
             <NuevoLegajoMobile
 
-                loadingDd={loadingDd}
-                dataDd={dataDd}
-
-                loadingDg={loadingDg}
-                dataDg={dataDg}
+                loadingDd={loadingDd} // loadingDd, dataDd, formDd
+                dataDd={dataDd} 
                 formDd = {formDd}
 
-                loadingAud={loadingAud}
+                typeOfDesign = {"mobile"}
+
+                loadingDg={loadingDg}  //loadingDg , dataDg, formDg
+                dataDg={dataDg}
+                formDg={formDg}
+                fetchJuzgados = {fetchJuzgados}
+                fetchFiscalias = {fetchFiscalias}
+
+                loadingAud={loadingAud} 
                 dataAud={dataAud}
+                formAud={formAud}
 
                 loadingPp={loadingPp}
                 dataImp={dataImp}
-
+                dataAgr={dataAgr}
 
                 loadingRes={loadingRes}
                 dataRes={dataRes}
 
                 dataLeg={dataLeg}
                 loadingCl = {loadingCl}
+
+                showMdAddImp = {showMdAddImp}
+                showMdAddAgr={showMdAddAgr}
+
+                showMdEditRes={showMdEditRes}
+                showMdEditImp={showMdEditImp}
+                showMdEditAgr={showMdEditAgr}
+
+                showMdDelImp={showMdDelImp}
+                showMdDelRes={showMdDelRes}
+                showMdDelAgr= {showMdDelAgr}
+
+                showMdApel={showMdApel}
+
+                showMdBtnSv = {showMdBtnSv}
                 
 
             /> :
@@ -624,6 +646,8 @@ function NuevoLegajoPage() {
                 loadingDd={loadingDd} // loadingDd, dataDd, formDd
                 dataDd={dataDd} 
                 formDd = {formDd}
+
+                typeOfDesign = {"web"}
 
                 loadingDg={loadingDg}  //loadingDg , dataDg, formDg
                 dataDg={dataDg}
