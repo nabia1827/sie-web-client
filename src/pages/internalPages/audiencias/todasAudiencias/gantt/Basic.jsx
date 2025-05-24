@@ -434,7 +434,7 @@ class Basic extends Component {
     }
 
     eventClicked = (schedulerData, event) => {
-        const { deleteItemsList, isDeleting,isDetalleVisible } = this.state;
+        const { deleteItemsList, isDeleting,isDetalleVisible, isEditing } = this.state;
 
         if (isDeleting) {
             const updatedDeleteItemsList = [...deleteItemsList];
@@ -454,7 +454,7 @@ class Basic extends Component {
                 deleteItemsList: updatedDeleteItemsList,
                 viewModel: schedulerData,
             });
-        }else{
+        }else if(!isEditing){
             this.setState({ detalleId: event.id });
             this.setState({ isDetalleVisible: !isDetalleVisible });
         }

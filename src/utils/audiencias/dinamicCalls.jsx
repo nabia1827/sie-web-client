@@ -13,8 +13,8 @@ export const InsertNuevasAudiencias = async (events, usuarioId) => {
 
             // Crear un objeto de audiencia
             return {
-                startTime: dayjs(start).utc().toISOString(),
-                endTime: dayjs(end).utc().toISOString(),
+                startTime: start,//dayjs(start).utc().toISOString(),
+                endTime: end,//dayjs(end).utc().toISOString(),
                 abogadoId: resourceId,
                 audienciaTipoId: audienciaTipoId,
                 legajoId: legajoId,
