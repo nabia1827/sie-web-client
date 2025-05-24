@@ -469,31 +469,53 @@ function AdicionarDocsPage() {
     const isXsScreen = screens.xs !== undefined && screens.xs;
 
     return <>
-        {isXsScreen ?
+        {screens.xl===false && screens.xxl===false && screens.lg===false ?
             <AdicionarDocsMobile
 
-                loadingDd={loadingDd}
+                loadingDd={loadingDd} // loadingDd, dataDd, formDd
                 dataDd={dataDd}
-
-                loadingDg={loadingDg}
-                dataDg={dataDg}
                 formDd={formDd}
+
+                typeOfDesign = {"mobile"}
+
+                loadingDg={loadingDg}  //loadingDg , dataDg, formDg
+                dataDg={dataDg}
+                formDg={formDg}
+                fetchJuzgados={fetchJuzgados}
+                fetchFiscalias={fetchFiscalias}
 
                 loadingAud={loadingAud}
                 dataAud={dataAud}
+                formAud={formAud}
 
                 loadingPp={loadingPp}
                 dataImp={dataImp}
-                //agraviados={agraviados}
 
                 loadingRes={loadingRes}
                 dataRes={dataRes}
+
+                dataLeg={dataLeg}
+                loadingCl={loadingCl}
+
+                showMdAddImp = {showMdAddImp}
+                
+                showMdEditRes={showMdEditRes}
+                showMdEditImp={showMdEditImp}
+
+                showMdDelImp={showMdDelImp}
+                showMdDelRes={showMdDelRes}
+
+                showMdApel={showMdApel}
+
+                showMdBtnSv={showMdBtnSv}
             /> :
             <AdicionarDocsWeb
 
                 loadingDd={loadingDd} // loadingDd, dataDd, formDd
                 dataDd={dataDd}
                 formDd={formDd}
+
+                typeOfDesign = {"web"}
 
                 loadingDg={loadingDg}  //loadingDg , dataDg, formDg
                 dataDg={dataDg}

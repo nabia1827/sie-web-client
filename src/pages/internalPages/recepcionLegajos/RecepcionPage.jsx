@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, Grid, Form, message,notification } from "antd";
 import RecepcionMobile from "./RecepcionMobile";
 import RecepcionWeb from "./RecepcionWeb";
@@ -18,6 +18,10 @@ function RecepcionPage() {
     const [fileList, setFileList] = useState([]);
 
     const [form] = Form.useForm();
+
+    useEffect(() => {
+        console.log(screens)
+    }, [screens]);
 
     const uploadProps = {
         onRemove: (file) => {

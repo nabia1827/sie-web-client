@@ -33,7 +33,7 @@ function RecepcionWeb(props) {
                                 labelCol={{
                                     xxl: 6,
                                     xl: 6,
-                                    lg: 6,
+                                    lg: 24,
                                     md: 24,
                                     sm: 24,
                                     xs: 24,
@@ -41,7 +41,7 @@ function RecepcionWeb(props) {
                                 wrapperCol={{
                                     xxl: 18,
                                     xl: 18,
-                                    lg: 18,
+                                    lg: 24,
                                     md: 24,
                                     sm: 24,
                                     xs: 24,

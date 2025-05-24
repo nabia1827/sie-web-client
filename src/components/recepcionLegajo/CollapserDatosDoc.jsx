@@ -91,7 +91,7 @@ function CollapserDatosDoc(props) {
                                             lg: 9,
                                             md: 9,
                                             sm: 9,
-                                            xs: 9,
+                                            xs: 24,
                                         }}
                                         wrapperCol={{
                                             xxl: 15,
@@ -99,7 +99,7 @@ function CollapserDatosDoc(props) {
                                             lg: 15,
                                             md: 15,
                                             sm: 15,
-                                            xs: 15,
+                                            xs: 24,
                                         }}
                                         labelAlign="left"
 

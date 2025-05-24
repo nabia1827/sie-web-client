@@ -86,7 +86,7 @@ function CollapserDatosGen(props) {
                                         lg: 10,
                                         md: 10,
                                         sm: 10,
-                                        xs: 10,
+                                        xs: 24,
                                     }}
                                     wrapperCol={{
                                         xxl: 14,
@@ -94,7 +94,7 @@ function CollapserDatosGen(props) {
                                         lg: 14,
                                         md: 14,
                                         sm: 14,
-                                        xs: 14,
+                                        xs: 24,
                                     }}
                                     labelAlign="left"
                                     labelWrap
@@ -140,22 +140,7 @@ function CollapserDatosGen(props) {
                                                     label={<Text>Subfase:</Text >} 
                                                     name='subfase'
 
-                                                    labelCol={{
-                                                        xxl: 6,
-                                                        xl: 6,
-                                                        lg: 6,
-                                                        md: 6,
-                                                        sm: 6,
-                                                        xs: 6,
-                                                    }}
-                                                    wrapperCol={{
-                                                        xxl: 18,
-                                                        xl: 18,
-                                                        lg: 18,
-                                                        md: 18,
-                                                        sm: 18,
-                                                        xs: 18,
-                                                    }}
+                                     
                                                 
                                                 >
                                                     <Select
@@ -180,22 +165,7 @@ function CollapserDatosGen(props) {
                                                     label={<Text>Tipo Proceso:</Text >} 
                                                     name='tipoProceso'
 
-                                                    labelCol={{
-                                                        xxl: 10,
-                                                        xl: 10,
-                                                        lg: 10,
-                                                        md: 10,
-                                                        sm: 10,
-                                                        xs: 10,
-                                                    }}
-                                                    wrapperCol={{
-                                                        xxl: 14,
-                                                        xl: 14,
-                                                        lg: 14,
-                                                        md: 14,
-                                                        sm: 14,
-                                                        xs: 14,
-                                                    }}
+                                                    
                                                 >
                                                     <Select
                                                         style={{ textAlign: 'left' }}
@@ -219,22 +189,7 @@ function CollapserDatosGen(props) {
                                                     label={<Text>Dependencia Mininter:</Text >} 
                                                     name='dependenciaMininter'
 
-                                                    labelCol={{
-                                                        xxl: 10,
-                                                        xl: 10,
-                                                        lg: 10,
-                                                        md: 10,
-                                                        sm: 10,
-                                                        xs: 10,
-                                                    }}
-                                                    wrapperCol={{
-                                                        xxl: 14,
-                                                        xl: 14,
-                                                        lg: 14,
-                                                        md: 14,
-                                                        sm: 14,
-                                                        xs: 14,
-                                                    }}
+                                                   
                                                 >
                                                     <Select
                                                         style={{ textAlign: 'left' }}
@@ -268,22 +223,7 @@ function CollapserDatosGen(props) {
                                                     label={<Text>Juzgado IP:</Text >} 
                                                     name='juzgadoIp'
 
-                                                    labelCol={{
-                                                        xxl: 5,
-                                                        xl: 5,
-                                                        lg: 5,
-                                                        md: 5,
-                                                        sm: 5,
-                                                        xs: 5,
-                                                    }}
-                                                    wrapperCol={{
-                                                        xxl: 19,
-                                                        xl: 19,
-                                                        lg: 19,
-                                                        md: 19,
-                                                        sm: 19,
-                                                        xs: 19,
-                                                    }}
+                                
 
                                                     
                                                 >
@@ -315,22 +255,7 @@ function CollapserDatosGen(props) {
                                                     label={<Text>Juzgado Enjuiciamiento:</Text >} 
                                                     name='juzgadoE'
                                                     
-                                                    labelCol={{
-                                                        xxl: 7,
-                                                        xl: 7,
-                                                        lg: 7,
-                                                        md: 7,
-                                                        sm: 7,
-                                                        xs: 7,
-                                                    }}
-                                                    wrapperCol={{
-                                                        xxl: 17,
-                                                        xl: 17,
-                                                        lg: 17,
-                                                        md: 17,
-                                                        sm: 17,
-                                                        xs: 17,
-                                                    }}
+                                                
 
                                                     
                                                 >

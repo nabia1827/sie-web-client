@@ -22,7 +22,8 @@ function NuevoLegajoWeb(props){
         loadingRes,dataRes, showMdEditRes,showMdDelRes,
         loadingCl,dataLeg,
 
-        showMdBtnSv
+        showMdBtnSv,
+        typeOfDesign
 
         //loadingDd, formDd, dataDd
         // loadingDg, formDg, dataDg
@@ -85,6 +86,7 @@ function NuevoLegajoWeb(props){
 
                         <CollapserPartesProc
                             loadingPp = {loadingPp}
+                            typeOfDesign={typeOfDesign}
                             imputados = {dataImp}
                             agraviados = {dataAgr}
                             showMdAddImp = {showMdAddImp}
@@ -104,6 +106,7 @@ function NuevoLegajoWeb(props){
                         <CollapserResultado
                             loading={loadingRes}
                             resultados={dataRes}
+                            typeOfDesign={typeOfDesign}
                             showMdApel={showMdApel}
                             showMdEditRes={showMdEditRes}
                             showMdDelRes={showMdDelRes}

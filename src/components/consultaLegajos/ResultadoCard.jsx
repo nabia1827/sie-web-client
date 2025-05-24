@@ -4,10 +4,12 @@ import { FilePdfOutlined } from '@ant-design/icons';
 import { colors } from "../../utils/colors";
 const { Text } = Typography;
 import {
+    PencilSimpleLine,
+    TrashSimple,
     List
 } from "@phosphor-icons/react";
 function ResultadoCard(props) {
-    const { resultado,showMdApel } = props;
+    const { resultado,showMdApel,isReception, showMdEditRes, showMdDelRes} = props;
 
     return (
         <>
@@ -46,7 +48,16 @@ function ResultadoCard(props) {
                 </Flex>
                 <Flex justify="flex-end" align="center" gap={"small"} style={{ width: "100%" }}>
                     <Button onClick={() => showMdApel(resultado)} type="primary" shape="circle" style={{ backgroundColor: colors.cian }} icon={<List size={20} color={colors.white} />} />
+                    {
+                        isReception !== undefined && (
+                            <>
+                                <Button onClick={() => showMdEditRes(record)} type="primary" shape="circle" style={{ backgroundColor: colors.blue }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
+                                <Button onClick={() => showMdDelRes(record.imputadoDelitoId)} type="primary" shape="circle" style={{ backgroundColor: colors.red }} icon={<TrashSimple size={20} color={colors.white} />} />
+                            </>
+                        )
+                    }
                 </Flex>
+                
             </Flex>
 
         </>
