@@ -454,8 +454,8 @@ function NuevoLegajoPage() {
         const agraviadoEdit = {
             agraviadoId:agraviadoId,
             nombre:nombre,
-            tipoDocId: tipoDocId,
-            nroDoc:nroDoc,
+            tipoDocId: tipoDocId?tipoDocId:0,
+            nroDoc:nroDoc?nroDoc:"",
             usuarioId:usuId
         }
 
