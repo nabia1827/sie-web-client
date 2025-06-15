@@ -17,7 +17,7 @@ function ParteProcesalCard(props) {
                 <Card
                     style={{width:"100%"}}
                     title={pp.imputadoNombre}
-                    extra={<Button size="small" type="text" shape="circle" icon={<FilePdfOutlined size={20} style={{ color: colors.red}} />} />}
+                    
                 >
                     <Flex vertical justify="flex-start" align="flex-start" style={{ width: "100%" }}>
                         <Text style={{ textAlign: "left" }}>

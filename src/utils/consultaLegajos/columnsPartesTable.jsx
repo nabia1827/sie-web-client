@@ -52,17 +52,7 @@ export const ColumnsImputados = () => {
                 </ul>
 
             ),
-        },
-        {
-            title: 'Sustento',
-            key: 'sustento',
-            render: (_, record) => (
-                <Flex gap={"small"} justify="center" align="center">
-                    <Button size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28} style={{ color: colors.red }} />} />
-
-                </Flex>
-            ),
-        },
+        }
     ];
 
     return columns;
