@@ -34,7 +34,7 @@ function ReporteGeneralPage() {
 
     //Filtros (IDS)
     const [anio, setAnio] = useState(0);
-    const [listMeses, setListMeses] = useState(0);
+    const [listMeses, setListMeses] = useState([]);
     const [mes, setMes] = useState(0);
     const [delitoId, setDelitoId] = useState(0);
 
