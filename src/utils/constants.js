@@ -196,3 +196,28 @@ export const OperationTypeName = {
     1:'Crear',
     2: 'Editar'
 }
+
+export const NotificacionesRecepcion = {
+    SUCESS:{
+        title:"Legajo procesado correctemente",
+        description:"Se ha terminado de procesar el último documento subido",
+        type:"success"
+    },
+    ERROR:{
+        title:"Error al procesar",
+        description:"Hubo un error en el procesamiento del legajo",
+        type:"error"
+    }
+}
+
+export const TipoProcesamiento = {
+    NUEVO_LEGAJO:'nuevo-legajo',
+    ADICIONAR_DOCUMENTO:'adicionar-documento',
+}
+
+export const EstadoProcesamiento = {
+    IN_PROGRESS:1,
+    SUCCESS:2,
+    ERROR:3
+    
+}

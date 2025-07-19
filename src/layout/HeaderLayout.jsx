@@ -75,6 +75,8 @@ function HeaderLayout() {
                 return [{ title: "Inicio" }, { title: "Reporte Legajos" }];
             case paths.RECEPCION_LEGAJOS:
                 return [{ title: "Inicio" }, { title: "Recepcionar Legajos" }];
+            case paths.UPLOAD_LEGAJOS:
+                return [{ title: "Inicio" }, { title: "Subir archivos" }];
             case paths.NUEVO_LEGAJO:
                 return [{ title: "Inicio" }, { title: "Crear nuevo Legajo" }];
             case paths.ADICIONAR_LEGAJO:
@@ -108,7 +110,9 @@ function HeaderLayout() {
             case paths.SEGUIMIENTO:
                 return "Seguimiento";
             case paths.RECEPCION_LEGAJOS:
-                return "Repceción de Legajos";
+                return "Recepción de Legajos";
+            case paths.UPLOAD_LEGAJOS:
+                return "Subir archivos";
             case paths.ADICIONAR_LEGAJO:
                 return "Adicionar documentos";
             case paths.NUEVO_LEGAJO:

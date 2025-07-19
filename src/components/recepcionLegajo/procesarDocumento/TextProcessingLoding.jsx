@@ -15,27 +15,34 @@ const defaultOptions = {
     }
 };
 
-function TextProcessingLoading() {
+function TextProcessingLoading(props) {
+    const { onFinish } = props;
+
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        const totalTime = 40000; // 40 segundos
-        const intervalTime = 1000; // Actualizar cada segundo
-        const step = 100 / (totalTime / intervalTime); // Incremento por cada segundo
+        const totalTime = 10000;
+        const intervalTime = 1000;
+        const step = 100 / (totalTime / intervalTime);
 
         const interval = setInterval(() => {
             setProgress(prev => {
-                if (prev < 100) {
-                    return prev + step;
-                } else {
-                    clearInterval(interval);
-                    return 100;
-                }
+                const next = prev + step;
+                return next >= 100 ? 100 : parseFloat(next.toFixed(2));
             });
         }, intervalTime);
 
-        return () => clearInterval(interval); // Limpiar intervalo al desmontar
+        return () => clearInterval(interval);
     }, []);
+
+
+    useEffect(() => {
+        if (progress >= 100) {
+            onFinish(); 
+        }
+    }, [progress]);
+
+
 
     return (
         <Flex gap={"middle"} vertical justify='center' align='center' style={{ width: "100%" }}>

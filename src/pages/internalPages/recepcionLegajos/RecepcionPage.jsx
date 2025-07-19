@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Grid, Form, message,notification } from "antd";
+import { Flex, Grid, Form, message, notification } from "antd";
 import RecepcionMobile from "./RecepcionMobile";
 import RecepcionWeb from "./RecepcionWeb";
 import { GetLegajoIdByCarpetaOrExpediente } from "../../../utils/consultaLegajos/dinamicCalls";
-import { CrearLegajo,AdicionarDocumento} from "../../../utils/recepcionLegajos/dinamicCalls";
-
+import { CrearLegajo, AdicionarDocumento } from "../../../utils/recepcionLegajos/dinamicCalls";
+import { setRecepcionEnProgreso } from "../../../store/actions/recepcionLegajos/recepcionLegajosActionSync";
+import { endpoints, paths } from "../../../utils/paths";
 const { useBreakpoint } = Grid;
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { paths } from "../../../utils/paths";
+import { NotificacionesRecepcion } from "../../../utils/constants";
+
 function RecepcionPage() {
     const screens = useBreakpoint();
     const navigate = useNavigate();
     const isXsScreen = screens.xs !== undefined && screens.xs;
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
     const { usuId, usuEmail } = useSelector((state) => state.auth.user);
+
     const [fileList, setFileList] = useState([]);
 
     const [form] = Form.useForm();
@@ -51,7 +55,7 @@ function RecepcionPage() {
             message: 'Nuevo Legajo',
             description: 'El legajo ingresado no se encontró en el sistema, por lo que se procederá a su creación.',
             duration: 5,
-            placement: "top"
+            placement: "topRight"
         });
     };
 
@@ -59,15 +63,27 @@ function RecepcionPage() {
         setFileList(fileList);
     };
 
+    const onFinishAnimation = () => {
+        const now = new Date();
+        console.log("DATE:: ",now.toLocaleString());
+        navigate(paths.RECEPCION_LEGAJOS)
+        setLoading(false);
+    }
+
     const onClickRecepcionar = () => {
         if (fileList.length > 0) {
             setLoading(true);
+            const dataInicio = {
+                inProgress: true,
+                notificacion: null
+            }
+            dispatch(setRecepcionEnProgreso(dataInicio))
             const tipoCaso = form.getFieldValue("tipoCaso");
             const nroCaso = form.getFieldValue("nroCaso");
             const formData = new FormData();
             const file = fileList[0].originFileObj || fileList[0]
-            formData.append('archivo',file);
-            console.log("palabra clave:",file)
+            formData.append('archivo', file);
+            console.log("palabra clave:", file)
             // Logs para depuración
             console.log('Archivo a enviar:', file);
             console.log('Nombre del archivo:', file.name);
@@ -77,33 +93,44 @@ function RecepcionPage() {
                 console.log('FormData contiene:', pair[0], pair[1]);
             }
             console.log("usuarioId: ", usuId)
-            GetLegajoIdByCarpetaOrExpediente(tipoCaso,nroCaso).then((response)=>{
+            GetLegajoIdByCarpetaOrExpediente(tipoCaso, nroCaso).then((response) => {
 
-                if(response.isSuccess){
-                    if(response.data > 0){
-                        AdicionarDocumento(response.data,usuId,formData).then((resp)=>{
+                if (response.isSuccess) {
+                    if (response.data > 0) {
+                        AdicionarDocumento(response.data, usuId, formData).then((resp) => {
                             setLoading(false);
-                            console.log("adicionarlegajo: ",resp)
-                            const {legajoId, docId, audienciaId} = resp
-                            
-                            navigate(paths.ADICIONAR_LEGAJO(legajoId, docId,audienciaId))
+                            console.log("adicionarlegajo: ", resp)
+
+                            //const {legajoId, docId, audienciaId} = resp
+                            const dataFin = {
+                                inProgress: false,
+                                notificacion: NotificacionesRecepcion.SUCESS
+                            }
+                            dispatch(setRecepcionEnProgreso(dataFin))
+
                         });
-                    }else{
+                    } else {
                         openNotification();
-                        CrearLegajo(usuId,formData).then((resp2)=>{
+                        CrearLegajo(usuId, formData).then((resp2) => {
                             setLoading(false);
-                            
-                            const {legajoId, docId, audienciaId} = resp2;
-                            console.log("crear legajo: ",resp2)
-                            navigate(paths.NUEVO_LEGAJO(legajoId, docId, audienciaId))
+
+                            //const {legajoId, docId, audienciaId} = resp2;
+                            console.log("crear legajo: ", resp2)
+
+                            const dataFin = {
+                                inProgress: false,
+                                notificacion: NotificacionesRecepcion.SUCESS
+                            }
+                            dispatch(setRecepcionEnProgreso(dataFin))
+
                         });
                     }
-                }else{
+                } else {
                     message.error("Ocurrió un error")
                 }
             });
 
-            
+
 
         }
 
@@ -118,14 +145,16 @@ function RecepcionPage() {
             onClickRecepcionar={onClickRecepcionar}
             handleUploadChange={handleUploadChange}
             loading={loading}
+            onFinishAnimation={onFinishAnimation}
         /> :
         <RecepcionWeb
             uploadProps={uploadProps}
             form={form}
-            contextHolder = {contextHolder}
+            contextHolder={contextHolder}
             onClickRecepcionar={onClickRecepcionar}
             handleUploadChange={handleUploadChange}
             loading={loading}
+            onFinishAnimation={onFinishAnimation}
         />
     }
 

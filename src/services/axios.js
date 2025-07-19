@@ -11,7 +11,7 @@ const axiosDotNet = axios.create({
 
 // Instancia para la API en Python
 const axiosPython = axios.create({
-  baseURL: `https://sie-text-processing-api-s2loldrkeq-ue.a.run.app` // Cambia la URL por la de tu API en Python
+  baseURL: `http://127.0.0.1:5000` // Cambia la URL por la de tu API en Python
 });
 
 let isRefreshing = false;

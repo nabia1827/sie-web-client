@@ -94,6 +94,7 @@ const GenerarWord ={
 }
 
 const RecepcionLegajos = {
+    ListDocsSubidos: (filter) => axiosDotNet.get('/RecepcionLegajos/GetDocsUploaded', { params: filter }).then(responseBody),
     ListarLugarByTipo: (tipoLugarId,antecesorId) => requests.get(`/RecepcionLegajos/ListarLugarByTipo?tipoLugarId=${tipoLugarId}&antecesorId=${antecesorId}`),
     ListarTipoRemitente: () => requests.get(`/RecepcionLegajos/ListarTipoRemitente`),
     ListarTipoPena:() => requests.get(`/RecepcionLegajos/ListarTipoPena`),

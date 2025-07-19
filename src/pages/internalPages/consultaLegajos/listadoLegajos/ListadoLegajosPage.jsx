@@ -31,7 +31,6 @@ function ListadoLegajosPage(props) {
     const [modalOpen, setModalOpen] = useState(false);
 
     const customApiCall = async (filteredRequest) => {
-        console.log("REQUEST: ", filteredRequest)
         const response = await api.ListaLegajos.ListarLegajos(filteredRequest);
         return response;
     };

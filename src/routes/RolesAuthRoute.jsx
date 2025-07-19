@@ -9,6 +9,9 @@ const RolesAuthRoute = ({ children, perfilesAutorizados }) => {
   if (perfilesAutorizados.length === 0) return <>{children}</>;
 
   const canAccess = perfilesAutorizados.includes(Number(perfilId));
+  console.log("canAccess: ", canAccess)
+  console.log("perfilesAutorizados: ", perfilesAutorizados)
+  console.log("perfilId: ", perfilId)
 
   if (canAccess) return <>{children}</>;
 

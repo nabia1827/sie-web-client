@@ -9,11 +9,13 @@ import { jwtDecode } from 'jwt-decode';
 import { login } from '../store/actions/authActionSync';
 
 //Actions
-import { cargarAbogados,cargarDelegados,cargarSubfases,cargarClasesDoc,
-  CargarSubtipoDanio,CargarDependenciaMininter,CargarProcuradores,CargarDepartamentos, 
-  cargarDelitos,cargarTiposPena,cargarTiposSentencia,
-  cargarTiposAudiencia, cargarTiposRemitente,cargarAnios,
-  cargarDistritosJudicial, cargarNotificaciones} from '../store/actions/app/appActionAsync';
+import {
+  cargarAbogados, cargarDelegados, cargarSubfases, cargarClasesDoc,
+  CargarSubtipoDanio, CargarDependenciaMininter, CargarProcuradores, CargarDepartamentos,
+  cargarDelitos, cargarTiposPena, cargarTiposSentencia,
+  cargarTiposAudiencia, cargarTiposRemitente, cargarAnios,
+  cargarDistritosJudicial, cargarNotificaciones
+} from '../store/actions/app/appActionAsync';
 
 
 //General
@@ -49,8 +51,10 @@ import RecepcionPage from '../pages/internalPages/recepcionLegajos/RecepcionPage
 import NuevoLegajoPage from '../pages/internalPages/recepcionLegajos/nuevoLegajo/NuevoLegajoPage';
 import AdicionarDocsPage from '../pages/internalPages/recepcionLegajos/adicionarDocumentos/AdicionarDocsPage';
 import InicioRecepcionPage from '../pages/internalPages/recepcionLegajos/InicioRecepcionPage';
+import ListadoDocsPage from '../pages/internalPages/recepcionLegajos/listadoDocumentos/ListadoDocsPage';
+
 import { Button, Divider, notification, Space } from 'antd';
-import { initializeNotifications} from '../services/notificationService';
+import { initializeNotifications } from '../services/notificationService';
 
 const RoutesApp = () => {
   const [api, contextHolder] = notification.useNotification();
@@ -61,7 +65,7 @@ const RoutesApp = () => {
 
 
   useEffect(() => {
-    
+
     const token = getAccessToken();
     if (token) {
       const tokenDecode = jwtDecode(token);
@@ -97,11 +101,11 @@ const RoutesApp = () => {
       dispatch(cargarTiposAudiencia())
       dispatch(cargarTiposRemitente())
       dispatch(cargarTiposPena())
-      dispatch(cargarTiposSentencia())  
+      dispatch(cargarTiposSentencia())
       dispatch(cargarDistritosJudicial())
       dispatch(cargarNotificaciones(userId))
       initializeNotifications(api);
-      
+
     }
   }, [dispatch, isAuthenticated]);
 
@@ -122,24 +126,24 @@ const RoutesApp = () => {
           <Route path={endpoints.CONSULTA_LEGAJOS} element={<ConsultaLegajosPage />}>
 
             <Route path={endpoints.MIS_LEGAJOS} element={<MisLegajosPage />}>
-              <Route index element={<ListadoLegajosPage allLegajos = {false}/>} />
+              <Route index element={<ListadoLegajosPage allLegajos={false} />} />
               <Route path=":id" element={<LegajoPage />} >
                 <Route path={endpoints.DETALLE_LEGAJO} element={<DetalleLegajoPage />} />
                 <Route path={endpoints.DOCS_INGRESO_LEGAJO} element={<DocsIngresoPage />} />
                 <Route path={endpoints.DOCS_SALIDA_LEGAJO} element={<SalidaSectionPage />} >
-                  <Route index element={<DocsSalidaPage/>} />
+                  <Route index element={<DocsSalidaPage />} />
                   <Route path={`${endpoints.CREAR_DOC}/:claseDocumento`} element={<CrearDocPage />} />
                 </Route>
               </Route>
             </Route>
 
             <Route path={endpoints.TODOS_LEGAJOS} element={<TodosLegajosPage />}>
-              <Route index element={<ListadoLegajosPage allLegajos = {true}/>} />
+              <Route index element={<ListadoLegajosPage allLegajos={true} />} />
               <Route path=":id" element={<LegajoPage />} >
                 <Route path={endpoints.DETALLE_LEGAJO} element={<DetalleLegajoPage />} />
                 <Route path={endpoints.DOCS_INGRESO_LEGAJO} element={<DocsIngresoPage />} />
                 <Route path={endpoints.DOCS_SALIDA_LEGAJO} element={<SalidaSectionPage />} >
-                  <Route index element={<DocsSalidaPage/>} />
+                  <Route index element={<DocsSalidaPage />} />
                   <Route path={`${endpoints.CREAR_DOC}/:claseDocumento`} element={<CrearDocPage />} />
                 </Route>
               </Route>
@@ -158,14 +162,14 @@ const RoutesApp = () => {
             <Route path={endpoints.SEGUIMIENTO} element={<SeguimientoPage />} />
           </Route>
 
-          <Route path={endpoints.RECEPCION_LEGAJOS} element={<InicioRecepcionPage/>} >
-            <Route index element={<RecepcionPage />} />
-            <Route path={`${endpoints.NUEVO_LEGAJO}/:legajoId/:documentoId/:audienciaId`} element={<NuevoLegajoPage/>} />
-            <Route path={`${endpoints.ADICIONAR_LEGAJO}/:legajoId/:documentoId/:audienciaId`} element={<AdicionarDocsPage/>} />
+          <Route path={endpoints.RECEPCION_LEGAJOS} element={<InicioRecepcionPage />} >
+            <Route index element={<ListadoDocsPage />} />
+            <Route path={endpoints.UPLOAD_LEGAJOS} element={<RecepcionPage />} />
+            <Route path={`${endpoints.NUEVO_LEGAJO}/:legajoId/:documentoId/:audienciaId`} element={<NuevoLegajoPage />} />
+            <Route path={`${endpoints.ADICIONAR_LEGAJO}/:legajoId/:documentoId/:audienciaId`} element={<AdicionarDocsPage />} />
           </Route>
         </Route>
 
-          
 
         <Route path="*" component={<NotFoundPage />} />
 

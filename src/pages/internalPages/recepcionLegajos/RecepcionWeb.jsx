@@ -12,14 +12,14 @@ import {
 } from "@phosphor-icons/react";
 
 function RecepcionWeb(props) {
-    const { uploadProps, form,contextHolder, onClickRecepcionar, handleUploadChange, loading } = props;
+    const { uploadProps,onFinishAnimation, form,contextHolder, onClickRecepcionar, handleUploadChange, loading } = props;
 
     return (
         <>
             <Flex justify="center" align="center" style={{ width: "100%", minHeight: "76vh", paddingBottom: "1em", backgroundColor: colors.white }}>
                 {contextHolder}
                 {loading ? (
-                    <TextProcessingLoading></TextProcessingLoading>
+                    <TextProcessingLoading onFinish={onFinishAnimation}></TextProcessingLoading>
                 ) : (
                     <Flex justify="center" align="center" style={{ width: "100%", height: "100%" }}>
                         

@@ -27,6 +27,7 @@ export const endpoints = {
 
     //Recepcion Legajos
     RECEPCION_LEGAJOS:"recepcion-legajos",
+    UPLOAD_LEGAJOS:"subir-archivos",
     NUEVO_LEGAJO:"nuevo-legajo",
     ADICIONAR_LEGAJO:"adicionar-documentos",
 }
@@ -57,6 +58,7 @@ export const paths = {
 
     //Recepcion Legajos
     RECEPCION_LEGAJOS:`/${endpoints.RECEPCION_LEGAJOS}`,
+    UPLOAD_LEGAJOS:`/${endpoints.RECEPCION_LEGAJOS}/${endpoints.UPLOAD_LEGAJOS}`,
     NUEVO_LEGAJO:(legajoId,docId,audienciaId) =>`${endpoints.NUEVO_LEGAJO}/${legajoId}/${docId}/${audienciaId}`,
     ADICIONAR_LEGAJO:(legajoId,docId,audienciaId) =>`${endpoints.ADICIONAR_LEGAJO}/${legajoId}/${docId}/${audienciaId}`,
     NOT_FOUND: "*",
