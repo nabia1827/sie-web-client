@@ -65,7 +65,7 @@ function RecepcionPage() {
 
     const onFinishAnimation = () => {
         const now = new Date();
-        console.log("DATE:: ",now.toLocaleString());
+        console.log("DATE:: ", now.toLocaleString());
         navigate(paths.RECEPCION_LEGAJOS)
         setLoading(false);
     }
@@ -99,13 +99,22 @@ function RecepcionPage() {
                     if (response.data > 0) {
                         AdicionarDocumento(response.data, usuId, formData).then((resp) => {
                             setLoading(false);
-                            console.log("adicionarlegajo: ", resp)
+                            let dataFin;
+                            if (resp.success) {
+                                dataFin = {
+                                    inProgress: false,
+                                    notificacion: NotificacionesRecepcion.SUCESS
+                                }
+                            } else {
+                                dataFin = {
+                                    inProgress: false,
+                                    notificacion: NotificacionesRecepcion.ERROR
+                                }
+                            }
 
                             //const {legajoId, docId, audienciaId} = resp
-                            const dataFin = {
-                                inProgress: false,
-                                notificacion: NotificacionesRecepcion.SUCESS
-                            }
+
+
                             dispatch(setRecepcionEnProgreso(dataFin))
 
                         });
@@ -113,13 +122,18 @@ function RecepcionPage() {
                         openNotification();
                         CrearLegajo(usuId, formData).then((resp2) => {
                             setLoading(false);
-
                             //const {legajoId, docId, audienciaId} = resp2;
-                            console.log("crear legajo: ", resp2)
-
-                            const dataFin = {
-                                inProgress: false,
-                                notificacion: NotificacionesRecepcion.SUCESS
+                            let dataFin;
+                            if (resp2.success) {
+                                dataFin = {
+                                    inProgress: false,
+                                    notificacion: NotificacionesRecepcion.SUCESS
+                                }
+                            } else {
+                                dataFin = {
+                                    inProgress: false,
+                                    notificacion: NotificacionesRecepcion.ERROR
+                                }
                             }
                             dispatch(setRecepcionEnProgreso(dataFin))
 

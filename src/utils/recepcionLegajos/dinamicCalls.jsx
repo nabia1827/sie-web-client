@@ -146,7 +146,8 @@ export const CrearLegajo = async (usuId, file) => {
 
   try {
     const response = await api.PythonService.CrearLegajo(usuId, file);
-    return response.data.data;
+    console.log("prueba crear",response)
+    return response.data;
     
 
   } catch (error) {

@@ -54,7 +54,15 @@ export const ColumnsDocs = (onClickEdit) => {
             key: 'acciones',
             render: (_, record) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button onClick={() => onClickEdit(record)} type="primary" shape="circle" style={{ backgroundColor: colors.cian }} icon={<PencilSimpleLine size={20} color={colors.white} />} />
+                    {record.estado == EstadoProcesamiento.SUCCESS &&(
+                            <Button 
+                        onClick={() => onClickEdit(record)} 
+                        type="primary" shape="circle" 
+                        style={{ backgroundColor: colors.cian }} 
+                        icon={<PencilSimpleLine size={20} color={colors.white} />} />
+                    )
+
+                    }
                 </Flex>
             ),
         },
