@@ -9,7 +9,7 @@ function FormVerifyCode(props) {
 
     const onValuesChange = (changedValues, allValues) =>{
         
-        console.log("El valor cambiante", changedValues);
+        //console.log("El valor cambiante", changedValues);
     }
 
     return (

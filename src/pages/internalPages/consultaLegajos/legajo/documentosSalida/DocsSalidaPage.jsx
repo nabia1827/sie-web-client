@@ -99,8 +99,6 @@ function DocsSalidaPage() {
     const onOkMdCrearRecurso = () => {
         const claseDocId = crearForm.getFieldValue("claseDocId")
 
-        console.log("aaaaaaaaaa clase aaaa",claseDocId);
-
         if(claseDocId == ClaseDoc.ARCHIVO){
             setMdCrearRecursoLoading(true);
             crearDocEstandar(claseDocId,id,usuId).then((response)=>{

@@ -16,7 +16,7 @@ function CollapserAudiencia(props) {
 
     useEffect(() => {
         if (data !== null && data !== undefined) {
-            console.log(data)
+            //console.log(data)
             form.setFieldsValue(
                 {
                     fecha: data.fecha !== null? dayjs(data.fecha, FORMAT_DATE) : "",

@@ -23,9 +23,7 @@ function RecepcionPage() {
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
-        console.log(screens)
-    }, [screens]);
+
 
     const uploadProps = {
         onRemove: (file) => {
@@ -65,7 +63,7 @@ function RecepcionPage() {
 
     const onFinishAnimation = () => {
         const now = new Date();
-        console.log("DATE:: ", now.toLocaleString());
+        //console.log("DATE:: ", now.toLocaleString());
         navigate(paths.RECEPCION_LEGAJOS)
         setLoading(false);
     }
@@ -83,16 +81,16 @@ function RecepcionPage() {
             const formData = new FormData();
             const file = fileList[0].originFileObj || fileList[0]
             formData.append('archivo', file);
-            console.log("palabra clave:", file)
+            //console.log("palabra clave:", file)
             // Logs para depuración
-            console.log('Archivo a enviar:', file);
-            console.log('Nombre del archivo:', file.name);
-            console.log('Tipo de archivo:', file.type);
-            console.log('Tamaño del archivo:', file.size);
+            //console.log('Archivo a enviar:', file);
+            //console.log('Nombre del archivo:', file.name);
+            //console.log('Tipo de archivo:', file.type);
+            //console.log('Tamaño del archivo:', file.size);
             for (let pair of formData.entries()) {
-                console.log('FormData contiene:', pair[0], pair[1]);
+                //console.log('FormData contiene:', pair[0], pair[1]);
             }
-            console.log("usuarioId: ", usuId)
+            //console.log("usuarioId: ", usuId)
             GetLegajoIdByCarpetaOrExpediente(tipoCaso, nroCaso).then((response) => {
 
                 if (response.isSuccess) {

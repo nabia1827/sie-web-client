@@ -146,7 +146,7 @@ export const CrearLegajo = async (usuId, file) => {
 
   try {
     const response = await api.PythonService.CrearLegajo(usuId, file);
-    console.log("prueba crear",response)
+    //console.log("prueba crear",response)
     return response.data;
     
 
@@ -161,7 +161,7 @@ export const AdicionarDocumento = async (legajoId,usuId, file) => {
   try {
 
     const response = await api.PythonService.AdicionarDocumento(legajoId,usuId, file);
-    console.log("prueba adicionar",response)
+    //console.log("prueba adicionar",response)
     return response.data;
 
   } catch (error) {

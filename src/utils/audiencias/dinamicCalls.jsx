@@ -23,7 +23,7 @@ export const InsertNuevasAudiencias = async (events, usuarioId) => {
                 audienciaColor: audienciaColor
             };
         });
-        console.log("ENVIANDO GANT A API ", audiencias);
+        //console.log("ENVIANDO GANT A API ", audiencias);
 
         const response = await api.Audiencia.InsertNuevasAudiencias(audiencias,usuarioId);
         return response;
@@ -75,7 +75,7 @@ export const EditAudiencias = async (events,usuarioId) => {
                 codigoLegajo:""
             };
         });
-        console.log("ENVIANDO EDIT A API ", audiencias);
+        //console.log("ENVIANDO EDIT A API ", audiencias);
 
         const response = await api.Audiencia.EditAudiencias(audiencias, usuarioId);
         return response;

@@ -98,7 +98,7 @@ function CrearDocPage() {
         const provinciaId = dnForm.getFieldValue("provinciaId")
         const dependenciaAfectadaId = dnForm.getFieldValue("dependenciaAfectadaId")
         const anexos = dnForm.getFieldValue("anexos")
-        console.log("anexoooooos: ",anexos);
+
 
         DSGenerarDenuncia(id,usuId,procuradorId,provinciaId,dependenciaAfectadaId,anexos,analisis).then((response)=>{
             setLoadingDn(false);//isSuccess

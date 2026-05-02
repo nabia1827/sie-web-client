@@ -27,17 +27,14 @@ function LoginPage() {
     const [rememberMe, setRememberMe] = useState(false);
 
     const onChangeUsername = (e) => {
-        console.log(e.target.value);
+        //console.log(e.target.value);
         setUsername(e.target.value);
     }
     const onChangePassword = (e) => {
-        console.log(e.target.value);
+        //console.log(e.target.value);
         setPassword(e.target.value);
     }
 
-    useEffect(() => {
-        console.log(screens)
-    }, [screens]);
 
 
     const onLogin = (username, password) => {
@@ -49,7 +46,7 @@ function LoginPage() {
                     setLoading(false);
                     setStatus("");
                     setTextError("");
-                    console.log("Logged in")
+                    //console.log("Logged in")
                     navigate(paths.TODOS_LEGAJOS);
                 } else {
                     setLoading(false);

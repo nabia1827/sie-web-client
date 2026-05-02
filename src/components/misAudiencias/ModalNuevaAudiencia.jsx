@@ -20,7 +20,6 @@ function ModalNuevaAudiencia(props) {
     const onFinished = () => {
 
         const audienciaColor = form.getFieldValue("audienciaColor");
-        console.log(audienciaColor)
         const fecha = form.getFieldValue("fecha");
         const startTimeAux = form.getFieldValue("startTime");
         const endTimeAux = form.getFieldValue("endTime");
@@ -58,16 +57,14 @@ function ModalNuevaAudiencia(props) {
     const handleOnFieldsChange = (changeFields, allFields) => {
         const campo = changeFields[0].name[0];
         const valor = changeFields[0].value
-        if (campo == 'legajoId') {
-            console.log("Legajo seleccionado: ", valor)
-        }
+
     };
     const handleSearch = (newValue) =>{
-        console.log("anew ",newValue);
+
         if(newValue){
             ListLegajosByTermino(newValue).then((response) =>{
                 if(response.isSuccess){
-                    console.log("Lista legajos de la API : ", response.data)
+                    //console.log("Lista legajos de la API : ", response.data)
                     setData(response.data)
                 }else{
     

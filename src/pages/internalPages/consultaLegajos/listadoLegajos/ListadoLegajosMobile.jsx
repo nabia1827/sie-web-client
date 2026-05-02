@@ -38,7 +38,7 @@ function ListadoLegajosMobile(props) {
         switchOnFieldsChange(campo, changeFields, setRequest);
     };
 
-    console.log("paginador: ", paginador.data)
+    //console.log("paginador: ", paginador.data)
 
     const columns = ColumnsLegajo(
         onClickDetalle,

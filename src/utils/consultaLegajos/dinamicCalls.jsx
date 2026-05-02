@@ -441,9 +441,9 @@ export const GetDelitosByLegajoId = async (legajoId) => {
 
 export const GetDocumento = async (documentoId) => {
   try {
-    console.log("documentoId", documentoId)
+    //console.log("documentoId", documentoId)
     const response = await api.RecepcionLegajos.GetDocumento(documentoId);
-    console.log("response", response)
+    //console.log("response", response)
     return response;
   } catch (error) {
     message.error(error.message);

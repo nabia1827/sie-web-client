@@ -444,7 +444,7 @@ function NuevoLegajoPage() {
 
     const onOkMdAgr = () => {
         setMdAgrLoading(true);
-        console.log(agrForm)
+        //console.log(agrForm)
         
         const agraviadoId = currentAgraviado.agraviadoId
         const nombre = agrForm.getFieldValue("nombreAgraviado")
@@ -459,7 +459,7 @@ function NuevoLegajoPage() {
             usuarioId:usuId
         }
 
-        console.log(agraviadoEdit)
+        //console.log(agraviadoEdit)
         UpdateAgraviadoById(agraviadoEdit).then(() => {
             agrForm.resetFields();
             setCurrentAgraviado(null);
@@ -483,7 +483,7 @@ function NuevoLegajoPage() {
     const FORMAT_DATE = "DD/MM/YYYY";
 
     const showMdApel = (record) => {
-        console.log("nuuu",record)
+
         resForm.setFieldsValue({
             imputado: record.imputado,
             delito: record.delito,
@@ -575,7 +575,7 @@ function NuevoLegajoPage() {
 
     const onOkMdDelRes = () => {
         setMdDelResLoading(true);
-        console.log(currentResultadoId)
+        //console.log(currentResultadoId)
 
         DeleteImputadoDelito(currentResultadoId, usuId).then(() => {
             setCurrentResultadoId(null);

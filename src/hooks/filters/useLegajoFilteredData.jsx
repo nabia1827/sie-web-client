@@ -41,7 +41,6 @@ function useLegajoFilteredData(
     useEffect(() => {
         (async () => {
             setLoading(true);
-            console.log("request aaa: ",request);
 
             const filteredRequest = Object.fromEntries(
                 Object.entries(request).filter(([key, value]) => {

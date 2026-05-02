@@ -25,7 +25,7 @@ export default function CardLegajo(
     index,
   }
 ) {
-    console.log("record = ", record)
+    //console.log("record = ", record)
 
     const items = [
       {

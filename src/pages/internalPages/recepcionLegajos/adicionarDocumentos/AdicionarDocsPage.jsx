@@ -97,9 +97,9 @@ function AdicionarDocsPage() {
     const fetchDocumento = async (id) => {
         setLoadingDd(true);
         try {
-            console.log("envio Id fetch: ", id)
+            //console.log("envio Id fetch: ", id)
             const documentoResponse = await GetDocumento(id);
-            console.log("recepcion Respuesta Documento: ", documentoResponse)
+            //console.log("recepcion Respuesta Documento: ", documentoResponse)
             setDataDd(documentoResponse.data)
         } finally {
             setLoadingDd(false);
@@ -226,11 +226,8 @@ function AdicionarDocsPage() {
         const horaFormateada = hora ? hora.format('hh:mm a') : "02:20 am";
         const link = formAud.getFieldValue("link")
 
-        console.log(fechaFormateada, horaFormateada)
+        //console.log(fechaFormateada, horaFormateada)
 
-
-
-        //
         Promise.all([
             UpdateDatosDocumento(datosDocumento),
             UpdateDatosGeneralesTemp(datosGeneralesTemp, usuId),
@@ -384,7 +381,7 @@ function AdicionarDocsPage() {
     const FORMAT_DATE = "DD/MM/YYYY";
 
     const showMdApel = (record) => {
-        console.log("nuuu", record)
+
         resForm.setFieldsValue({
             imputado: record.imputado,
             delito: record.delito,
@@ -450,7 +447,7 @@ function AdicionarDocsPage() {
 
     const onOkMdDelRes = () => {
         setMdDelResLoading(true);
-        console.log(currentResultadoId)
+        //console.log(currentResultadoId)
 
         DeleteImputadoDelito(currentResultadoId, usuId).then(() => {
             setCurrentResultadoId(null);

@@ -2,13 +2,15 @@ import React from "react";
 import { Grid, Flex, Button, Table, Typography } from "antd";
 import { ColumnsDocs } from "../../../../utils/recepcionLegajos/columnsDocs";
 import { colors } from "../../../../utils/colors";
+
 import {
-    Plus
+    Plus,
+    ArrowClockwise
 } from "@phosphor-icons/react";
 const {Text} = Typography;
 
 function ListadoDocsWeb(props) {
-    const { paginador, onPaginationChange, dataLoading, addButtonLoading, onClickEdit, onClickAdd} = props;
+    const { paginador, onPaginationChange, dataLoading, addButtonLoading, onClickEdit, onClickAdd,onRefresh} = props;
 
     const columns = ColumnsDocs(onClickEdit);
 
@@ -18,12 +20,20 @@ function ListadoDocsWeb(props) {
             <Flex vertical gap={"small"} justify="flex-start" align="flex-start" style={{ width: "100%", backgroundColor: colors.white, margin: "1.0em 0.0em", borderRadius: "0.7em", padding: "1.5em" }}>
                 <Flex justify="space-between" align="center" style={{ width: "100%" }}>
                     <Text className="sie-content-title">Documentos Subidos</Text>
-                    <Button
-                        loading={addButtonLoading}
-                        onClick={onClickAdd}
-                        type="primary"
-                        icon={<Plus size={16}  color="white" />}
-                    >Añadir</Button>
+                    <Flex justify="center" align="center" gap={8}>
+                        <Button 
+                            shape="circle" 
+                            icon={<ArrowClockwise size={16}  color={colors.blue} />} 
+                            onClick={onRefresh}
+                        />
+                        <Button
+                            loading={addButtonLoading}
+                            onClick={onClickAdd}
+                            type="primary"
+                            icon={<Plus size={16}  color="white" />}
+                        >Añadir</Button>
+                    </Flex>
+                    
                 </Flex>
                 <br></br>
                 <Table

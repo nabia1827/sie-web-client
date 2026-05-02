@@ -153,7 +153,7 @@ function ReporteGeneralPage() {
             
             if (anio !== null && mes !== null && delitoId !== null) {
                 try {
-                    console.log("iniciooooooo a")
+
                     setLoading(true)
                     await Promise.all([
                         fetchDataLineChart(anio, mes, delitoId),
@@ -168,7 +168,7 @@ function ReporteGeneralPage() {
                     ]);
                     
                     setLoading(false)
-                    console.log("finnnnnnnnnnn a")
+
                 } catch (error) {
                     console.error("Error al realizar las llamadas fetch:", error);
                 }

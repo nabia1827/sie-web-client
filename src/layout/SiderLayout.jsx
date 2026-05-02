@@ -36,7 +36,7 @@ function SiderLayout(props) {
     useEffect(() => {
         if (perfilId) {
             const its = getMenuItemsForUser(perfilId);
-            console.log("its ", its);
+            //console.log("its ", its);
             setItems(its);
         }
     }, [perfilId]);

@@ -69,7 +69,7 @@ const RoutesApp = () => {
     const token = getAccessToken();
     if (token) {
       const tokenDecode = jwtDecode(token);
-      console.log("Token decodificado: ", tokenDecode);
+      //console.log("Token decodificado: ", tokenDecode);
       const user = {
         usuId: tokenDecode.UsuId,
         usuUsername: tokenDecode.UsuUsername,
@@ -80,7 +80,7 @@ const RoutesApp = () => {
         usuEmail: tokenDecode.UsuEmail,
         usuImage: tokenDecode.UsuImage,
       };
-      console.log("Usuario Logeado: ", user);
+      //console.log("Usuario Logeado: ", user);
       dispatch(login(user));
     }
   }, [dispatch]);

@@ -8,7 +8,7 @@ const { confirm } = Modal;
 
 export const switchOnFieldsChange = (campo, changeFields, setRequest) => {
 
-    console.log("aaaa: ", campo, " - ", changeFields)
+    //console.log("aaaa: ", campo, " - ", changeFields)
     switch (campo) {
         case "codigoLegajo":
             setRequest((prev) => ({

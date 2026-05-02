@@ -34,8 +34,6 @@ function useRecepcionFilteredData(
         const fetchData = async () => {
             setLoading(true);
 
-            console.log("usuId: ", usuId);
-
             const filteredRequest = Object.fromEntries(
                 Object.entries(request).filter(([key, value]) => {
                     return value !== "" && value !== null && value !== 0;
@@ -46,10 +44,10 @@ function useRecepcionFilteredData(
 
             try {
                 const response = await customApiCall(filteredRequest);
-                console.log("response: ", response);
+                
                 setPaginador(response);
             } catch (error) {
-                console.log("E-R-R-O-R: ", error);
+           
             } finally {
                 setLoading(false);
             }
@@ -86,7 +84,6 @@ function useRecepcionFilteredData(
     };
 
     const onChange = (pageNumber, pageSize) => {
-        console.log("Estoy harttaaaaaaa: ")
         setRequest((prevState) => ({
             ...prevState,
             pagina: pageNumber,

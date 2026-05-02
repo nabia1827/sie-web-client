@@ -48,7 +48,7 @@ function ListadoLegajosPage(props) {
     } = useLegajoFilteredData(customApiCall, allLegajos);
 
     const onClickDetalle = (legajoId) => {
-        console.log(legajoId)
+        //console.log(legajoId)
         navigate(paths.DETALLE_LEGAJO(legajoId))
     }
 
@@ -135,7 +135,7 @@ function ListadoLegajosPage(props) {
 
 
     useEffect(() => {
-        console.log("record estado: ", currentRecord)
+        //console.log("record estado: ", currentRecord)
         if (currentRecord !== null && currentRecord !== undefined) {
             setModalOpen(true);
         }

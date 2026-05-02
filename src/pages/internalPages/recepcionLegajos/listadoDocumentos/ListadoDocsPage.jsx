@@ -37,10 +37,8 @@ function ListadoDocsPage(props) {
     } = useRecepcionFilteredData(customApiCall);
 
     useEffect(() => {
-        console.log("Inicializacion: ", recepcionEnprogreso," - ",notiRecepcionFinalizada)
 
         if (recepcionEnprogreso === true) {
-            console.log("Entroooooo")
             reloadData()
             setButtonDisabled(true);
         } else if (recepcionEnprogreso === false && notiRecepcionFinalizada) {
@@ -87,6 +85,10 @@ function ListadoDocsPage(props) {
         });
     };
 
+    const onRefresh = () =>{
+        reloadData();
+    }
+
     return (
         <>
         {contextHolder}
@@ -105,6 +107,7 @@ function ListadoDocsPage(props) {
                         addButtonLoading={buttonLoading}
                         onClickEdit={onClickEdit}
                         onClickAdd={onClickAdd}
+                        onRefresh = {onRefresh}
                     />
                 </>
                 :
@@ -116,6 +119,7 @@ function ListadoDocsPage(props) {
                         addButtonLoading={buttonLoading}
                         onClickEdit={onClickEdit}
                         onClickAdd={onClickAdd}
+                        onRefresh = {onRefresh}
                     />
                 </>
 

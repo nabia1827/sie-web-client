@@ -27,7 +27,6 @@ function ForgotPasswordPage() {
     const onSendCode = async () => {
         setLoading(true);
         try {
-            console.log("AHHHHH SEND CODE")
             const values = await sendCodeForm.validateFields();
             CreateOTPCode(values.email).then((response) => {
                 setIsSent(true);
@@ -44,7 +43,7 @@ function ForgotPasswordPage() {
         setLoading(true);
         try {
             const values = await otpForm.validateFields();
-            console.log("OTP: ",values.otp)
+            //console.log("OTP: ",values.otp)
             VerifyOTP(values.otp).then((response) => {
                 setLoading(false);
                 if (response.isSuccess) {

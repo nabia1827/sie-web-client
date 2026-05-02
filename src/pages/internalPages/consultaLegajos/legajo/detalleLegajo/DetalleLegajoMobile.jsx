@@ -38,7 +38,7 @@ function DetalleLegajoMobile(props) {
     ]
 
     const onChange = (value) => {
-        console.log('onChange:', value);
+        //console.log('onChange:', value);
         setCurrent(value);
     };
 

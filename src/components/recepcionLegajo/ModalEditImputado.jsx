@@ -25,7 +25,7 @@ function ModalEditImputado(props) {
                 });
 
             } else {
-                console.log(dataImputado)
+                //console.log(dataImputado)
                 const delitosId = dataImputado.delitos.map(imputado => imputado.delitoId);
 
                 form.setFieldsValue({

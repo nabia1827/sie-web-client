@@ -13,7 +13,7 @@ function CrearDocWeb(props){
      } = props;
 
     const renderDocumentoComponent = () => {
-        console.log("aaaaa cd",claseDocId)
+
         switch (+claseDocId) {
             case ClaseDoc.ACTOR_CIVIL:
                 return <ActorCivilWeb form = {acForm} onFinishAc={onFinishAc} onCancelAc={onCancelAc} loadingAc={loadingAc}/>;

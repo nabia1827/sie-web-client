@@ -3,7 +3,7 @@ import { message } from "antd";
 
 export const CreateOTPCode = async (email) => {
     try {
-        console.log("Ahhhh create otp code:", email)
+        //console.log("Ahhhh create otp code:", email)
         const body = {
             ToEmail: email,
         }

@@ -610,7 +610,7 @@ class Basic extends Component {
         const { viewModel, eventData, events } = this.state;
         const { tiposAudiencia } = this.props;
 
-        console.log("formData ",formData);
+        //console.log("formData ",formData);
         const objTitle = tiposAudiencia.find(t => t.tipoAudienciaId === formData.audienciaTipoId);
 
 
@@ -641,8 +641,8 @@ class Basic extends Component {
             audienciaColor:formData.audienciaColor
             
         };
-        console.log("newEvent ",newEvent);
-        console.log("newEventDB ",newEventDB);
+        //console.log("newEvent ",newEvent);
+        //console.log("newEventDB ",newEventDB);
         viewModel.addEvent(newEvent);
         this.setState({
             isModalVisible: false,

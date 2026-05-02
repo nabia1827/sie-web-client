@@ -10,7 +10,7 @@ import {
  const { Text, Title } = Typography;
 
 export default function CardAnclado({onPinClick,onClickLegajo,record}) {
-    console.log("record = ", record)
+    //console.log("record = ", record)
     return (
         <Card 
           style={{ 
