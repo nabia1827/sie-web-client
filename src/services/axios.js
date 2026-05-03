@@ -11,7 +11,8 @@ const axiosDotNet = axios.create({
 
 // Instancia para la API en Python
 const axiosPython = axios.create({
-  baseURL: `http://127.0.0.1:5000` // Cambia la URL por la de tu API en Python
+  //baseURL: `http://127.0.0.1:5000` // Cambia la URL por la de tu API en Python
+  baseURL: "https://make-api-131847764756.us-east1.run.app/"
 });
 
 let isRefreshing = false;
