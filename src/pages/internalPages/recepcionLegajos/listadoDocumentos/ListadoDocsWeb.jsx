@@ -19,7 +19,7 @@ function ListadoDocsWeb(props) {
         <>
             <Flex vertical gap={"small"} justify="flex-start" align="flex-start" style={{ width: "100%", backgroundColor: colors.white, margin: "1.0em 0.0em", borderRadius: "0.7em", padding: "1.5em" }}>
                 <Flex justify="space-between" align="center" style={{ width: "100%" }}>
-                    <Text className="sie-content-title">Documentos Subidos</Text>
+                    <Text className="sie-content-title">Mis Documentos Subidos</Text>
                     <Flex justify="center" align="center" gap={8}>
                         <Button 
                             shape="circle" 
