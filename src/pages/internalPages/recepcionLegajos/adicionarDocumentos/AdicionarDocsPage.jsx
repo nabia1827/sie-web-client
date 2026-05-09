@@ -233,10 +233,18 @@ function AdicionarDocsPage() {
             UpdateDatosGeneralesTemp(datosGeneralesTemp, usuId),
             UpdateAudiencia(audienciaId, fechaFormateada, horaFormateada, tipo, link, legajoId,usuId)
         ])
-            .then(() => {
+            .then(([res1, res2, res3]) => {
                 setMdBtnSvLoading(false);
                 setMdBtnSvOpen(false);
+
+                if(res1.isSuccess && res2.isSuccess && res3.isSuccess){
+                    message.success("Datos actualizados correctamente");
+                }                
             })
+            .catch((error) => {
+                setMdBtnSvLoading(false);
+                message.error("Error al actualizar los datos");
+            });
 
         //UpdateDatosGeneralesTemp
 
@@ -315,8 +323,8 @@ function AdicionarDocsPage() {
         const imputadoEdit = {
             imputadoId: imputadoId,
             nombre: nombre,
-            tipoDocId: tipoDocId,
-            nroDoc: nroDoc,
+            tipoDocId: tipoDocId?tipoDocId:0,
+            nroDoc: nroDoc?nroDoc:"",
             delitosIds: delitosIds,
             usuarioId: usuId,
         }
