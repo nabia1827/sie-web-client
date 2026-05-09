@@ -9,11 +9,13 @@ import useRecepcionFilteredData from "../../../../hooks/filters/useRecepcionFilt
 import { switchOnFieldsChange } from "../../../../utils/recepcionLegajos/switchOnFieldsChange";
 import DocsFilter from "../../../../components/recepcionLegajo/DocsFilter";
 import { endpoints, paths } from "../../../../utils/paths";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { TipoProcesamiento } from "../../../../utils/constants";
+import { setRecepcionEnProgreso } from "../../../../store/actions/recepcionLegajos/recepcionLegajosActionSync";
 
 function ListadoDocsPage(props) {
     const screens = useBreakpoint();
+     const dispatch = useDispatch();
     const [api, contextHolder] = notification.useNotification();
     const isXsScreen = screens.xs !== undefined && screens.xs;
     const navigate = useNavigate();
@@ -45,6 +47,12 @@ function ListadoDocsPage(props) {
             openRecepcionNoti(notiRecepcionFinalizada)
             reloadData()
             setButtonDisabled(false);
+            const notiDefault = {
+                inProgress: false,
+                notificacion: null
+            }
+            dispatch(setRecepcionEnProgreso(notiDefault))
+
         }
         else {
             setButtonDisabled(false);
