@@ -1,6 +1,6 @@
 import React from "react";
 import { Tag, Button, Flex } from "antd";
-import { FilePdfOutlined } from '@ant-design/icons';
+import { FilePdfOutlined,FileWordOutlined } from '@ant-design/icons';
 import { colors } from "../colors";
 import { EnvelopeSimple } from "@phosphor-icons/react";
 
@@ -44,7 +44,7 @@ export const ColumnsDocsSalida = (showMdEditarRecurso,onClickDownload,loadingsPD
             key: 'archivo',
             render: (_, record,index) => (
                 <Flex gap={"small"} justify="center" align="center">
-                    <Button loading={loadingsPDF[index]} onClick={() =>onClickDownload(index,record.docId)} size="large" type="text" shape="circle" icon={<FilePdfOutlined size={28} style={{ color: colors.red }} />} />
+                    <Button loading={loadingsPDF[index]} onClick={() =>onClickDownload(index,record.docId)} size="large" type="text" shape="circle" icon={<FileWordOutlined size={28} style={{ color: colors.darkBlue }} />} />
 
                 </Flex>
             ),
