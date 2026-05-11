@@ -223,7 +223,7 @@ function NuevoLegajoPage() {
 
         const datosGenerales ={
             legajoId: legajoId,
-            nroCarpeta: nroCarpeta, 
+            nroCarpeta: nroCarpeta??"", 
             nroExpediente:nroExpediente??"",
             estadoId: isNull(estadoId)?0:estadoId,
             subfaseId: isNull(subfaseId)?0:subfaseId, 
@@ -237,7 +237,7 @@ function NuevoLegajoPage() {
             fiscaliaId: isNull(fiscaliaId)?0:fiscaliaId,
             fiscalTitular: fiscalTitular??"",
             fiscalResponsable:fiscalResponsable??"",
-            hechos:hechos,
+            hechos:hechos??"",
             dependenciaId: isNull(dependenciaId) ? 0 : dependenciaId
         }
 

@@ -101,6 +101,10 @@ export const EditAudienciaDetail = async (audienciaId,color,link, obs,usuarioId)
     try {
         const body = {
             audienciaId:audienciaId,
+            abogadoId:0,
+            legajoId:0,
+            startTime:"",
+            endTime:"",
             audienciaTitle:"",
             audienciaSubTitleDate:"",
             audienciaSubTitleHour:"",

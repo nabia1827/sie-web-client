@@ -126,7 +126,7 @@ function MisAudienciasPage() {
         locale: 'es-ES',
         views: [createViewDay(), createViewWeek(), createViewMonthGrid(), createViewMonthAgenda()],
         dayBoundaries: {
-            start: '05:00',
+            start: '06:00',
             end: '23:00',
         },
         callbacks: {

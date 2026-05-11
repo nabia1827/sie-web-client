@@ -209,8 +209,8 @@ function AdicionarDocsPage() {
 
         const datosGeneralesTemp = {
             legajoId: legajoId,
-            nroCarpeta: nroCarpeta,
-            nroExpediente: nroExpediente,
+            nroCarpeta: nroCarpeta??"",
+            nroExpediente: nroExpediente??"",
             estadoId: isNull(estadoId) ? 0 : estadoId,
             subfaseId: isNull(subfaseId) ? 0 : subfaseId,
             juzgadoIpId: isNull(juzgadoIpId) ? 0 : juzgadoIpId,
